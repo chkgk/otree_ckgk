@@ -29,6 +29,7 @@ class Subsession(BaseSubsession):
 	def before_session_starts(self):
 		for p in self.get_players():
 			p.treatment = self.session.config['treatment']
+			p.task_order = self.session.config['task_order']
 
 class Group(BaseGroup):
 	pass
@@ -36,6 +37,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 	treatment = models.CharField()
+	task_order = models.CharField()
 
 	# Eckel and Grossman risk elicitation task
 	lottery_choice = models.PositiveSmallIntegerField()
@@ -58,8 +60,7 @@ class Player(BasePlayer):
 
 
 	# active / passive risk taking behavior questions
-	risk_likert = [[1, ''], [2, ''], [3, ''], [4, ''], [5, ''], [6, ''], [7, '']]
-	active_risk_1 = models.PositiveIntegerField(choices=risk_likert, widget=widgets.RadioSelectHorizontal())
+	active_risk_1 = models.PositiveIntegerField()
 	active_risk_2 = models.PositiveIntegerField()
 	active_risk_3 = models.PositiveIntegerField()
 	active_risk_4 = models.PositiveIntegerField()
@@ -141,8 +142,14 @@ class Player(BasePlayer):
 	def set_payoffs(self):
 		self.payment_task = random.choice(["Aufgabe 3", "Aufgabe 2", "Aufgabe 1"])
 		if self.payment_task == "Aufgabe 3":
-			self.payoff = c(self.bart_green_sum_collected)
+			if self.task_order == 'blue_first':
+				self.payoff = c(self.bart_green_sum_collected)
+			else:
+				self.payoff = c(self.bart_blue_sum_collected)
 		elif self.payment_task == "Aufgabe 2":
-			self.payoff = c(self.bart_blue_sum_collected)
+			if self.task_order == 'blue_first':
+				self.payoff = c(self.bart_blue_sum_collected)
+			else:
+				self.payoff = c(self.bart_green_sum_collected)
 		else:
 			self.payoff = c(self.lottery_payoff)

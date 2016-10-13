@@ -125,22 +125,44 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
-        'name': 'bart_manual',
-        'display_name': "BART - MANUAL treatment",
+        'name': 'bart_manual_blue_first',
+        'display_name': "BART - MANUAL, Blue first",
         'num_demo_participants': 5,
         'app_sequence': ['bart'],
         'participation_fee': 3.00,
         'real_world_currency_per_point': 0.001,
-        'treatment': 'manual'
+        'treatment': 'manual',
+        'task_order': 'blue_first'
     },
     {
-        'name': 'bart_auto',
-        'display_name': "BART - AUTOMATIC treatment",
+        'name': 'bart_auto_blue_first',
+        'display_name': "BART - AUTOMATIC, Blue first",
         'num_demo_participants': 5,
         'app_sequence': ['bart'],
         'participation_fee': 3.00,
         'real_world_currency_per_point': 0.001,
-        'treatment': 'automatic'
+        'treatment': 'automatic',
+        'task_order': 'blue_first'
+    },
+    {
+        'name': 'bart_manual_green_first',
+        'display_name': "BART - MANUAL, Green first",
+        'num_demo_participants': 5,
+        'app_sequence': ['bart'],
+        'participation_fee': 3.00,
+        'real_world_currency_per_point': 0.001,
+        'treatment': 'manual',
+        'task_order': 'green_first'
+    },
+    {
+        'name': 'bart_auto_green_first',
+        'display_name': "BART - AUTOMATIC, Green first",
+        'num_demo_participants': 5,
+        'app_sequence': ['bart'],
+        'participation_fee': 3.00,
+        'real_world_currency_per_point': 0.001,
+        'treatment': 'automatic',
+        'task_order': 'green_first'
     }
 ]
 
