@@ -1,0 +1,114 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Ergebnis
+{% endblock %}
+
+{% block scripts %}
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#lottery').highcharts({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					type: 'pie',
+					height: 200,
+					width: 200
+				},
+				credits: { 
+					enabled: false 
+				},
+				exporting: {
+					enabled: false
+				},
+				tooltip: {
+					enabled: false
+				},
+				title: {
+					text: '',
+				},
+				plotOptions: {
+					pie: {
+						size: '100%',
+						allowPointSelect: false,
+						animation: false,
+						dataLabels: {
+							enabled: true,
+							distance: -40,
+							format: '{point.x}',
+							color: 'black',
+							style: {
+								textShadow: false,
+								fontSize: "18px"
+							}
+						},
+						states: {
+						   hover: {
+							   enabled: false
+						   }
+					   }
+					}
+				},
+				series: [{
+					name: 'Auszahlung',
+					colorByPoint: true,
+					data: [{
+						name: 'Right',
+						color: '#6495ED',
+						y: 50,
+						x: {{ highpayoff }}
+					}, {
+						name: 'Left',
+						color: 'Gold',
+						y: 50,
+						x: {{ lowpayoff }}
+					}]
+				}]
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block styles %}
+	<style type="text/css">
+		.lottery {
+			width: 210px;
+			height: 210px;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+
+	<p>
+		Der Computer hat {{ player.payment_task }} zufällig zur Auszahlung ausgewählt.
+	</p>
+
+	{% if player.payment_task == "Aufgabe 1" %}
+		<p>
+			Sie haben Lotterie {{ player.lottery_choice }} ausgewählt:
+		</p>
+		<div class="lottery" id="lottery"></div>
+
+		<p>
+		Als Zufallsergebnis wurde vom Computer gezogen: {{ player.payoff }}.
+		</p>
+	{% endif %}
+
+
+	{% if player.payment_task != "Aufgabe 1" %}
+		<p>
+			Sie haben sich in dieser Aufgabe insgesamt {{ player.payoff }} Punkte gesichert.
+		</p>
+	{% endif %}
+
+	{% next_button %}
+
+{% endblock %}
+
+

@@ -1,0 +1,25 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Letzte Seite
+{% endblock %}
+
+{% block content %}
+
+	<p>
+		Ihre Gesamtpunktzahl inklusive der Anfangsausstattung von 3000 Punkten beträgt {{ totalpoints }}.
+	</p>
+	<p>
+		Sie erhalten somit einen Auszahlungsbetrag von {{ money_to_pay }}.
+	</p>
+	<p>
+		Bitte bleiben Sie noch an Ihrem Platz sitzen bis wir Sie aufrufen. Sie erhalten dann den Geldbetrag, den Sie verdient haben.
+	</p>
+	<p>
+		Vielen Dank für Ihre Teilnahme an unserem Experiment.
+	</p>
+
+{% endblock %}
+
+

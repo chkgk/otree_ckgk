@@ -1,0 +1,22 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Fragebogen
+{% endblock %}
+
+{% block content %}
+
+	<p>Bitte beantworten Sie noch folgende Fragen zu Ihrer Person.</p>
+
+	{% formfield player.age with label="Wie alt sind Sie?" %}
+
+	{% formfield player.female with label="Was ist Ihr Gechlecht?" %}
+
+	{% formfield player.nationality with label="Welcher Nationalität sind Sie?" %}
+
+	{% formfield player.studies with label="Was studieren Sie im Hauptfach?" %}
+
+    {% next_button %}
+
+{% endblock %}

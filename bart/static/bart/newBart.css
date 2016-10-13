@@ -1,0 +1,206 @@
+body {
+	font-size: 20px;
+	text-align: justify;
+	font-family: Arial, Verdana, sans-serif;	
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 24px;
+	margin-top: 0px;
+}
+
+.centerbox {
+	width: 1000px;
+	height: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.balloonDisplayArea {
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.hidden {
+	display: none;
+}
+
+.center {
+	text-align: center;
+}
+
+.infoText {
+	line-height: 2;
+}
+
+.balloonHeading {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.balloonBox {
+	width: 600px;
+	height: 600px;
+	border: 1px solid #000;
+	margin-left: 0px;
+	float: left;
+	position: relative;
+}
+
+.infoBox {
+	float: left;
+	width: 400px;
+	height: 379px;
+	padding: 10px;
+	border: 1px solid #000;
+	border-left-style: none;
+	border-bottom-style: none;
+	position: relative;
+}
+
+.buttonBox {
+	float: left;
+	width: 400px;
+	height: 221px;
+	border: 1px solid #000;
+	border-left-style: none;
+	position: relative;
+}
+
+.pseudoButton {
+	text-align: center;
+	border: 1px solid black;
+	box-shadow: 2px 2px 2px #555;
+	cursor: pointer;
+	display: block;
+	float: left;
+	margin: 10px;
+	font-weight: bold;
+	color: #000;
+}
+
+.redButton {
+	background-color: #F30;
+	color: #000;
+	text-decoration: none;
+}
+
+.blueButton {
+	background-color: #0088cc;
+	color: #000;
+	text-decoration: none;
+}
+
+.pseudoButton:hover{
+	color: #000;
+	text-decoration: none;
+}
+
+.redButtonActive {
+	box-shadow: 2px 2px 2px #555 inset;
+	background-color: #cc2900;
+	color: #000;
+	text-decoration: none;
+}
+
+.pseudoButton.redButton:active {
+	box-shadow: 2px 2px 2px #555 inset;
+	background-color: #cc2900;
+	color: #000;
+	text-decoration: none;
+}
+
+.pseudoButton.redButton:active::selection {
+	background: #cc2900;
+	color: #000;
+	text-decoration: none;
+}
+.pseudoButton.redButton:active::-moz-selection {
+	background: #cc2900;
+	color: #000;
+	text-decoration: none;
+}
+.pseudoButton.redButton::selection {
+	background: #F30;
+	color: #000;
+	text-decoration: none;
+}
+.pseudoButton.redButton::-moz-selection {
+	background: #F30;
+	color: #000;
+	text-decoration: none;
+}
+
+.pseudoButton.blueButton:active {
+	box-shadow: 2px 2px 2px #555 inset;
+	background-color: #006699;
+	color: #000;
+	text-decoration: none;
+}
+
+.pseudoButton.blueButton:active::selection {
+	background: #006699;
+	color: #000;
+	text-decoration: none;
+}
+.pseudoButton.blueButton:active::-moz-selection {
+	background: #006699;
+	color: #000;
+	text-decoration: none;
+}
+.pseudoButton.blueButton::selection {
+	background: #0088cc;
+	color: #000;
+	text-decoration: none;
+}
+.pseudoButton.blueButton::-moz-selection {
+	background: #0088cc;
+	color: #000;
+	text-decoration: none;
+}
+
+
+#balloonInstructions {
+	position: absolute;
+	width: 380px;
+	height: 150px;
+	border-top: 1px dashed #000;
+	text-align: center;
+}
+
+#balloonPump {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 175px;
+	height: 175px;
+	line-height: 175px;
+}
+
+#balloonNext {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	width: 175px;
+	height: 50px;
+	line-height: 50px;
+}
+
+#balloonImage {
+	bottom: 0px;
+	margin: auto;
+	left: 0px;
+	right: 0px;
+	position: absolute;
+	z-index: -1;
+}
+
+.noselect { /* should add this to all pages */
+	webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;  
+}

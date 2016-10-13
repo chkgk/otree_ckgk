@@ -53,7 +53,7 @@ AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 
 
 # e.g. EUR, CAD, GBP, CHF, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'EUR'
 USE_POINTS = True
 
 
@@ -68,7 +68,9 @@ INSTALLED_APPS = ['otree']
 # SENTRY_DSN = ''
 
 DEMO_PAGE_INTRO_TEXT = """
-oTree games
+<p>
+    These Apps are currently available.
+</p>
 """
 
 # from here on are qualifications requirements for workers
@@ -94,27 +96,52 @@ mturk_hit_settings = {
     ]
 }
 
+SENTRY_DSN = 'http://83a9e5316b4a4153b0f3cac17f56d66a:383287703cf84e35a40648e2ff689093@sentry.otree.org/54'
+
+ROOMS_DEFAULTS = {
+}
+
+ROOMS = [
+    {
+        'name': 'awi_lab',
+        'display_name': 'AWI Experimentallabor',
+        'participant_label_file': 'participant_labels.txt'
+    }
+]
+
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
 # the session config can be accessed from methods in your apps as self.session.config,
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = {
-    'real_world_currency_per_point': 0.01,
-    'participation_fee': 10.00,
-    'num_bots': 6,
+    'real_world_currency_per_point': 0.001,
+    'participation_fee': 3.00,
+    'num_bots': 12,
     'doc': "",
     'mturk_hit_settings': mturk_hit_settings,
 }
 
 
 SESSION_CONFIGS = [
-    # {
-    #     'name': '...',
-    #     'display_name': '...',
-    #     'num_demo_participants': ...,
-    #     'app_sequence': ['...'],
-    # }
+    {
+        'name': 'bart_manual',
+        'display_name': "BART - MANUAL treatment",
+        'num_demo_participants': 5,
+        'app_sequence': ['bart'],
+        'participation_fee': 3.00,
+        'real_world_currency_per_point': 0.001,
+        'treatment': 'manual'
+    },
+    {
+        'name': 'bart_auto',
+        'display_name': "BART - AUTOMATIC treatment",
+        'num_demo_participants': 5,
+        'app_sequence': ['bart'],
+        'participation_fee': 3.00,
+        'real_world_currency_per_point': 0.001,
+        'treatment': 'automatic'
+    }
 ]
 
 # anything you put after the below line will override

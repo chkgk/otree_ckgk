@@ -1,0 +1,147 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+	Teil 1
+{% endblock %}
+
+{% block scripts %}
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			{% for key,value in player.lotteries.items %}
+			$('#lottery_{{ key }}').highcharts({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					type: 'pie',
+					height: 200,
+					width: 200
+				},
+				credits: { 
+					enabled: false 
+				},
+				exporting: {
+					enabled: false
+				},
+				tooltip: {
+					enabled: false
+				},
+				title: {
+					text: '',
+				},
+				plotOptions: {
+					pie: {
+						size: '100%',
+						allowPointSelect: false,
+						animation: false,
+						dataLabels: {
+							enabled: true,
+							distance: -40,
+							format: '{point.x}',
+							color: 'black',
+							style: {
+								textShadow: false,
+								fontSize: "18px"
+							}
+						},
+						states: {
+						   hover: {
+							   enabled: false
+						   }
+					   }
+					}
+				},
+				series: [{
+					name: 'Auszahlung',
+					colorByPoint: true,
+					data: [{
+						name: 'Right',
+						color: '#6495ED',
+						y: 50,
+						x: {{ value.win }}
+					}, {
+						name: 'Left',
+						color: 'Gold',
+						y: 50,
+						x: {{ value.lose }}
+					}]
+				}]
+			});
+			{% endfor %}
+
+		});
+
+		activeElementId = ""
+
+		function setSelected(key) {
+			if (activeElementId != "") {
+				document.getElementById(activeElementId).className = "lottery";
+			}
+			
+			activeElementId = "lottery_"+key;
+			document.getElementById(activeElementId).className += " selected";
+			document.getElementById("id_lottery_choice").value = key;
+		}
+	</script>
+
+{% endblock %}
+
+{% block styles %}
+	<style type="text/css">
+		.lottery {
+			float: left;
+			width: 210px;
+			height: 210px;
+			border: 2px solid white;
+		}
+		.lottery:hover {
+			border: 2px dashed grey;
+			cursor: pointer;
+		}
+
+		.selected {
+			border: 2px solid red;
+		}
+
+		.selected:hover {
+			border: 2px solid red;
+		}
+		#lottery_container {
+			width: 700px;
+			height: 640px;
+			margin-left: auto;
+			margin-right:auto;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+	<p>
+		Die folgenden Kreise stellen eine Reihe verschiedener Lotterien dar. Jede Lotterie hat zwei Ergebnisse, die jeweils mit einer Wahrscheinlichkeit von 50% eintreten können. Die Zahl in jeder Kreishälfte gibt an, wie viele Punkte Sie bei Auswahl der Lotterie und spöterem Eintreten des jeweiligen Ergebnisses erhalten.
+	</p>
+	<p>
+		Wählen Sie nun durch Anklicken die Lotterie aus, die Sie spielen möchten. Ein roter Rand zeigt an, dass Sie die Lotterie ausgewählt haben. Wird dieser Teil des Experiments auszahlungsrelevant, wird die von Ihnen gewählte Lotterie gespielt und das Ergebnis bestimmt Ihre Punktzahl.
+	</p>
+	<p>
+		<b>Bitte klicken Sie nun auf die Lotterie, die Sie spielen möchten.</b> Klicken Sie danach auf Weiter.
+	</p>
+
+	<div id="lottery_container">
+	{% for key,value in player.lotteries.items %}
+		<div class="lottery" id="lottery_{{ key }}" onclick="setSelected({{ key }});"></div>
+		{% if key|divisibleby:3 %}
+			<br>
+		{% endif %}
+	{% endfor %}
+	</div>
+
+	<input type="hidden" name="lottery_choice" id="id_lottery_choice"/>
+
+	{% next_button %}
+
+{% endblock %}
+
