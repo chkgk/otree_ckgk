@@ -59,7 +59,7 @@ USE_POINTS = True
 
 # e.g. en, de, fr, it, ja, zh-hans
 # see: https://docs.djangoproject.com/en/1.9/topics/i18n/#term-language-code
-LANGUAGE_CODE = 'de'
+LANGUAGE_CODE = 'en'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
@@ -163,6 +163,14 @@ SESSION_CONFIGS = [
         'real_world_currency_per_point': 0.001,
         'treatment': 'automatic',
         'task_order': 'green_first'
+    },
+    {
+        'name': 'bart_pretest',
+        'display_name': "BART - Pretest English",
+        'num_demo_participants': 5,
+        'app_sequence': ['bart_en'],
+        'participation_fee': 3.00,
+        'real_world_currency_per_point': 0.001
     }
 ]
 

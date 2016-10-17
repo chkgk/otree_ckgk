@@ -1,0 +1,243 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Questionnaire (2 / 2)
+{% endblock %}
+
+{% block content %}
+
+	<p>
+		For each of the following statements, please indicate the <b>likelihood</b> that you would engage in the described activity or behavior if you were to find yourself in that situation. Provide a rating from <b>1 to 7</b>, using the following scale:
+	</p>
+	<table class="desc_table">
+		<tr>
+			<th class="desc_header">1</th>
+			<th class="desc_header">2</th>
+			<th class="desc_header">3</th>
+			<th class="desc_header">4</th>
+			<th class="desc_header">5</th>
+			<th class="desc_header">6</th>
+			<th class="desc_header">7</th>
+		</tr>
+		<tr>
+			<td class="desc_field">extremely unlikely</td>
+			<td class="desc_field">moderately unlikely</td>
+			<td class="desc_field">somewhat unlikely</td>
+			<td class="desc_field">not sure</td>
+			<td class="desc_field">somewhat likely</td>
+			<td class="desc_field">moderately likely</td>
+			<td class="desc_field">extremely likely</td>
+		</tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<table class="table_risk">
+		<tr>
+			<th>Activity</th>
+			<th class="table_right_col" id="table_right_header">1 2 3 4 5 6 7</th>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Do risky sports.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_active_risk_7_1" value="1" name="active_risk_7" required="" {% if form.active_risk_7.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_7_2" value="2" name="active_risk_7" required="" {% if form.active_risk_7.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_7_3" value="3" name="active_risk_7" required="" {% if form.active_risk_7.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_7_4" value="4" name="active_risk_7" required="" {% if form.active_risk_7.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_7_5" value="5" name="active_risk_7" required="" {% if form.active_risk_7.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_7_6" value="6" name="active_risk_7" required="" {% if form.active_risk_7.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_7_7" value="7" name="active_risk_7" required="" {% if form.active_risk_7.value == "7" %} checked="" {% endif %}>
+				{{ form.active_risk_7.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Do not use sunscreen when bathing in the sun.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_active_risk_8_1" value="1" name="active_risk_8" required="" {% if form.active_risk_8.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_8_2" value="2" name="active_risk_8" required="" {% if form.active_risk_8.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_8_3" value="3" name="active_risk_8" required="" {% if form.active_risk_8.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_8_4" value="4" name="active_risk_8" required="" {% if form.active_risk_8.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_8_5" value="5" name="active_risk_8" required="" {% if form.active_risk_8.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_8_6" value="6" name="active_risk_8" required="" {% if form.active_risk_8.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_8_7" value="7" name="active_risk_8" required="" {% if form.active_risk_8.value == "7" %} checked="" {% endif %}>
+				{{ form.active_risk_8.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Sublet your appartment.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_active_risk_9_1" value="1" name="active_risk_9" required="" {% if form.active_risk_9.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_9_2" value="2" name="active_risk_9" required="" {% if form.active_risk_9.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_9_3" value="3" name="active_risk_9" required="" {% if form.active_risk_9.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_9_4" value="4" name="active_risk_9" required="" {% if form.active_risk_9.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_9_5" value="5" name="active_risk_9" required="" {% if form.active_risk_9.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_9_6" value="6" name="active_risk_9" required="" {% if form.active_risk_9.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_9_7" value="7" name="active_risk_9" required="" {% if form.active_risk_9.value == "7" %} checked="" {% endif %}>
+				{{ form.active_risk_9.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Overdraw your bank account.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_active_risk_10_1" value="1" name="active_risk_10" required="" {% if form.active_risk_10.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_10_2" value="2" name="active_risk_10" required="" {% if form.active_risk_10.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_10_3" value="3" name="active_risk_10" required="" {% if form.active_risk_10.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_10_4" value="4" name="active_risk_10" required="" {% if form.active_risk_10.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_10_5" value="5" name="active_risk_10" required="" {% if form.active_risk_10.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_10_6" value="6" name="active_risk_10" required="" {% if form.active_risk_10.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_10_7" value="7" name="active_risk_10" required="" {% if form.active_risk_10.value == "7" %} checked="" {% endif %}>
+				{{ form.active_risk_10.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Buy stocks.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_active_risk_11_1" value="1" name="active_risk_11" required="" {% if form.active_risk_11.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_11_2" value="2" name="active_risk_11" required="" {% if form.active_risk_11.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_11_3" value="3" name="active_risk_11" required="" {% if form.active_risk_11.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_11_4" value="4" name="active_risk_11" required="" {% if form.active_risk_11.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_11_5" value="5" name="active_risk_11" required="" {% if form.active_risk_11.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_11_6" value="6" name="active_risk_11" required="" {% if form.active_risk_11.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_11_7" value="7" name="active_risk_11" required="" {% if form.active_risk_11.value == "7" %} checked="" {% endif %}>
+				{{ form.active_risk_11.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Become self employed after finishing university.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_active_risk_12_1" value="1" name="active_risk_12" required="" {% if form.active_risk_12.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_12_2" value="2" name="active_risk_12" required="" {% if form.active_risk_12.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_12_3" value="3" name="active_risk_12" required="" {% if form.active_risk_12.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_12_4" value="4" name="active_risk_12" required="" {% if form.active_risk_12.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_12_5" value="5" name="active_risk_12" required="" {% if form.active_risk_12.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_12_6" value="6" name="active_risk_12" required="" {% if form.active_risk_12.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_active_risk_12_7" value="7" name="active_risk_12" required="" {% if form.active_risk_12.value == "7" %} checked="" {% endif %}>
+				{{ form.active_risk_12.errors }}
+			</td>
+		</tr>
+
+
+		<tr class="table_content_row">
+			<td class="table_left_col">Immediately, go to the doctor if you are in pain.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_passive_risk_7_1" value="1" name="passive_risk_7" required="" {% if form.passive_risk_7.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_7_2" value="2" name="passive_risk_7" required="" {% if form.passive_risk_7.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_7_3" value="3" name="passive_risk_7" required="" {% if form.passive_risk_7.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_7_4" value="4" name="passive_risk_7" required="" {% if form.passive_risk_7.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_7_5" value="5" name="passive_risk_7" required="" {% if form.passive_risk_7.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_7_6" value="6" name="passive_risk_7" required="" {% if form.passive_risk_7.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_7_7" value="7" name="passive_risk_7" required="" {% if form.passive_risk_7.value == "7" %} checked="" {% endif %}>
+				{{ form.passive_risk_7.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Go to work or university although you are sick.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_passive_risk_8_1" value="1" name="passive_risk_8" required="" {% if form.passive_risk_8.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_8_2" value="2" name="passive_risk_8" required="" {% if form.passive_risk_8.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_8_3" value="3" name="passive_risk_8" required="" {% if form.passive_risk_8.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_8_4" value="4" name="passive_risk_8" required="" {% if form.passive_risk_8.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_8_5" value="5" name="passive_risk_8" required="" {% if form.passive_risk_8.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_8_6" value="6" name="passive_risk_8" required="" {% if form.passive_risk_8.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_8_7" value="7" name="passive_risk_8" required="" {% if form.passive_risk_8.value == "7" %} checked="" {% endif %}>
+				{{ form.passive_risk_8.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Regularly check your bank statements.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_passive_risk_9_1" value="1" name="passive_risk_9" required="" {% if form.passive_risk_9.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_9_2" value="2" name="passive_risk_9" required="" {% if form.passive_risk_9.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_9_3" value="3" name="passive_risk_9" required="" {% if form.passive_risk_9.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_9_4" value="4" name="passive_risk_9" required="" {% if form.passive_risk_9.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_9_5" value="5" name="passive_risk_9" required="" {% if form.passive_risk_9.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_9_6" value="6" name="passive_risk_9" required="" {% if form.passive_risk_9.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_9_7" value="7" name="passive_risk_9" required="" {% if form.passive_risk_9.value == "7" %} checked="" {% endif %}>
+				{{ form.passive_risk_9.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Carefully read the fine print of contracts.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_passive_risk_10_1" value="1" name="passive_risk_10" required="" {% if form.passive_risk_10.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_10_2" value="2" name="passive_risk_10" required="" {% if form.passive_risk_10.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_10_3" value="3" name="passive_risk_10" required="" {% if form.passive_risk_10.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_10_4" value="4" name="passive_risk_10" required="" {% if form.passive_risk_10.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_10_5" value="5" name="passive_risk_10" required="" {% if form.passive_risk_10.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_10_6" value="6" name="passive_risk_10" required="" {% if form.passive_risk_10.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_10_7" value="7" name="passive_risk_10" required="" {% if form.passive_risk_10.value == "7" %} checked="" {% endif %}>
+				{{ form.passive_risk_10.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Keep regular backups of your files and documents.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_passive_risk_11_1" value="1" name="passive_risk_11" required="" {% if form.passive_risk_11.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_11_2" value="2" name="passive_risk_11" required="" {% if form.passive_risk_11.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_11_3" value="3" name="passive_risk_11" required="" {% if form.passive_risk_11.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_11_4" value="4" name="passive_risk_11" required="" {% if form.passive_risk_11.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_11_5" value="5" name="passive_risk_11" required="" {% if form.passive_risk_11.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_11_6" value="6" name="passive_risk_11" required="" {% if form.passive_risk_11.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_11_7" value="7" name="passive_risk_11" required="" {% if form.passive_risk_11.value == "7" %} checked="" {% endif %}>
+				{{ form.passive_risk_11.errors }}
+			</td>
+		</tr>
+		<tr class="table_content_row">
+			<td class="table_left_col">Save part of your income.</td>
+			<td class="table_right_col">
+				<input type="radio" id="id_passive_risk_12_1" value="1" name="passive_risk_12" required="" {% if form.passive_risk_12.value == "1" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_12_2" value="2" name="passive_risk_12" required="" {% if form.passive_risk_12.value == "2" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_12_3" value="3" name="passive_risk_12" required="" {% if form.passive_risk_12.value == "3" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_12_4" value="4" name="passive_risk_12" required="" {% if form.passive_risk_12.value == "4" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_12_5" value="5" name="passive_risk_12" required="" {% if form.passive_risk_12.value == "5" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_12_6" value="6" name="passive_risk_12" required="" {% if form.passive_risk_12.value == "6" %} checked="" {% endif %}>
+				<input type="radio" id="id_passive_risk_12_7" value="7" name="passive_risk_12" required="" {% if form.passive_risk_12.value == "7" %} checked="" {% endif %}>
+				{{ form.passive_risk_12.errors }}
+			</td>
+		</tr>
+	</table>
+
+
+	<p>&nbsp;</p>
+
+    {% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+	<style type="text/css">
+	.table_risk {
+		width: 100%;
+	}
+
+	.table_right_col {
+		width: 250px;
+		/*text-align: center;*/
+		word-spacing: 20px;
+	}
+
+	#table_right_header {
+		word-spacing: 25px;
+	}
+
+	.table_content_row td {
+		padding-top: 10px;
+	}
+
+	.desc_header {
+		text-align: center;
+		width: 14.28%;
+		border-bottom: 1px solid black;
+	}
+
+	.desc_field {
+		text-align: center;
+	}
+
+	.desc_table {
+		width: 100%;
+	}
+
+	</style>
+{% endblock %}

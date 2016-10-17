@@ -1,0 +1,57 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Your Task
+{% endblock %}
+
+{% block content %}
+
+	<div class="centerbox noselect">
+		<div class="balloonDisplayArea" id="balloonDisplayArea">
+			<div class="balloonBox" id="balloonBox">
+				<h1 class="balloonHeading">Balloon</h1>
+				<img src="{% static "bart/balloon.jpg" %}" id="balloonImage" width="100" height="100">
+			</div>
+			<div class="infoBox" id="balloonInfo">
+				<h1>Information</h1>
+				<p class="infoText">Balloon: <span id="balloonCount">0</span><br>
+					Pushes: <span id="balloonStep">0</span><br>
+					Current points: <span id="balloonCurrentSum">0</span> Points<br>
+					Collected points: <span id="balloonCollectedSum">0</span> Points
+				</p>
+				<div id='balloonInstructions'>
+					<p>Click on "inflate" to pump air into the balloon.</p>
+					<p>Click on "collect points" to secure points from the current balloon.</p>
+				</div>
+			</div>
+			<div class="buttonBox" id="balloonButtons">
+				<a class="pseudoButton redButton" id="balloonPump">inflate</a>
+				<a class="pseudoButton blueButton" id="balloonNext">collect points</a>
+			</div>
+		</div>
+	</div>
+	<div>
+		<input type="hidden" name="bart_blue_raw_data" id="id_bart_raw_data"/>
+		<input type="hidden" name="bart_blue_sum_collected" id="id_bart_sum_collected"/>
+		<input type="hidden" name="bart_blue_avg_time" id="id_bart_avg_time"/>
+		<input type="hidden" name="bart_blue_num_intact" id="id_bart_num_intact"/>
+		<input type="hidden" name="bart_blue_avg_pumps_intact" id="id_bart_avg_pumps_intact"/>
+	</div>
+    {# {% next_button %} #}
+
+{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{% static "bart/newBart.css" %}">
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript" src="{% static "bart_en/CustomEventHandler.js" %}"></script>
+    <script type="text/javascript" src="{% static "bart_en/newBartOldJS.js" %}"></script>
+ 	<script type="text/javascript" src="{% static "bart_en/bartUIoldJS.js" %}"></script>
+ 	<script type="text/javascript">
+ 		// needs to be changed to depend on otree treatment variable
+ 		var bartUI = new UI("{{ player.treatment }}", "blue", "{% static "bart_en/balloon.jpg" %}", "{% static "bart_en/balloon_popped.jpg" %}"); 
+ 	</script>
+{% endblock %}

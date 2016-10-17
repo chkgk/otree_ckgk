@@ -1,0 +1,26 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    General Instructions
+{% endblock %}
+
+{% block content %}
+
+<p>
+	Dear participant,<br>
+	Thank you very much for your interest in our study. Today, you will take part in two decision tasks and fill out some questionnaires. Each part will be explained in details. Take your time to read the instructions carefully, to be sure to understand how your decisions influence your final payoff. If you have questions to one of the tasks, please raise your hand to inform the experimenter. The experimenter will come to your desk and answer your questions.
+</p>
+
+<p>
+	In this experiment, you will collect points, which will be exchanged for euros at the end of the session. For every 10 points you will receive 0.01 EUR. You will receive 3000 points (3 EUR) for your participation for sure. You can collect additional points in the two tasks. At the end of the session, one of the tasks will be randomly selected for payment (each task is selected with a probabilitly of 1/2). You will receive the points collected in the selected task in addition to your endowment. You do not know which of the tasks will be selected for payment, thus, throughout the experiment, you should consider each task as potentially being payoff relevant.
+</p>
+<p>
+	Please do not communicate with other participants or use your mobile phone during the experiment. Otherwise, we will have to exclude you from the study.</p>
+
+	<p>At the end of the session, we will call you to the desk in the front of the laboratory to receive your payment in cash in a one-by-one fashion.</p>
+	<p>All data is anonymized and will only be used for research purposes.</p>
+
+    {% next_button %}
+
+{% endblock %}

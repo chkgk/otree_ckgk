@@ -1,0 +1,25 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Final Page
+{% endblock %}
+
+{% block content %}
+
+	<p>
+		Your final payoff, including the endowment of 3000 points, is {{ totalpoints }}.
+	</p>
+	<p>
+		Thus, you receive {{ money_to_pay }}.
+	</p>
+	<p>
+		Please stay at your desk until we call you to the front to receive your payment.
+	</p>
+	<p>
+		Thank you very much for participating in this experiment.
+	</p>
+
+{% endblock %}
+
+
