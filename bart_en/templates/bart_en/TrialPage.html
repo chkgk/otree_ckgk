@@ -25,14 +25,14 @@
 {% endblock %}
 
 {% block styles %}
-	<link rel="stylesheet" href="{% static "trafficLight/trafficLight.css" %}">
+	<link rel="stylesheet" href="{% static "trafficLight_en/trafficLight.css" %}">
 {% endblock %}
 
 
 {% block scripts %}
 	<script type="text/javascript" src="{% static "bart_en/CustomEventHandler.js" %}"></script>
-    <script type="text/javascript" src="{% static "trafficLight/trafficLight.js" %}"></script>
-    <script type="text/javascript" src="{% static "trafficLight/trafficLightUI.js" %}"></script>
+    <script type="text/javascript" src="{% static "trafficLight_en/trafficLight.js" %}"></script>
+    <script type="text/javascript" src="{% static "trafficLight_en/trafficLightUI.js" %}"></script>
     <script type="text/javascript">
       UI = new TrafficLightUI("{{ player.treatment }}");
     </script>
