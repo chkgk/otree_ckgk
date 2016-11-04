@@ -1,0 +1,261 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Betting
+{% endblock %}
+
+{% block content %}
+
+	<div id="info_box">
+		<p>Ihre Punkte: <span id="point_display">100</span></p>
+		<p id="result"></p>
+	</div>
+	<div id="bet_box">
+		<p>Ihr Einsatz:
+		<input type="number" name="bet" id="bet"></p>
+		<button type="button" name="10" id="10pct" class="btn btn-info btn-xs">10%</button>
+		<button type="button" name="20" id="20pct" class="btn btn-info btn-xs">20%</button>
+		<button type="button" name="30" id="30pct" class="btn btn-info btn-xs">30%</button>
+		<button type="button" name="40" id="40pct" class="btn btn-info btn-xs">40%</button>
+		<button type="button" name="50" id="50pct" class="btn btn-info btn-xs">50%</button>
+		<button type="button" name="60" id="60pct" class="btn btn-info btn-xs">60%</button>
+		<button type="button" name="70" id="70pct" class="btn btn-info btn-xs">70%</button>
+		<button type="button" name="80" id="80pct" class="btn btn-info btn-xs">80%</button>
+		<button type="button" name="90" id="90pct" class="btn btn-info btn-xs">90%</button>
+		<button type="button" name="100" id="100pct" class="btn btn-info btn-xs">100%</button>
+		<p>&nbsp;</p>
+	</div>
+	<div id="button_box">
+		<div id="left_button_box">
+			<p style="text-align: center;">60% Gewinnwahrscheinlichkeit</p>
+			<button type="button" name="head" id="head" class="btn btn-primary btn-large">auf <b>Kopf</b> wetten</button>
+		</div>
+		<div id="right_button_box">
+			<p style="text-align: center;">40% Gewinnwahrscheinlichkeit</p>
+			<button type="button" name="tail" id="tail" class="btn btn-primary btn-large">auf <b>Zahl</b> wetten</button>
+		</div>
+	</div>
+
+	<input type="hidden" id="id_Historie" name="Historie" value="" />
+	<input type="hidden" id="id_Punkte" name="Punkte" value="" />
+
+	
+
+	{% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+	<style type="text/css">
+		#result {
+			display: inline-block;
+		}
+
+		#point_display {
+			font-size: 20px;
+			font-weight:bold;
+		}
+
+		#info_box {
+			text-align: center;
+		}
+
+		#bet_box {
+			text-align: center;
+		}
+
+		#button_box {
+			width: 100%;
+			text-align: center;
+		}
+
+		#left_button_box {
+			width: 50%;
+			float: left;
+		}
+
+		#right_button_box {
+			width: 50%;
+			float: left;
+		}
+	</style>
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		function coinflip_head() {
+			// flips a coin, returns True if head, False if tail is up.
+			return (Math.random() <= 0.6);
+		}
+
+		function show_result(type, message) {
+			var color = "black";
+			if (type == "error") {
+				color = "orange";
+			}
+
+			if (type == "good") {
+				color = "green";
+			}
+
+			if (type == "bad") {
+				color = "red";
+			}
+			result_display.style["color"] = color;
+			result_display.innerHTML = message;
+		}
+
+		function valid_input() {
+			// returns true if bet is valid
+			if (isNaN(bet)) {
+				show_result("error", "Geben Sie eine Zahl ein!");
+				return false;
+			} else if (bet % 1 != 0) {
+				show_result("error", "Der Einsatz muss ganzzahlig sein!");
+				return false;
+			} else if (bet <= 0) {
+				show_result("error", "Setzen Sie einen positiven Betrag!");
+				return false;
+			} else if (bet > points) {
+				show_result("error", "Sie können nicht mehr setzen, als Sie haben!");
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function win(choice, bet) {
+			points += bet;
+
+			bet_history.push({
+				count: count,
+				choice: choice,
+				bet: bet,
+				result: 'win',
+				points: points
+			});
+
+			update(choice, "win");
+		}
+
+		function lose(choice, bet) {
+			points -= bet;
+			if (points <= 0) {
+				bankrupt = true;
+				handle_bankruptcy();
+			}
+
+			bet_history.push({
+				count: count,
+				choice: choice,
+				bet: bet,
+				result: 'lose',
+				points: points
+			});
+
+			update(choice, "lose");
+		}
+
+		function handle_bankruptcy() {
+			points = 0
+			show_result("bad", "Sie sind bankrott. Bitte warten Sie, bis die Zeit abgelaufen ist.");
+			point_display.innerHTML = points;
+			prepare_history();
+		}
+
+		function update(choice, result) {
+			
+			if (bankrupt) {
+				// display message for bankruptcy
+				return;
+			}
+
+			point_display.innerHTML = points;
+
+			var message = "";
+
+			if (choice == "head") {
+				if (result == "win") {
+					show_result("good", "Kopf, Sie gewinnen!");
+				} else {
+					show_result("bad", "Kopf, Sie verlieren!");
+				}
+			} else {
+				if (result == "win") {
+					show_result("good", "Zahl, Sie gewinnen!");
+				} else {
+					show_result("bad", "Zahl, Sie verlieren!");
+				}
+			}
+
+			prepare_history();
+
+			bet_input.value = 0;
+			bet_input.focus();
+
+		}
+
+		function prepare_history() {
+			var encoded_history = JSON.stringify(bet_history);
+			otree_points_input.value = points;
+			otree_history_input.value = encoded_history;
+		}
+
+		var point_display = document.getElementById("point_display");
+		var result_display = document.getElementById("result");
+
+		var head_button = document.getElementById("head");
+		var tail_button = document.getElementById("tail");
+
+		var bet_input = document.getElementById("bet");
+
+		var otree_points_input = document.getElementById("id_Punkte");
+		var otree_history_input = document.getElementById("id_Historie");
+
+		var bet_history = [];
+		var points = 100;
+		var bankrupt = false;
+		var count = 0;
+
+		head_button.addEventListener('click', function () {
+			// coin flip head
+			if (bankrupt) {
+				// handle bankruptcy
+				return;
+			}
+
+			bet = Number(bet_input.value);
+
+			if (valid_input()) {
+				count++;
+				coinflip_head() ? win("head", bet) : lose("head", bet);
+			}
+			
+		});
+
+		tail_button.addEventListener('click', function () {
+			// coin flip tail
+			if (bankrupt) {
+				// handle bankruptcy
+				return;
+			}
+			
+			bet = Number(bet_input.value);
+			if (valid_input()) {
+				count++;
+				coinflip_head() ? lose("tail", bet) : win("tail", bet);
+			}
+		});
+
+
+		var pct_buttons = ["10pct", "20pct", "30pct", "40pct", "50pct", "60pct", "70pct", "80pct", "90pct", "100pct"];
+
+		for (var i = 0; i < pct_buttons.length; i++) {
+			document.getElementById(pct_buttons[i]).addEventListener('click', function (event) {
+				bet_input.value = Math.floor(event.target.name/100 * points);
+			});
+		}
+
+	</script>
+{% endblock %}

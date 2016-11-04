@@ -1,0 +1,26 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Anleitung
+{% endblock %}
+
+{% block content %}
+
+	<p>Sie haben nun {{ timelimit }} Minuten Zeit ein Münzwurfspiel zu spielen. Sie wetten dabei wiederholt auf das Ergebnis eines Wurfes einer virtuellen Münze. Sie beginnen mit {{ endowment }} Punkten. Nach Ablauf der Zeit endet das Spiel. Es wird dann ein Spieler zufällig ausgewählt, für den sein Endpunktestand zu einem Wechselkurs von 1 Punkt = {{ exchangerate }} Euro umgerechnet und in bar ausgezahlt wird. Es werden maximal 1000 Punkte vergütet, auch wenn Sie mehr Punkte erreicht haben sollten.</p>
+
+	<p style="font-weight: bold;">Die virtuelle Münze hat bei jedem Wurf eine Wahrscheinlichkeit von 60% Kopf zu zeigen und eine Wahrscheinlichkeit von 40% Zahl zu zeigen.</p>
+
+	<p>Sie wählen zunächst, wie viele Punkte Ihres jeweils aktuellen Punktestandes Sie auf das Ergebnis des Wurfs der virtuellen Münze setzen möchten. Dann entscheiden Sie, ob Sie auf Kopf oder Zahl als Ergebnis setzen möchten. Durch einen Klick auf den zugehörigen Butten lösen Sie den virtuellen Münzwurf aus.<p>
+
+	<p>Zeigt die Münze nach dem Wurf das von Ihnen gewählte Ergebnis, gewinnen Sie den gesetzten Punktebetrag. Zeigt die Münze nicht das gewählte Ergebnis, verlieren Sie den gesetzen Punktebetrag.</p>
+
+	<p>Innerhalb des Zeitlimits können Sie so viele Wetten eingehen, wie Sie möchten. Sie können dabei jeweils erneut den gesetzten Punktebetrag und das Ergebnis, auf das Sie setzen möchten, frei wählen.</p>
+
+	<p>Sollte Ihr Punktestand 0 erreichen, können Sie nicht weiter spielen. Bitten bleiben Sie in diesem Fall für die verbleibene Zeit ruhig sitzen.<p>
+
+	<p>Viel Erfolg!</p>
+
+    {% next_button %}
+
+{% endblock %}

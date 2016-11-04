@@ -59,7 +59,7 @@ USE_POINTS = True
 
 # e.g. en, de, fr, it, ja, zh-hans
 # see: https://docs.djangoproject.com/en/1.9/topics/i18n/#term-language-code
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'de'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
@@ -124,6 +124,12 @@ SESSION_CONFIG_DEFAULTS = {
 
 
 SESSION_CONFIGS = [
+    {
+        'name': 'coinflip',
+        'display_name': 'Coinflip',
+        'app_sequence': ['coinflip'],
+        'num_demo_participants': 5,
+    }, 
     {
         'name': 'bart_manual_blue_first',
         'display_name': "BART - MANUAL, Blue first",
