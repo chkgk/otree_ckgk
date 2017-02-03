@@ -1,0 +1,24 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Page title
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+
+	<p>{% formfield group.reward_good with label="How much of a reward would you like to pay to the agent if the outcome of the lottery is good?" %}</p>
+	<p>{% formfield group.reward_bad with label="How much of a reward would you like to pay to the agent if the outcome of the lottery is bad?" %}</p>
+
+    {% next_button %}
+
+{% endblock %}

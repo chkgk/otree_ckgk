@@ -1,0 +1,261 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+	MainTask
+{% endblock %}
+
+{% block styles %}
+	<style type="text/css">
+		#buttonbox {
+			text-align: center;
+		}
+
+		#info {
+			color: red;
+			font-weight: bold;
+			font-size: 24px;
+		}
+
+		#next_box {
+			text-align: center;
+		}
+
+	</style>
+{% endblock %}
+
+{% block scripts %}
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script type="text/javascript">
+
+		$(function () {
+		    
+		    Adj = new LotteryAdjuster("action_button", "info", "next_box");
+		    Adj.prepare({
+		    	default: {{ default }},
+		    	mode: {{ mode }},
+		    	small_step: {{ small_step }},
+		    	big_step: {{ big_step }},
+		    	max_steps: {{ max_steps }},
+		    	min: 0.0,
+		    	interval: {{ interval }}
+		    });
+		    Adj.run();
+		});
+
+
+		function LotteryAdjuster(btn, info, next) {
+
+			this.btn = $('#'+btn);
+			this.info = $('#'+info);
+			this.next = $('#'+next);
+
+		    this.prepare = function (settings) {
+		    	this.mode = settings.mode;
+		    	this.default = settings.default;
+
+		    	this.small_step = settings.small_step;
+				this.big_step = settings.big_step;
+
+				this.max_steps = settings.max_steps;
+
+				this.min = settings.min;
+				this.max = this.max_steps * (this.small_step + this.big_step)
+			
+				this.interval = settings.interval; // seconds between adjustments
+
+				if (this.default == "safe") {
+					this.current_values = [
+						this.max_steps * this.small_step,
+						this.max_steps * this.small_step
+					]
+				} else {
+					this.current_values = [
+						this.min,
+						this.max
+					]
+				}
+
+				this.step = 0;
+				this.running = false;
+				this.user_has_acted = false;
+				this.interval_id = null;
+				self = this;
+
+				if (this.mode == "active") {
+					this.btn.text("change");
+				} else {
+					this.btn.text("Stop");
+				}
+
+
+				this.chart = new Highcharts.chart('lottery1', {
+			        chart: {
+			            type: 'column'
+			        },
+			        drilldown: {
+			        	allowPointDrilldown: false
+			        },
+			        legend: {
+			        	enabled: false
+			        },
+			        title: {
+			            text: 'Current Lottery'
+			        },
+			        credits: { 
+						enabled: false 
+					},
+					exporting: {
+						enabled: false
+					},
+					tooltip: {
+						enabled: false
+					},
+			        xAxis: {
+			            categories: [
+			                'Green', 'Orange'
+			            ],
+			            crosshair: false
+			        },
+			        yAxis: {
+			            min: this.min,
+			            max: this.max,
+			            title: {
+			                text: 'Payoff'
+			            }
+			        },
+			        plotOptions: {
+			            column: {
+			                pointPadding: 0.2,
+			                borderWidth: 0
+			            }
+			        },
+			        series: [
+			        	{
+			            	name: 'Lottery',
+			            	data: this.current_values,
+			            	colorByPoint: true,
+			            	colors: ['green', 'orange'],
+			            	dataLabels: {
+			            		enabled: true,
+			            		style: {
+			            			fontSize: "14px"
+			            		}
+			            	}
+						}
+					]
+			    });
+		    }
+
+			this.make_step = function () {
+				this.step += 1;
+
+				var left = this.current_values[0];
+				var right = this.current_values[1];
+
+				if (this.default == "safe") {
+					left -= this.small_step;
+					right += this.big_step;
+				} else {
+					left += this.small_step;
+					right -= this.big_step;
+				}
+
+				this.current_values = [left, right];
+				this.update_chart()
+
+				if (this.step >= this.max_steps) {
+					this.stop();
+					return false;
+				}
+			}
+
+			this.run = function () {
+				window.setTimeout(function () {
+					self.running = true;
+					self.seconds_left = self.interval;
+					self.info.text(self.seconds_left);
+					self.btn.removeClass("hidden");
+					self.interval_id = window.setInterval(function() {
+						self.seconds_left -= 1;
+						self.info.text(self.seconds_left);
+						if (self.seconds_left <= 0) {
+							if (self.mode == "passive") {
+								self.make_step();
+							} else { // mode == active
+								if (self.user_has_acted) {
+									self.make_step();
+									self.user_has_acted = false;
+								} else {
+									self.stop();
+								}
+							}
+							if (self.running) {
+								self.seconds_left = self.interval;
+								self.info.text(self.seconds_left);
+								self.btn.removeClass("hidden");
+							}
+						}
+
+					}, 1000);
+				},2000);
+			}
+
+			this.stop = function() {
+				window.clearInterval(this.interval_id);
+				this.interval_id = null;
+				this.running = false;
+				self.info.text("lottery set");
+				self.btn.addClass("hidden");
+				self.next.removeClass("hidden");
+			}
+
+			this.update_chart = function() {
+				this.chart.series[0].setData(this.current_values);
+			}
+			
+
+			this.user_click = function() {
+				if (!this.running) {
+					return false;
+				}
+
+				this.user_has_acted = true;
+				this.btn.addClass("hidden");
+
+				if (this.mode == "passive") {
+					this.stop();
+				}
+			}
+
+
+			this.prepare({
+				small_step: 3,
+				big_step: 6,
+				min: 0.0,
+				max_steps: 20,
+				interval: 3.0
+			});
+					
+		}
+
+	</script>
+
+{% endblock %}
+
+{% block content %}
+
+	<div id="lottery1"></div>
+	<div id="buttonbox">
+		<span id="info">Get ready!</span><br>
+		<button type="button" class="btn btn-primary btn-large hidden" id="action_button"
+		onclick="Adj.user_click();"></button><br>
+	</div>
+    <div id="next_box" class="hidden">
+    	{% next_button %}
+    </div>
+{% endblock %}
+
+

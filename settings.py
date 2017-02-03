@@ -125,52 +125,16 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
-        'name': 'bart_manual_blue_first',
-        'display_name': "BART - MANUAL, Blue first",
-        'num_demo_participants': 5,
-        'app_sequence': ['bart'],
-        'participation_fee': 3.00,
-        'real_world_currency_per_point': 0.001,
-        'treatment': 'manual',
-        'task_order': 'blue_first'
+    	'name': 'outcome_bias',
+    	'display_name': 'Outcome Bias Add On',
+    	'app_sequence': ['outcomebias'],
+    	'num_demo_participants': 6
     },
     {
-        'name': 'bart_auto_blue_first',
-        'display_name': "BART - AUTOMATIC, Blue first",
-        'num_demo_participants': 5,
-        'app_sequence': ['bart'],
-        'participation_fee': 3.00,
-        'real_world_currency_per_point': 0.001,
-        'treatment': 'automatic',
-        'task_order': 'blue_first'
-    },
-    {
-        'name': 'bart_manual_green_first',
-        'display_name': "BART - MANUAL, Green first",
-        'num_demo_participants': 5,
-        'app_sequence': ['bart'],
-        'participation_fee': 3.00,
-        'real_world_currency_per_point': 0.001,
-        'treatment': 'manual',
-        'task_order': 'green_first'
-    },
-    {
-        'name': 'bart_auto_green_first',
-        'display_name': "BART - AUTOMATIC, Green first",
-        'num_demo_participants': 5,
-        'app_sequence': ['bart'],
-        'participation_fee': 3.00,
-        'real_world_currency_per_point': 0.001,
-        'treatment': 'automatic',
-        'task_order': 'green_first'
-    },
-    {
-        'name': 'bart_pretest',
-        'display_name': "BART - Pretest English",
-        'num_demo_participants': 5,
-        'app_sequence': ['bart_en'],
-        'participation_fee': 3.00,
-        'real_world_currency_per_point': 0.001
+    	'name': 'active_passive',
+    	'display_name': 'Active / Passive Risk Taking Task 2',
+    	'app_sequence': ['risktaking'],
+    	'num_demo_participants': 10
     }
 ]
 

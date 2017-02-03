@@ -1,0 +1,52 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Lottery Step {{ player.step }}
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+
+
+	<p>Low Payoff: {{ player.low_payoff }}, High Payoff: {{ player.high_payoff }}</p>
+
+
+	{% if not player.process_ended %}	
+		<div id="action_box">
+		{% if player.mode == "Active" %}
+			<p>Adjust lottery?</p>
+		{% else %}
+			<p>Stop Process?</p>
+		{% endif %}
+		<button type="button" class="btn btn-primary btn-large"
+		onclick="take_action();">Yes</button>
+		<input type="hidden" name="took_action" value="False" id="id_took_action">
+		</div>
+	{% else %}
+		{% if player.mode == "Active" %}
+			<p>You can no longer adjust the lottery.</p>
+		{% else %}
+			<p>You have stopped the process</p>
+		{% endif %}
+	{% endif %}
+
+
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+	function take_action() {
+		document.getElementById('id_took_action').value = "True";
+		document.getElementById('action_box').style.display = "none";
+	}
+	</script>
+{% endblock %}

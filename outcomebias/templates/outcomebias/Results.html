@@ -1,0 +1,15 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Page title
+{% endblock %}
+
+{% block content %}
+
+	Player payoff: {{ player.payoff }} 
+
+    {% next_button %}
+{% endblock %}
+
+
