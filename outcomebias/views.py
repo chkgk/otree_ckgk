@@ -40,6 +40,9 @@ class RewardDecision(Page):
 		return self.player.role() == 'principal'
 
 class ResultsWaitPage(WaitPage):
+	template_name = 'outcomebias/MyWaitPage.html'
+	title_text = "Please Wait"
+
 	def after_all_players_arrive(self):
 		self.group.set_payoffs()
 
@@ -50,8 +53,8 @@ class Results(Page):
 page_sequence = [
 	Arrival,
 	Welcome,
-	Instructions,
-	RoleAssignment,
+	#Instructions,
+	#RoleAssignment,
 	WinningColorChoice,
 	RewardDecision,
 	ResultsWaitPage,

@@ -20,7 +20,8 @@ http://getbootstrap.com/components/
 	{% formfield player.max_steps with label="Schrittanzahl:" %}
 	{% formfield player.interval with label="Sekunden zwischen den Schritten:" %}
 	{% formfield player.small_step with label="Größe des kleinen Schritts:" %}
-	{% formfield player.big_step with label="Größe des großen Schritts:" %}
+	{% formfield player.big_step with label="Größe des großen Schritts (wird auch in Testrunde verwendet):" %}
+	{% formfield player.skip_trial with label="Test-Seite überspringen?" %}
 
     {% next_button %}
 

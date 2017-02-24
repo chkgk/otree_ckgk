@@ -3,7 +3,7 @@ from otree.api import (
 	Currency as c, currency_range
 )
 
-import itertools
+import itertools, random
 
 author = 'Christian König gen. Kersting'
 
@@ -33,22 +33,33 @@ class Subsession(BaseSubsession):
 			else:
 				player.mode = "Passive"
 
+			player.lottery_outcome = random.choice(["low", "high"])
+
 
 class Group(BaseGroup):
 	pass
 
 
 class Player(BasePlayer):
-	mode = models.CharField(initial="active", choices=['active', 'passive'])
-	default = models.CharField(initial="safe", choices=['safe', 'risky'])
+	mode = models.CharField(initial="active", choices=['Active', 'Passive'])
+	default = models.CharField(initial="safe", choices=['Safe', 'Risky'])
+
+
+	lottery_outcome = models.CharField(choices=["low", "high"])
+
 	low_payoff = models.FloatField()
 	high_payoff = models.FloatField()
 
 	max_steps = models.IntegerField(initial=10)
-	interval = models.IntegerField(initial=3) #s
+	interval = models.IntegerField(initial=3) 
 
 	small_step = models.IntegerField(initial=3)
 	big_step = models.IntegerField(initial=6)
 
-	def adjust_lottery_payoffs(self):
-		pass
+	skip_trial = models.CharField(choices=["nein", "ja"], initial="ja")
+
+	def set_payoff(self):
+		if self.lottery_outcome == "high":
+			self.payoff = c(self.high_payoff)
+		else:
+			self.payoff = c(self.low_payoff)

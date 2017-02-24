@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-	MainTask
+	{{ mode }} - {{ default }}
 {% endblock %}
 
 {% block styles %}
@@ -21,18 +21,19 @@
 			text-align: center;
 		}
 
+
 	</style>
 {% endblock %}
 
 {% block scripts %}
 
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="{% static "risktaking/highcharts/highcharts.js" %}"></script>
+	<script src="{% static "risktaking/highcharts/modules/exporting.js" %}"></script>
 	<script type="text/javascript">
 
 		$(function () {
 		    
-		    Adj = new LotteryAdjuster("action_button", "info", "next_box");
+		    Adj = new LotteryAdjuster("action_button", "info", "next_box", "id_low_payoff", "id_high_payoff");
 		    Adj.prepare({
 		    	default: {{ default }},
 		    	mode: {{ mode }},
@@ -46,11 +47,14 @@
 		});
 
 
-		function LotteryAdjuster(btn, info, next) {
+		function LotteryAdjuster(btn, info, next, lowinput, highinput) {
 
 			this.btn = $('#'+btn);
 			this.info = $('#'+info);
 			this.next = $('#'+next);
+
+			this.low_pay = $('#'+lowinput);
+			this.high_pay = $('#'+highinput);
 
 		    this.prepare = function (settings) {
 		    	this.mode = settings.mode;
@@ -66,7 +70,7 @@
 			
 				this.interval = settings.interval; // seconds between adjustments
 
-				if (this.default == "safe") {
+				if (this.default == "Safe") {
 					this.current_values = [
 						this.max_steps * this.small_step,
 						this.max_steps * this.small_step
@@ -84,7 +88,7 @@
 				this.interval_id = null;
 				self = this;
 
-				if (this.mode == "active") {
+				if (this.mode == "Active") {
 					this.btn.text("change");
 				} else {
 					this.btn.text("Stop");
@@ -155,7 +159,7 @@
 				var left = this.current_values[0];
 				var right = this.current_values[1];
 
-				if (this.default == "safe") {
+				if (this.default == "Safe") {
 					left -= this.small_step;
 					right += this.big_step;
 				} else {
@@ -182,7 +186,7 @@
 						self.seconds_left -= 1;
 						self.info.text(self.seconds_left);
 						if (self.seconds_left <= 0) {
-							if (self.mode == "passive") {
+							if (self.mode == "Passive") {
 								self.make_step();
 							} else { // mode == active
 								if (self.user_has_acted) {
@@ -207,9 +211,11 @@
 				window.clearInterval(this.interval_id);
 				this.interval_id = null;
 				this.running = false;
-				self.info.text("lottery set");
-				self.btn.addClass("hidden");
-				self.next.removeClass("hidden");
+				this.info.text("lottery set");
+				this.low_pay.val(this.current_values[0]);
+				this.high_pay.val(this.current_values[1]);
+				this.btn.addClass("hidden");
+				this.next.removeClass("hidden");
 			}
 
 			this.update_chart = function() {
@@ -225,7 +231,7 @@
 				this.user_has_acted = true;
 				this.btn.addClass("hidden");
 
-				if (this.mode == "passive") {
+				if (this.mode == "Passive") {
 					this.stop();
 				}
 			}
@@ -254,6 +260,8 @@
 		onclick="Adj.user_click();"></button><br>
 	</div>
     <div id="next_box" class="hidden">
+    	<input type="hidden" name="low_payoff" id="id_low_payoff" value="">
+    	<input type="hidden" name="high_payoff" id="id_high_payoff" value="">
     	{% next_button %}
     </div>
 {% endblock %}

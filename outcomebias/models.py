@@ -34,8 +34,10 @@ class Group(BaseGroup):
     treatment = models.CharField()
     winning_color = models.CharField(choices=['yellow', 'orange'])
     lottery_outcome = models.CharField()
+    lottery_pay = models.PositiveIntegerField(min=0, max=Constants.lottery_high_payoff)
     reward_good = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
     reward_bad = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
+    reward = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
 
     def set_treatment(self):
         self.treatment = 'agent' if self.id_in_subsession % 2 == 0 else 'computer'
@@ -44,13 +46,13 @@ class Group(BaseGroup):
             self.winning_color = random.choice(['yellow', 'orange'])
 
     def set_payoffs(self):
-        lottery_pay = Constants.lottery_high_payoff if self.lottery_outcome == "good" else Constants.lottery_low_payoff
-        reward = self.reward_good if self.lottery_outcome == "good" else self.reward_bad
+        self.lottery_pay = Constants.lottery_high_payoff if self.lottery_outcome == "good" else Constants.lottery_low_payoff
+        self.reward = self.reward_good if self.lottery_outcome == "good" else self.reward_bad
         for player in self.get_players():
             if player.role() == "agent":
-                player.payoff = Constants.agent_fix_pay + reward
+                player.payoff = Constants.agent_fix_pay + self.reward
             else:
-                player.payoff = Constants.principal_fix_pay + (Constants.reward_pot - reward) + lottery_pay
+                player.payoff = Constants.principal_fix_pay + (Constants.reward_pot - self.reward) + self.lottery_pay
 
 class Player(BasePlayer):
     
