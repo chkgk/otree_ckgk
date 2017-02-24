@@ -60,5 +60,5 @@ page_sequence = [
 	TryOut,
 # 	MainTaskPrep,
 	MainTask,
-#	Feedback
+	Feedback
 ]
