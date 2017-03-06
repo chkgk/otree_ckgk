@@ -3,7 +3,7 @@
 
 
 {% block title %}
-	Try Out - {{ mode }} - {{ default }}
+	Proberunde
 {% endblock %}
 
 
@@ -19,9 +19,8 @@
 		}
 
 		#info {
-			color: red;
 			font-weight: bold;
-			font-size: 24px;
+			font-size: 20px;
 		}
 
 		#next_box {
@@ -31,6 +30,10 @@
 		#bar {
 			width: 50%;
 			display: inline-block;
+		}
+
+		#countdown {
+			text-align: right;
 		}
 
 	</style>
@@ -43,25 +46,30 @@
 	<script type="text/javascript">
 
 		$(function () {
-			Trial = new PracticeBar("instructions", "info", "action_button", "next_box");
+			Trial = new PracticeBar("instructions", "info", "counter", "msg", "action_button", "next_box");
 			Trial.prepare({
 				mode: {{ mode }},
 				default: {{ default }},
 				step_size: {{ big_step }},
 				interval: {{ interval }},
 				max_repititions: 3,
-				targets: [75, 65, 85]
+				targets: [88, 76, 99]
 			});
 			Trial.run();
 		});
 
-		function PracticeBar(instructions, info, button, next_box) {
+		function PracticeBar(instructions, info, counter, msg, button, next_box) {
 
 			this.instr = $('#'+instructions)
 			this.btn = $('#'+button);
 			this.info = $('#'+info);
+
+			this.msg = $('#'+msg);
+			this.counter = $('#'+counter);
+
 			this.next = $('#'+next_box);
 			this.repetition = 0;
+			this.first_round = true;
 
 			this.prepare = function (settings) {
 				this.mode = settings.mode;
@@ -71,7 +79,7 @@
 				this.interval = settings.interval; // seconds between adjustments
 
 				this.min = 0.0;
-				this.max = 100;
+				this.max = 120;
 
 				this.target_value = settings.targets[this.repetition];
 
@@ -88,16 +96,16 @@
 
 				if (this.default == "Safe") {
 					this.current_value = this.max / 2;
-					this.target_value_2 = this.target_value + this.step_size;
+					this.target_value_2 = this.target_value + this.step_size + 1;
 				} else {
 					this.current_value = this.max;
 					this.target_value_2 = this.target_value - this.step_size;
 				}
 			
 				if (this.mode == "Active") {
-					this.btn.text("change");
+					this.btn.text("Punktezahl anpassen");
 				} else {
-					this.btn.text("Stop");
+					this.btn.text("Anpassung stoppen");
 				}
 
 				this.next.addClass("hidden");
@@ -113,7 +121,7 @@
 						enabled: false
 					},
 					title: {
-						text: 'Bar Chart'
+						text: ''
 					},
 					credits: { 
 						enabled: false 
@@ -126,7 +134,7 @@
 					},
 					xAxis: {
 						categories: [
-							'Green'
+							'Grün'
 						],
 						crosshair: false
 					},
@@ -134,13 +142,13 @@
 						min: this.min,
 						max: this.max + 10,
 						title: {
-							text: 'Points'
+							text: 'Punkte'
 						},
 						plotLines: [{
 							color: 'red',
 							label: 'Target',
 							value: this.target_value,
-							width: 2
+							width: 1
 						},
 						{
 							color: 'red',
@@ -179,6 +187,7 @@
 
 				this.user_has_acted = true;
 				this.btn.addClass("hidden");
+				this.msg.text("Anpassung erfolgt in: ");
 
 
 				if (this.mode == "Passive") {
@@ -234,15 +243,23 @@
 			}
 
 			this.run = function () {
+				var timeout = 2; // seconds
+				if (this.first_round) {
+					timeout = 10; //seconds
+					this.first_round = false;
+				} 
+
 				this.repetition += 1;
 				window.setTimeout(function() {
 					self.running = true;
 					self.seconds_left = self.interval;
-					self.info.text(self.seconds_left);
+					self.msg.text("Verbleibende Zeit: ");
+					self.counter.text(self.seconds_left + " Sekunden");
+					self.info.addClass("hidden");
 					self.btn.removeClass("hidden");
 					self.interval_id = window.setInterval(function () {
 						self.seconds_left -= 1;
-						self.info.text(self.seconds_left);
+						self.counter.text(self.seconds_left + " Sekunden");
 						if (self.seconds_left <= 0) {
 							if (self.mode == "Passive") {
 								self.make_step();
@@ -256,12 +273,13 @@
 							}
 							if (self.running) {
 								self.seconds_left = self.interval;
-								self.info.text(self.seconds_left);
+								self.msg.text("Verbleibende Zeit: ");
+								self.counter.text(self.seconds_left + " Sekunden");
 								self.btn.removeClass("hidden");
 							}
 						} 
 					}, 1000);
-				}, 2000);
+				}, timeout * 1000);
 			}
 
 			this.stop = function () {
@@ -283,7 +301,10 @@
 					this.new_round(this.in_target_area);
 				} else {
 					// info ended, show next button
-					this.info.text("Very good. You may proceed to the next stage.");
+					this.info.text("Sehr gut. Sie können das Experiment fortsetzen.");
+					this.info.removeClass("hidden");
+					this.counter.text("");
+					this.msg.text("Die Zeit ist abgelaufen.");
 					this.next.removeClass("hidden");
 				}
 			}
@@ -293,13 +314,14 @@
 				
 				if (success) {
 					if (this.repetition == 1) {
-						this.info.text("Very good. Try again. (Success 1 of 3)");
+						this.info.text("Sehr gut. Versuchen Sie es noch einmal! (1 von 3)");
 					} else if (this.repetition == 2) {
-						this.info.text("Very good. Try again. (Success 2 of 3)");
+						this.info.text("Sehr gut. Versuchen Sie es noch einmal! (2 von 3)");
 					} 
 				} else {
-					this.info.text("The bar does not end within the target area. Try again.");
+					this.info.text("Der Balken endete nicht im Zielbereich. Versuchen Sie es noch einmal!");
 				}
+				this.info.removeClass("hidden");
 
 				window.setTimeout(function () {
 					self.prepare(self.settings);
@@ -317,12 +339,15 @@
 
 {% block content %}
 	<p id="instructions"></p>
+	<div id="countdown">
+		<span id="msg">Die Proberunde beginnt in ca. 10 Sekunden.</span><span id="counter"></span>
+	</div>
 	<div id="bar_container">
 		<div id="bar"></div>
 	</div>
 
 	<div id="buttonbox">
-		<span id="info">Get ready!</span><br>
+		<span id="info">Machen Sie sich bereit!</span><br>
 		<button type="button" class="btn btn-primary btn-large hidden" id="action_button"
 		onclick="Trial.user_click();"></button><br>
 	</div>

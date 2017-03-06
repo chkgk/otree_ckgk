@@ -50,11 +50,11 @@ class Player(BasePlayer):
 	low_payoff = models.FloatField()
 	high_payoff = models.FloatField()
 
-	max_steps = models.IntegerField(initial=10)
-	interval = models.IntegerField(initial=3) 
+	max_steps = models.IntegerField(initial=20)
+	interval = models.IntegerField(initial=5) 
 
-	small_step = models.IntegerField(initial=3)
-	big_step = models.IntegerField(initial=6)
+	small_step = models.IntegerField(initial=8)
+	big_step = models.IntegerField(initial=12)
 
 	skip_trial = models.CharField(choices=["nein", "ja"], initial="ja")
 
