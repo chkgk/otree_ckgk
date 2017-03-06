@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-	{{ mode }} - {{ default }}
+	Entscheidungssituation
 {% endblock %}
 
 {% block styles %}
@@ -12,13 +12,17 @@
 		}
 
 		#info {
-			color: red;
+			
 			font-weight: bold;
-			font-size: 24px;
+			font-size: 20px;
 		}
 
 		#next_box {
 			text-align: center;
+		}
+
+		#countdown {
+			text-align: right;
 		}
 
 
@@ -33,7 +37,7 @@
 
 		$(function () {
 		    
-		    Adj = new LotteryAdjuster("action_button", "info", "next_box", "id_low_payoff", "id_high_payoff");
+		    Adj = new LotteryAdjuster("action_button", "info", "counter", "msg", "next_box", "id_low_payoff", "id_high_payoff");
 		    Adj.prepare({
 		    	default: {{ default }},
 		    	mode: {{ mode }},
@@ -47,11 +51,13 @@
 		});
 
 
-		function LotteryAdjuster(btn, info, next, lowinput, highinput) {
+		function LotteryAdjuster(btn, info, counter, msg, next, lowinput, highinput) {
 
 			this.btn = $('#'+btn);
 			this.info = $('#'+info);
 			this.next = $('#'+next);
+			this.counter = $('#'+counter);
+			this.msg = $('#'+msg);
 
 			this.low_pay = $('#'+lowinput);
 			this.high_pay = $('#'+highinput);
@@ -89,9 +95,9 @@
 				self = this;
 
 				if (this.mode == "Active") {
-					this.btn.text("change");
+					this.btn.text("Lotterie anpassen");
 				} else {
-					this.btn.text("Stop");
+					this.btn.text("Anpassung stoppen");
 				}
 
 
@@ -106,7 +112,7 @@
 			        	enabled: false
 			        },
 			        title: {
-			            text: 'Current Lottery'
+			            text: 'Aktuelle Lotterie'
 			        },
 			        credits: { 
 						enabled: false 
@@ -119,7 +125,7 @@
 					},
 			        xAxis: {
 			            categories: [
-			                'Green', 'Orange'
+			                'Grün', 'Gelb'
 			            ],
 			            crosshair: false
 			        },
@@ -127,7 +133,7 @@
 			            min: this.min,
 			            max: this.max,
 			            title: {
-			                text: 'Payoff'
+			                text: 'Auszahlungen'
 			            }
 			        },
 			        plotOptions: {
@@ -177,14 +183,18 @@
 			}
 
 			this.run = function () {
+				var timeout = 10; // seconds
+
 				window.setTimeout(function () {
 					self.running = true;
 					self.seconds_left = self.interval;
-					self.info.text(self.seconds_left);
+					self.msg.text("Verbleibende Zeit: ");
+					self.counter.text(self.seconds_left + " Sekunden");
+					self.info.addClass("hidden");
 					self.btn.removeClass("hidden");
 					self.interval_id = window.setInterval(function() {
 						self.seconds_left -= 1;
-						self.info.text(self.seconds_left);
+						self.counter.text(self.seconds_left + " Sekunden");
 						if (self.seconds_left <= 0) {
 							if (self.mode == "Passive") {
 								self.make_step();
@@ -198,20 +208,24 @@
 							}
 							if (self.running) {
 								self.seconds_left = self.interval;
-								self.info.text(self.seconds_left);
+								self.msg.text("Verbleibende Zeit: ");
+								self.counter.text(self.seconds_left + " Sekunden");
 								self.btn.removeClass("hidden");
 							}
 						}
 
 					}, 1000);
-				},2000);
+				}, timeout * 1000);
 			}
 
 			this.stop = function() {
 				window.clearInterval(this.interval_id);
 				this.interval_id = null;
 				this.running = false;
-				this.info.text("lottery set");
+				this.info.text("Die Lotterie wurde festgelegt.");
+				this.info.removeClass("hidden");
+				this.counter.text("");
+				this.msg.text("Die Zeit ist abgelaufen.");
 				this.low_pay.val(this.current_values[0]);
 				this.high_pay.val(this.current_values[1]);
 				this.btn.addClass("hidden");
@@ -230,6 +244,7 @@
 
 				this.user_has_acted = true;
 				this.btn.addClass("hidden");
+				this.msg.text("Anpassung erfolgt in: ");
 
 				if (this.mode == "Passive") {
 					this.stop();
@@ -237,13 +252,13 @@
 			}
 
 
-			this.prepare({
-				small_step: 3,
-				big_step: 6,
-				min: 0.0,
-				max_steps: 20,
-				interval: 3.0
-			});
+			// this.prepare({
+			// 	small_step: 3,
+			// 	big_step: 6,
+			// 	min: 0.0,
+			// 	max_steps: 20,
+			// 	interval: 3.0
+			// });
 					
 		}
 
@@ -253,9 +268,13 @@
 
 {% block content %}
 
+	<div id="countdown">
+		<span id="msg">Die Aufgabe beginnt in ca. 10 Sekunden.</span><span id="counter"></span>
+	</div>
+
 	<div id="lottery1"></div>
 	<div id="buttonbox">
-		<span id="info">Get ready!</span><br>
+		<span id="info">Machen Sie sich bereit!</span><br>
 		<button type="button" class="btn btn-primary btn-large hidden" id="action_button"
 		onclick="Adj.user_click();"></button><br>
 	</div>
