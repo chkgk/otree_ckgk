@@ -35,7 +35,7 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
 	treatment = models.CharField()
-	winning_color = models.CharField(choices=['yellow', 'orange'])
+	winning_color = models.CharField(choices=['yellow', 'green'])
 	lottery_outcome = models.CharField()
 	lottery_pay = models.PositiveIntegerField(min=0, max=Constants.lottery_high_payoff)
 	reward_good = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
@@ -48,7 +48,7 @@ class Group(BaseGroup):
 		self.treatment = 'agent' if self.id_in_subsession % 2 == 0 else 'computer'
 		self.lottery_outcome = random.choice(['good', 'bad'])
 		if self.treatment == 'computer':
-			self.winning_color = random.choice(['yellow', 'orange'])
+			self.winning_color = random.choice(['yellow', 'green'])
 
 	def set_payoffs(self):
 		if self.intact:
