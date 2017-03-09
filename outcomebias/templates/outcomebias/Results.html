@@ -35,17 +35,23 @@
 	<p>Player A's final payoff is: {{ group.a_payoff }}<br>
 	Player B's final payoff is: {{ group.b_payoff }}</p>
 
-	{% if player.role == "prinicpal" %}
+	<p>You will receive {{ money_to_pay }}. Thank you very much for participating in this experiment.</p><p>&nbsp;</p>
+
+	{% if player.role == "principal" %}
+		<p><b>Final Questions</b></p>
 		{% if group.treatment == "agent" %}
-			{% formfield player.decision_satisfaction with label="How satisfied are you with the color choice of Player A?" %}
+			{% formfield player.decision_satisfaction with label="How satisfied are you with the <u>color choice</u> of Player A? (1 = very dissatisfied, 7 = very satisfied)" %}
 		{% else %}
-			{% formfield player.decision_satisfaction with label="How satisfied are you with the color choice by the computer?" %}
+			{% formfield player.decision_satisfaction with label="How satisfied are you with the <u>color choice</u> by the computer? (1 = very dissatisfied, 7 = very satisfied)" %}
 		{% endif %}
-		{% formfield player.outcome_satisfaction with label="How satisfied are you with the outcome of the lottery?" %}
+		{% formfield player.outcome_satisfaction with label="How satisfied are you with the <u>outcome</u> of the lottery? (1 = very dissatisfied, 7 = very satisfied)" %}
 	{% endif %}
 
 
-	<p>You will receive {{ money_to_pay }}. Thank you very much for participating in this experiment.</p>
+	{% if player.role == "principal" %}
+		<p>Please click 'next' to finish the experiment.<p>
+		{% next_button %}
+	{% endif %}
 
 {% endblock %}
 

@@ -128,7 +128,9 @@ SESSION_CONFIGS = [
     	'name': 'outcome_bias',
     	'display_name': 'Outcome Bias Add On',
     	'app_sequence': ['outcomebias'],
-    	'num_demo_participants': 6
+    	'num_demo_participants': 6,
+        'real_world_currency_per_point': 0.01,
+        'participation_fee': 0
     },
     {
     	'name': 'active_passive',

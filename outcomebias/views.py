@@ -40,7 +40,8 @@ class WinningColorChoice(Page):
 		return self.group.intact and self.group.treatment == 'agent' and self.player.role() == 'agent'
 
 class ColorChoiceWaitPage(WaitPage):
-	pass
+	template_name = 'outcomebias/MyWaitPage.html'
+	title_text = "Please Wait"
 
 class RewardDecision(Page):
 	form_model = models.Group
@@ -75,11 +76,14 @@ class ResultsWaitPage(WaitPage):
 		self.group.set_payoffs()
 
 class Results(Page):
+	form_model = models.Player
+	form_fields = ['outcome_satisfaction', 'decision_satisfaction']
+
 	def is_displayed(self):
 		return self.group.intact
 
 	def vars_for_template(self):
-		return {'money_to_pay': participant.payoff_plus_participation_fee()}
+		return {'money_to_pay': self.participant.payoff_plus_participation_fee()}
 
 class Failure(Page):
 	def is_displayed(self):
@@ -91,6 +95,7 @@ page_sequence = [
 	WinningColorChoice,
 	ColorChoiceWaitPage,
 	RewardDecision,
+	Expectation,
 	ResultsWaitPage,
 	Results,
 	Failure

@@ -35,7 +35,7 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
 	treatment = models.CharField()
-	winning_color = models.CharField(choices=['yellow', 'green'])
+	winning_color = models.CharField(choices=['yellow', 'green'], widget=widgets.RadioSelectHorizontal)
 	lottery_outcome = models.CharField()
 	lottery_pay = models.PositiveIntegerField(min=0, max=Constants.lottery_high_payoff)
 	reward_good = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
@@ -81,11 +81,13 @@ class Player(BasePlayer):
 		else:
 			return 'principal'
 
-		timed_out = models.BooleanField(initial=False)
+	timed_out = models.BooleanField(initial=False)
 
-		outcome_satisfaction = models.PositiveIntegerField(min=1, max=7)
-		decision_satisfaction = models.PositiveIntegerField(min=1, max=7)
+	likert7 = [1, 2, 3, 4, 5, 6, 7]
 
-		expected_transfer_good = models.PositiveIntegerField(min=0, max=100)
-		expected_transfer_bad = models.PositiveIntegerField(min=0, max=100)
+	outcome_satisfaction = models.PositiveIntegerField(choices=likert7, widget=widgets.RadioSelectHorizontal)
+	decision_satisfaction = models.PositiveIntegerField(choices=likert7, widget=widgets.RadioSelectHorizontal)
+
+	expected_transfer_good = models.PositiveIntegerField(min=0, max=100)
+	expected_transfer_bad = models.PositiveIntegerField(min=0, max=100)
 
