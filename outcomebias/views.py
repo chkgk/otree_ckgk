@@ -78,6 +78,9 @@ class Results(Page):
 	def is_displayed(self):
 		return self.group.intact
 
+	def vars_for_template(self):
+		return {'money_to_pay': participant.payoff_plus_participation_fee()}
+
 class Failure(Page):
 	def is_displayed(self):
 		return not self.group.intact 
