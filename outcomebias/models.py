@@ -42,6 +42,9 @@ class Group(BaseGroup):
 	reward_bad = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
 	reward = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
 
+	a_payoff = models.PositiveIntegerField()
+	b_payoff = models.PositiveIntegerField()
+
 	intact = models.BooleanField(initial=True)
 
 	def set_treatment(self):
@@ -57,14 +60,18 @@ class Group(BaseGroup):
 			for player in self.get_players():
 				if player.role() == "agent":
 					player.payoff = Constants.agent_fix_pay + self.reward
+					self.a_payoff = player.payoff
 				else:
 					player.payoff = Constants.principal_fix_pay + (Constants.reward_pot - self.reward) + self.lottery_pay
+					self.b_payoff = player.payoff
 		else:
 			for player in self.get_players():
 				if player.role() == "agent":
 					player.payoff = Constants.agent_fix_pay
+					self.a_payoff = player.payoff
 				else:
 					player.payoff = Constants.principal_fix_pay	
+					self.b_payoff = player.payoff
 
 class Player(BasePlayer):
 	
@@ -75,3 +82,10 @@ class Player(BasePlayer):
 			return 'principal'
 
 		timed_out = models.BooleanField(initial=False)
+
+		outcome_satisfaction = models.PositiveIntegerField(min=1, max=7)
+		decision_satisfaction = models.PositiveIntegerField(min=1, max=7)
+
+		expected_transfer_good = models.PositiveIntegerField(min=0, max=100)
+		expected_transfer_bad = models.PositiveIntegerField(min=0, max=100)
+

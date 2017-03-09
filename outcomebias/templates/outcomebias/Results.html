@@ -13,7 +13,9 @@
 		<p>You are <b>Player B</b>.</p>
 	{% endif %}
 
-	<p>The winning color is: {{ group.winning_color }}<br>
+	<p><b>{% if group.treatment == "agent" %}Player A {% else %} The computer {% endif %}</b>
+	has selected <b>{{ group.winning_color }}</b> to be the winning color.<br>
+	
 	{% if group.lottery_outcome == "good" %}
 		The color of the ball drawn from the virtual urn is: {{ group.winning_color }}<br>
 		The colors match.
@@ -30,9 +32,20 @@
 	<p>Player B receives an additional {{ group.lottery_pay }} points from the lottery.<p>
 	<p>For this outcome, Player B has decided to send {{ group.reward }} points to Player A.</p>
 
-	<p>Your final payoff for is: {{player.payoff}}<p>
+	<p>Player A's final payoff is: {{ group.a_payoff }}<br>
+	Player B's final payoff is: {{ group.b_payoff }}</p>
 
-	<p>Thank you very much for participating in this experiment.</p>
+	{% if player.role == "prinicpal" %}
+		{% if group.treatment == "agent" %}
+			{% formfield player.decision_satisfaction with label="How satisfied are you with the color choice of Player A?" %}
+		{% else %}
+			{% formfield player.decision_satisfaction with label="How satisfied are you with the color choice by the computer?" %}
+		{% endif %}
+		{% formfield player.outcome_satisfaction with label="How satisfied are you with the outcome of the lottery?" %}
+	{% endif %}
+
+
+	<p>You will receive {{ participant.payoff_plus_participation_fee() }}. Thank you very much for participating in this experiment.</p>
 
 {% endblock %}
 

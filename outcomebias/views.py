@@ -39,6 +39,9 @@ class WinningColorChoice(Page):
 	def is_displayed(self):
 		return self.group.intact and self.group.treatment == 'agent' and self.player.role() == 'agent'
 
+class ColorChoiceWaitPage(WaitPage):
+	pass
+
 class RewardDecision(Page):
 	form_model = models.Group
 	form_fields = ['reward_good', 'reward_bad']
@@ -53,6 +56,16 @@ class RewardDecision(Page):
 
 	def is_displayed(self):
 		return self.group.intact and self.player.role() == 'principal'
+
+class Expectation(Page):
+	def is_displayed(self):
+		return self.group.intact and self.player.role() == 'agent'
+
+	form_model = models.Player
+	form_fields = ['expected_transfer_good', 'expected_transfer_bad']
+
+	timeout_seconds = Constants.decision_timeout
+	timeout_submission = {'expected_transfer': 0, 'expected_transfer_bad': 0}
 
 class ResultsWaitPage(WaitPage):
 	template_name = 'outcomebias/MyWaitPage.html'
@@ -73,6 +86,7 @@ page_sequence = [
 	Arrival,
 	Welcome,
 	WinningColorChoice,
+	ColorChoiceWaitPage,
 	RewardDecision,
 	ResultsWaitPage,
 	Results,
