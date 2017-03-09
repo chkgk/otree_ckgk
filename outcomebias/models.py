@@ -25,8 +25,8 @@ class Constants(BaseConstants):
 	principal_fix_pay = 100
 	reward_pot = 100
 
-	long_timeout = 120
-	decision_timeout = 60
+	long_timeout = 180
+	decision_timeout = 180
 
 
 class Subsession(BaseSubsession):
