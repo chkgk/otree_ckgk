@@ -28,6 +28,8 @@ class Constants(BaseConstants):
 	long_timeout = 180
 	decision_timeout = 180
 
+	LikertScale = [1, 2, 3, 4, 5, 6, 7]
+
 
 class Subsession(BaseSubsession):
 	pass
@@ -73,6 +75,11 @@ class Group(BaseGroup):
 					player.payoff = Constants.principal_fix_pay	
 					self.b_payoff = player.payoff
 
+		for player in self.get_players():
+			player.GXPProfit = player.payoff
+
+
+
 class Player(BasePlayer):
 	
 	def role(self):
@@ -81,13 +88,39 @@ class Player(BasePlayer):
 		else:
 			return 'principal'
 
+
 	timed_out = models.BooleanField(initial=False)
 
-	likert7 = [1, 2, 3, 4, 5, 6, 7]
-
-	outcome_satisfaction = models.PositiveIntegerField(choices=likert7, widget=widgets.RadioSelectHorizontal)
-	decision_satisfaction = models.PositiveIntegerField(choices=likert7, widget=widgets.RadioSelectHorizontal)
+	outcome_satisfaction = models.PositiveIntegerField(choices=Constants.LikertScale, widget=widgets.RadioSelectHorizontal)
+	decision_satisfaction = models.PositiveIntegerField(choices=Constants.LikertScale, widget=widgets.RadioSelectHorizontal)
 
 	expected_transfer_good = models.PositiveIntegerField(min=0, max=100)
 	expected_transfer_bad = models.PositiveIntegerField(min=0, max=100)
+
+	age = models.PositiveIntegerField(verbose_name="How old are you?")
+	gender = models.CharField(
+		choices=['female', 'male', 'other', 'prefer not to tell'],
+		verbose_name="What is your gender?",
+		widget=widgets.RadioSelectHorizontal)
+
+	education = models.PositiveIntegerField(
+		choices=[
+			[1, 'some High School'], 
+			[2, 'High School graduate'],
+			[3, 'some College, no degree'],
+			[4, "Associate's degree"],
+			[5, "Bachelor's degree"],
+			[6, "Master's degree"],
+			[7, "Doctorate degree"]
+		 ],
+		 verbose_name="What is the highest level of education you have attained?",
+		 widget=widgets.RadioSelect)
+	
+	studies = models.CharField(
+		blank=True, 
+		verbose_name="If you have at least some college education, what is/was your field of studies?")
+
+	occupation = models.CharField(verbose_name="What is your main occupation?")
+
+	GXPProfit = models.CurrencyField()
 

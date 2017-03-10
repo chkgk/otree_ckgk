@@ -7,15 +7,17 @@
 
 {% block content %}
 
+	<p><b>Role</b><br>
 	{% if player.role == "agent" %}
-		<p>You are <b>Player A</b>.</p>
+		You are <b>Player A</b>.
 	{% else %}
-		<p>You are <b>Player B</b>.</p>
-	{% endif %}
+		You are <b>Player B</b>.
+	{% endif %}</p>
 
-	<p><b>{% if group.treatment == "agent" %}Player A {% else %} The computer {% endif %}</b>
+	<p><b>Decision</b><br><b>{% if group.treatment == "agent" %}Player A {% else %} The computer {% endif %}</b>
 	has selected <b>{{ group.winning_color }}</b> to be the winning color.<br>
 	
+	<p><b>Outcome</b><br>
 	{% if group.lottery_outcome == "good" %}
 		The color of the ball drawn from the virtual urn is: {{ group.winning_color }}<br>
 		The colors match.
@@ -35,10 +37,9 @@
 	<p>Player A's final payoff is: {{ group.a_payoff }}<br>
 	Player B's final payoff is: {{ group.b_payoff }}</p>
 
-	<p>You will receive {{ money_to_pay }}. Thank you very much for participating in this experiment.</p><p>&nbsp;</p>
 
 	{% if player.role == "principal" %}
-		<p><b>Final Questions</b></p>
+		<p><b>Evaluation</b></p>
 		{% if group.treatment == "agent" %}
 			{% formfield player.decision_satisfaction with label="How satisfied are you with the <u>color choice</u> of Player A? (1 = very dissatisfied, 7 = very satisfied)" %}
 		{% else %}
@@ -48,10 +49,7 @@
 	{% endif %}
 
 
-	{% if player.role == "principal" %}
-		<p>Please click 'next' to finish the experiment.<p>
-		{% next_button %}
-	{% endif %}
+	{% next_button %}
 
 {% endblock %}
 
