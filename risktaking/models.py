@@ -58,6 +58,12 @@ class Player(BasePlayer):
 
 	skip_trial = models.CharField(choices=["nein", "ja"], initial="ja")
 
+	ch_no = models.PositiveIntegerField(min=1, max=4)
+	sq_act = models.PositiveIntegerField(min=1, max=4)
+	sq_no = models.PositiveIntegerField(min=1, max=4)
+	ch_act = models.PositiveIntegerField(min=1, max=4)
+
+
 	def set_payoff(self):
 		if self.lottery_outcome == "high":
 			self.payoff = c(self.high_payoff)

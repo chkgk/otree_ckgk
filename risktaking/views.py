@@ -47,6 +47,11 @@ class MainTask(Page):
 	def before_next_page(self):
 		self.player.set_payoff();
 
+class Vignettes(Page):
+	form_model = models.Player
+	form_fields = ['ch_no', 'sq_act', 'sq_no', 'ch_act']
+
+
 class Feedback(Page):
     pass
 
@@ -54,11 +59,12 @@ class Feedback(Page):
 #page_sequence = [ Settings ] + [ Step for i in range(Constants.steps) ] + [ Feedback ]
 
 page_sequence = [
-	Settings,
+#	Settings,
 #	Welcome,
 # 	Instructions,
-	TryOut,
+#	TryOut,
 # 	MainTaskPrep,
-	MainTask,
-	Feedback
+#	MainTask,
+	Vignettes,
+#	Feedback
 ]
