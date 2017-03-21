@@ -68,6 +68,9 @@ class Demographics(Page):
 class Feedback(Page):
     pass
 
+class End(Page):
+	pass
+
 
 #page_sequence = [ Settings ] + [ Step for i in range(Constants.steps) ] + [ Feedback ]
 
@@ -78,9 +81,10 @@ page_sequence = [
  	Instructions2,
  	TryOutAnnouncement,
 #	TryOut,
-# 	MainTaskPrep,
+ 	MainTaskPrep,
 #	MainTask,
-#	Vignettes,
+	Vignettes,
 	Demographics,
-#	Feedback
+#	Feedback,
+	End
 ]

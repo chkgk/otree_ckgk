@@ -64,7 +64,7 @@ class Player(BasePlayer):
 	ch_act = models.PositiveIntegerField(min=1, max=4)
 
 	age = models.PositiveIntegerField(min=0, max=110)
-	gender = models.CharField(choices=['männlich', 'weiblich'])
+	gender = models.CharField(choices=['männlich', 'weiblich'], widget=widgets.RadioSelectHorizontal)
 	studies = models.CharField()	
 
 	def set_payoff(self):
