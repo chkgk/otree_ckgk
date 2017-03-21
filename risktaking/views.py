@@ -12,7 +12,17 @@ class Settings(Page):
 class Welcome(Page):
 	pass
 
-class Instructions(Page):
+class Instructions1(Page):
+	pass
+
+class Instructions2(Page):
+	def vars_for_template(self):
+		return {
+			'default': safe_json(self.player.default),
+			'mode': safe_json(self.player.mode)		
+		}
+
+class TryOutAnnouncement(Page):
 	pass
 
 class TryOut(Page):
@@ -51,6 +61,9 @@ class Vignettes(Page):
 	form_model = models.Player
 	form_fields = ['ch_no', 'sq_act', 'sq_no', 'ch_act']
 
+class Demographics(Page):
+	form_model = models.Player
+	form_fields = ['age', 'gender', 'studies']
 
 class Feedback(Page):
     pass
@@ -61,10 +74,13 @@ class Feedback(Page):
 page_sequence = [
 #	Settings,
 #	Welcome,
-# 	Instructions,
+ 	Instructions1,
+ 	Instructions2,
+ 	TryOutAnnouncement,
 #	TryOut,
 # 	MainTaskPrep,
 #	MainTask,
-	Vignettes,
+#	Vignettes,
+	Demographics,
 #	Feedback
 ]

@@ -63,6 +63,9 @@ class Player(BasePlayer):
 	sq_no = models.PositiveIntegerField(min=1, max=4)
 	ch_act = models.PositiveIntegerField(min=1, max=4)
 
+	age = models.PositiveIntegerField(min=0, max=110)
+	gender = models.CharField(choices=['männlich', 'weiblich'])
+	studies = models.CharField()	
 
 	def set_payoff(self):
 		if self.lottery_outcome == "high":

@@ -1,0 +1,13 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+	Proberunde
+{% endblock %}
+
+{% block content %}
+	<p>
+		Bevor Sie mit der ersten Entscheidungsaufgabe beginnen, können Sie sich auf dem folgenden Bildschirm kurz mit der Bedienung bekannt machen. Sobald Sie diese Erklärungen abgeschlossen haben beginnt die auszahlungsrelevante Entscheidungsaufgabe.
+	</p>
+	{% next_button %}
+{% endblock %}
