@@ -133,7 +133,7 @@ SESSION_CONFIGS = [
     {
     	'name': 'active_passive',
     	'display_name': 'Active / Passive Risk Taking Task 2',
-    	'app_sequence': ['risktaking'],
+    	'app_sequence': ['risktaking_instructions', 'risktaking', 'risktaking_lastpart'],
     	'num_demo_participants': 10
     }
 ]

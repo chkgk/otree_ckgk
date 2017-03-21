@@ -15,25 +15,13 @@ Active Risk Taking, new Design
 class Constants(BaseConstants):
 	name_in_url = 'risktaking'
 	players_per_group = None
-	num_rounds = 1	# change to 10 later on
+	num_rounds = 10	# change to 10 later on
 
 
 class Subsession(BaseSubsession):
 	def before_session_starts(self):
-		treatment = itertools.cycle([1, 2, 3, 4])
 		for player in self.get_players():
-			player.treatment = next(treatment)
-			if player.treatment in [1, 2]:
-				player.default = "Safe"
-			else:
-				player.default = "Risky"
-
-			if player.treatment in [1, 3]:
-				player.mode = "Active"
-			else:
-				player.mode = "Passive"
-
-			player.lottery_outcome = random.choice(["low", "high"])
+			player.lottery_outcome = random.choice(['low', 'high'])
 
 
 class Group(BaseGroup):
@@ -41,34 +29,18 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-	mode = models.CharField(initial="active", choices=['Active', 'Passive'])
-	default = models.CharField(initial="safe", choices=['Safe', 'Risky'])
-
-
-	lottery_outcome = models.CharField(choices=["low", "high"])
 
 	low_payoff = models.FloatField()
 	high_payoff = models.FloatField()
+	lottery_outcome = models.CharField()
 
-	max_steps = models.IntegerField(initial=20)
-	interval = models.IntegerField(initial=5) 
-
-	small_step = models.IntegerField(initial=8)
-	big_step = models.IntegerField(initial=12)
-
-	skip_trial = models.CharField(choices=["nein", "ja"], initial="ja")
-
-	ch_no = models.PositiveIntegerField(min=1, max=4)
-	sq_act = models.PositiveIntegerField(min=1, max=4)
-	sq_no = models.PositiveIntegerField(min=1, max=4)
-	ch_act = models.PositiveIntegerField(min=1, max=4)
-
-	age = models.PositiveIntegerField(min=0, max=110)
-	gender = models.CharField(choices=['männlich', 'weiblich'], widget=widgets.RadioSelectHorizontal)
-	studies = models.CharField()	
 
 	def set_payoff(self):
 		if self.lottery_outcome == "high":
 			self.payoff = c(self.high_payoff)
 		else:
 			self.payoff = c(self.low_payoff)
+
+		if self.round_number == Constants.num_rounds:
+			relevant_player_obj = self.player.in_round(self.participant.vars['relevant_round'])
+			self.participant.vars['finalpayoff'] = relevant_player_obj.payoff
