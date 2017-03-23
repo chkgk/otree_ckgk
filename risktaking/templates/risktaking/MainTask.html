@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-	Runde {{ round_number }} von 10
+	Runde {{ round_number }} von {{ max_rounds }}
 {% endblock %}
 
 {% block styles %}
@@ -38,6 +38,10 @@
 			padding-bottom: 0px !important;
 			margin-top: 0px !important;
 			margin-bottom: 10px !important;
+		}
+
+		.smalltext {
+			font-size: 12px;
 		}
 	</style>
 {% endblock %}
@@ -243,8 +247,8 @@
 				this.running = false;
 
 				var msg = "";
-				if (this.round <= 3) {
-					msg = "Die Lotterie wurde festgelet. ";
+				if (this.round > 3) {
+					msg = "Die Lotterie wurde festgelegt. ";
 					if (this.outcome == "high") {
 						msg += "Es wurde <span class='yellow'>gelb</span> gezogen.";
 					} else {
@@ -289,13 +293,13 @@
 {% endblock %}
 
 {% block content %}
-	{% if round_number <= 3 %}
-		<p><em>Sie erhalten Feedback über den Ausgang der Lotterie.</em></p>
+	{% if round_number > "3" %}
+		<p class="smalltext"><em>Sie erhalten sofort Feedback über den Ausgang der Lotterie.</em></p>
 	{% else %}
-		<p><em>Sie erhalten kein Feedback über den Ausgang der Lotterie.</em></p>
+		<p class="smalltext"><em>Sie erhalten erst am Ende des Experiments Feedback über den Ausgang der Lotterie.</em></p>
 	{% endif %}
 	<div id="countdown">
-		<span id="msg">Die Aufgabe beginnt in ca. 10 Sekunden.</span><span id="counter"></span>
+		<span id="msg">Die Runde beginnt in ca. 10 Sekunden.</span><span id="counter"></span>
 	</div>
 
 	<div id="lottery1"></div>

@@ -4,8 +4,12 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
+
 class Welcome(Page):
-	pass
+	def vars_for_template(self):
+		return {
+			'exchange_rate': format(self.session.real_world_currency_per_point*100, '.2f').replace('.', ',')
+		}
 
 class Instructions1(Page):
 	pass
@@ -14,7 +18,10 @@ class Instructions2(Page):
 	def vars_for_template(self):
 		return {
 			'default': safe_json(self.participant.vars['default']),
-			'mode': safe_json(self.participant.vars['mode'])		
+			'mode': safe_json(self.participant.vars['mode']),
+			'big_step': safe_json(self.session.vars['big_step']), 
+			'small_step': safe_json(self.session.vars['small_step']),
+			'interval': safe_json(self.session.vars['interval']),
 		}
 
 class TryOutAnnouncement(Page):

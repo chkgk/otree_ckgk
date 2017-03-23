@@ -12,9 +12,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # the environment variable OTREE_PRODUCTION controls whether Django runs in
 # DEBUG mode. If OTREE_PRODUCTION==1, then DEBUG=False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
-    DEBUG = False
+	DEBUG = False
 else:
-    DEBUG = True
+	DEBUG = True
 
 ADMIN_USERNAME = 'admin'
 
@@ -31,9 +31,9 @@ SECRET_KEY = '!s7_h(q+jov-uy30j)3x2#)9@j*fk-xs$l6#d-&@54t-v#bvtf'
 # mysql://USER:PASSWORD@HOST:PORT/NAME
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-    )
+	'default': dj_database_url.config(
+		default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+	)
 }
 
 # AUTH_LEVEL:
@@ -69,7 +69,7 @@ INSTALLED_APPS = ['otree']
 
 DEMO_PAGE_INTRO_TEXT = """
 <p>
-    These Apps are currently available.
+	These Apps are currently available.
 </p>
 """
 
@@ -80,20 +80,20 @@ DEMO_PAGE_INTRO_TEXT = """
 # https://boto.readthedocs.org/en/latest/ref/mturk.html?highlight=mturk#module-boto.mturk.qualification
 
 mturk_hit_settings = {
-    'keywords': ['easy', 'bonus', 'choice', 'study'],
-    'title': 'Title for your experiment',
-    'description': 'Description for your experiment',
-    'frame_height': 500,
-    'preview_template': 'global/MTurkPreview.html',
-    'minutes_allotted_per_assignment': 60,
-    'expiration_hours': 7*24,  # 7 days
-    # 'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
-    'qualification_requirements': [
-        # qualification.LocaleRequirement("EqualTo", "US"),
-        # qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 50),
-        # qualification.NumberHitsApprovedRequirement("GreaterThanOrEqualTo", 5),
-        # qualification.Requirement('YOUR_QUALIFICATION_ID_HERE', 'DoesNotExist')
-    ]
+	'keywords': ['easy', 'bonus', 'choice', 'study'],
+	'title': 'Title for your experiment',
+	'description': 'Description for your experiment',
+	'frame_height': 500,
+	'preview_template': 'global/MTurkPreview.html',
+	'minutes_allotted_per_assignment': 60,
+	'expiration_hours': 7*24,  # 7 days
+	# 'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
+	'qualification_requirements': [
+		# qualification.LocaleRequirement("EqualTo", "US"),
+		# qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 50),
+		# qualification.NumberHitsApprovedRequirement("GreaterThanOrEqualTo", 5),
+		# qualification.Requirement('YOUR_QUALIFICATION_ID_HERE', 'DoesNotExist')
+	]
 }
 
 SENTRY_DSN = 'http://83a9e5316b4a4153b0f3cac17f56d66a:383287703cf84e35a40648e2ff689093@sentry.otree.org/54'
@@ -102,11 +102,11 @@ ROOMS_DEFAULTS = {
 }
 
 ROOMS = [
-    {
-        'name': 'awi_lab',
-        'display_name': 'AWI Experimentallabor',
-        'participant_label_file': 'participant_labels.txt'
-    }
+	{
+		'name': 'awi_lab',
+		'display_name': 'AWI Experimentallabor',
+		'participant_label_file': 'participant_labels.txt'
+	}
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -115,27 +115,30 @@ ROOMS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = {
-    'real_world_currency_per_point': 0.001,
-    'participation_fee': 3.00,
-    'num_bots': 12,
-    'doc': "",
-    'mturk_hit_settings': mturk_hit_settings,
+	'real_world_currency_per_point': 0.1,
+	'participation_fee': 3.00,
+	'num_bots': 12,
+	'doc': "",
+	'mturk_hit_settings': mturk_hit_settings,
 }
 
 
 SESSION_CONFIGS = [
-    {
-    	'name': 'outcome_bias',
-    	'display_name': 'Outcome Bias Add On',
-    	'app_sequence': ['outcomebias'],
-    	'num_demo_participants': 6
-    },
-    {
-    	'name': 'active_passive',
-    	'display_name': 'Active / Passive Risk Taking Task 2',
-    	'app_sequence': ['risktaking_instructions', 'risktaking', 'risktaking_lastpart'],
-    	'num_demo_participants': 10
-    }
+	{
+		'name': 'outcome_bias',
+		'display_name': 'Outcome Bias Add On',
+		'app_sequence': ['outcomebias'],
+		'num_demo_participants': 6
+	},
+	{
+		'name': 'active_passive',
+		'display_name': 'Active / Passive Risk Taking',
+		'app_sequence': ['risktaking_instructions', 'risktaking', 'risktaking_lastpart'],
+		'num_demo_participants': 4,
+		'real_world_currency_per_point': 0.02,
+		'participation_fee': 3.00,
+		'main_task_rounds': 10
+	},
 ]
 
 # anything you put after the below line will override

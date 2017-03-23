@@ -32,7 +32,7 @@ class Subsession(BaseSubsession):
 			else:
 				player.participant.vars['mode']  = "Passive"
 
-			player.participant.vars['relevant_round'] = random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+			player.participant.vars['relevant_round'] = random.randint(1, self.session.config['main_task_rounds'])
 
 		self.session.vars['small_step'] = 8
 		self.session.vars['big_step'] = 12

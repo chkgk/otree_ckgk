@@ -15,7 +15,7 @@ Active Risk Taking, new Design
 class Constants(BaseConstants):
 	name_in_url = 'risktaking'
 	players_per_group = None
-	num_rounds = 10	# change to 10 later on
+	num_rounds = 10
 
 
 class Subsession(BaseSubsession):
@@ -33,14 +33,17 @@ class Player(BasePlayer):
 	low_payoff = models.FloatField()
 	high_payoff = models.FloatField()
 	lottery_outcome = models.CharField()
+	lottery_payoff = models.CurrencyField()
 
 
 	def set_payoff(self):
 		if self.lottery_outcome == "high":
-			self.payoff = c(self.high_payoff)
+			self.lottery_payoff = c(self.high_payoff)
 		else:
-			self.payoff = c(self.low_payoff)
+			self.lottery_payoff = c(self.low_payoff)
 
-		if self.round_number == Constants.num_rounds:
-			relevant_player_obj = self.player.in_round(self.participant.vars['relevant_round'])
-			self.participant.vars['finalpayoff'] = relevant_player_obj.payoff
+		if self.round_number == self.participant.vars['relevant_round']:
+			self.payoff = self.lottery_payoff
+			self.participant.vars['lottery_outcome'] = 'gelb' if self.lottery_outcome == 'high' else 'grün'
+			self.participant.vars['low_payoff'] = c(self.low_payoff)
+			self.participant.vars['high_payoff'] = c(self.high_payoff)

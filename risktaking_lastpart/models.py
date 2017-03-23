@@ -20,10 +20,8 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-	def before_session_starts(self):
-		for player in self.get_players():
-			player.payoff = self.participant.vars['finalpayoff']
-	
+	pass
+
 class Group(BaseGroup):
 	pass
 
