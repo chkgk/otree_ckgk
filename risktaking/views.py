@@ -4,61 +4,30 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-
-class Settings(Page):
-    form_model = models.Player
-    form_fields = ['default', 'mode', 'max_steps', 'interval', 'small_step', 'big_step', 'skip_trial']
-
-class Welcome(Page):
-	pass
-
-class Instructions(Page):
-	pass
-
-class TryOut(Page):
-	def is_displayed(self):
-		return self.player.skip_trial == "nein"
-
-	def vars_for_template(self):
-		return {
-			'big_step': safe_json(self.player.big_step), 
-			'interval': safe_json(self.player.interval),
-			'default': safe_json(self.player.default),
-			'mode': safe_json(self.player.mode)
-		}
-
-class MainTaskPrep(Page):
-	pass
-
 class MainTask(Page):
 	form_model = models.Player
 	form_fields = ['low_payoff', 'high_payoff']
 
+	def is_displayed(self):
+		return self.round_number <= self.session.config['main_task_rounds']
+
 	def vars_for_template(self):
 		return {
-			'small_step': safe_json(self.player.small_step),
-			'big_step': safe_json(self.player.big_step),
-			'max_steps': safe_json(self.player.max_steps), 
-			'interval': safe_json(self.player.interval),
-			'default': safe_json(self.player.default),
-			'mode': safe_json(self.player.mode)
+			'small_step': safe_json(self.session.vars['small_step']),
+			'big_step': safe_json(self.session.vars['big_step']),
+			'max_steps': safe_json(self.session.vars['max_steps']), 
+			'interval': safe_json(self.session.vars['interval']),
+			'default': safe_json(self.participant.vars['default']),
+			'mode': safe_json(self.participant.vars['mode']),
+			'lottery_outcome': safe_json(self.player.lottery_outcome),
+			'round_number': safe_json(self.round_number),
+			'max_rounds': safe_json(self.session.config['main_task_rounds'])
 		}
 
 	def before_next_page(self):
 		self.player.set_payoff();
 
-class Feedback(Page):
-    pass
-
-
-#page_sequence = [ Settings ] + [ Step for i in range(Constants.steps) ] + [ Feedback ]
 
 page_sequence = [
-	Settings,
-#	Welcome,
-# 	Instructions,
-	TryOut,
-# 	MainTaskPrep,
-	MainTask,
-	Feedback
+	MainTask
 ]

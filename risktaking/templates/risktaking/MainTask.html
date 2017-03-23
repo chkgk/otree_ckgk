@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-	Entscheidungssituation
+	Runde {{ round_number }} von {{ max_rounds }}
 {% endblock %}
 
 {% block styles %}
@@ -25,7 +25,24 @@
 			text-align: right;
 		}
 
+		.green {
+			color: green;
+		}
 
+		.yellow {
+			color: orange;
+		}
+
+		.page-header {
+			padding-top: 0px !important;
+			padding-bottom: 0px !important;
+			margin-top: 0px !important;
+			margin-bottom: 10px !important;
+		}
+
+		.smalltext {
+			font-size: 12px;
+		}
 	</style>
 {% endblock %}
 
@@ -45,7 +62,9 @@
 		    	big_step: {{ big_step }},
 		    	max_steps: {{ max_steps }},
 		    	min: 0.0,
-		    	interval: {{ interval }}
+		    	interval: {{ interval }},
+		    	round: {{ round_number }},
+		    	outcome: {{ lottery_outcome }}
 		    });
 		    Adj.run();
 		});
@@ -92,6 +111,10 @@
 				this.running = false;
 				this.user_has_acted = false;
 				this.interval_id = null;
+
+				this.round = settings.round;
+				this.outcome = settings.outcome;
+
 				self = this;
 
 				if (this.mode == "Active") {
@@ -222,7 +245,19 @@
 				window.clearInterval(this.interval_id);
 				this.interval_id = null;
 				this.running = false;
-				this.info.text("Die Lotterie wurde festgelegt.");
+
+				var msg = "";
+				if (this.round > 3) {
+					msg = "Die Lotterie wurde festgelegt. ";
+					if (this.outcome == "high") {
+						msg += "Es wurde <span class='yellow'>gelb</span> gezogen.";
+					} else {
+						msg += "Es wurde <span class='green'>grün</span> gezogen.";
+					}
+				} else {
+					msg = "Die Lotterie wurde festgelegt.";
+				}
+				this.info.html(msg);
 				this.info.removeClass("hidden");
 				this.counter.text("");
 				this.msg.text("Die Zeit ist abgelaufen.");
@@ -250,15 +285,6 @@
 					this.stop();
 				}
 			}
-
-
-			// this.prepare({
-			// 	small_step: 3,
-			// 	big_step: 6,
-			// 	min: 0.0,
-			// 	max_steps: 20,
-			// 	interval: 3.0
-			// });
 					
 		}
 
@@ -267,9 +293,13 @@
 {% endblock %}
 
 {% block content %}
-
+	{% if round_number > "3" %}
+		<p class="smalltext"><em>Sie erhalten sofort Feedback über den Ausgang der Lotterie.</em></p>
+	{% else %}
+		<p class="smalltext"><em>Sie erhalten erst am Ende des Experiments Feedback über den Ausgang der Lotterie.</em></p>
+	{% endif %}
 	<div id="countdown">
-		<span id="msg">Die Aufgabe beginnt in ca. 10 Sekunden.</span><span id="counter"></span>
+		<span id="msg">Die Runde beginnt in ca. 10 Sekunden.</span><span id="counter"></span>
 	</div>
 
 	<div id="lottery1"></div>
