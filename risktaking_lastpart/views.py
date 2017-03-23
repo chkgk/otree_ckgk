@@ -3,6 +3,9 @@ from . import models
 from ._builtin import Page, WaitPage
 from .models import Constants
 
+class CollectParticipants(WaitPage):
+	title_text = "Bitte warten"
+	body_text = "Bitte warten Sie, bis alle Teilnehmer die Entscheidungsrunden absolviert haben."
 
 class Vignettes(Page):
 	form_model = models.Player
@@ -29,6 +32,7 @@ class End(Page):
 
 
 page_sequence = [
+	CollectParticipants,
 	Vignettes,
 	Demographics,
 	End

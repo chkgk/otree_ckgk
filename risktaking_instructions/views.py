@@ -24,6 +24,10 @@ class Instructions2(Page):
 			'interval': safe_json(self.session.vars['interval']),
 		}
 
+class InstructionsWait(WaitPage):
+	title_text = "Bitte warten"
+	body_text = "Bitte warten Sie, bis alle Teilnehmer die Instruktionen gelesen haben."
+
 class TryOutAnnouncement(Page):
 	pass
 
@@ -38,6 +42,10 @@ class TryOut(Page):
 			'mode': safe_json(self.participant.vars['mode'])
 		}
 
+class TryWait(WaitPage):
+	title_text = "Bitte warten"
+	body_text = "Bitte warten Sie, bis alle Teilnehmer die Proberunde absolviert haben."
+
 class MainTaskPrep(Page):
 	pass
 
@@ -46,7 +54,9 @@ page_sequence = [
 	Welcome,
 	Instructions1,
 	Instructions2,
+	InstructionsWait,
 	TryOutAnnouncement,
 	TryOut,
+	TryWait,
 	MainTaskPrep
 ]
