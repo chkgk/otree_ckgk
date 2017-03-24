@@ -5,6 +5,6 @@ staticfiles
 .idea
 *~
 *.sqlite3
-_coverage_results
-_static_root
-
+_coverage_results/
+.DS_Store
+_static_root/
