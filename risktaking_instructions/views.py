@@ -35,8 +35,8 @@ class TryOut(Page):
 
 	def vars_for_template(self):
 		return {
-			'big_step': safe_json(self.session.vars['big_step']), 
-			'small_step': safe_json(self.session.vars['small_step']),
+			'big_step': safe_json(self.session.vars['steps'][0]['big_step']), 
+			'small_step': safe_json(self.session.vars['steps'][0]['small_step']),
 			'interval': safe_json(self.session.vars['interval']),
 			'default': safe_json(self.participant.vars['default']),
 			'mode': safe_json(self.participant.vars['mode'])
