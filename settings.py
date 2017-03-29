@@ -138,7 +138,7 @@ SESSION_CONFIGS = [
 		'real_world_currency_per_point': 0.02,
 		'participation_fee': 3.00,
 		'main_task_rounds': 10
-	},
+	}
 ]
 
 # anything you put after the below line will override
