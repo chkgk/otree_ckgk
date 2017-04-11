@@ -59,7 +59,7 @@ USE_POINTS = True
 
 # e.g. en, de, fr, it, ja, zh-hans
 # see: https://docs.djangoproject.com/en/1.9/topics/i18n/#term-language-code
-LANGUAGE_CODE = 'de'
+LANGUAGE_CODE = 'en'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
@@ -115,7 +115,7 @@ ROOMS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = {
-	'real_world_currency_per_point': 0.1,
+	'real_world_currency_per_point': 0.01,
 	'participation_fee': 3.00,
 	'num_bots': 12,
 	'doc': "",
