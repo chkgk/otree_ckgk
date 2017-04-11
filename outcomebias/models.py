@@ -65,7 +65,7 @@ class Group(BaseGroup):
 					player.payoff = Constants.agent_fix_pay + self.reward
 					self.a_payoff = player.payoff
 				else:
-					player.payoff = Constants.principal_fix_pay + (Constants.reward_pot - self.reward) + self.lottery_pay
+					player.payoff = Constants.principal_fix_pay - self.reward + self.lottery_pay
 					self.b_payoff = player.payoff
 		else:
 			for player in self.get_players():

@@ -5,6 +5,34 @@
    	Results
 {% endblock %}
 
+
+{% block styles %}
+	<style type="text/css">
+	.page-header {
+		padding-top: 0px !important;
+		padding-bottom: 0px !important;
+		margin-top: 0px !important;
+		margin-bottom: 10px !important;
+	}
+	</style>
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		// This script hides the timeout until there is only less than one minute left.
+		$(function() {
+			$('#time-limit').hide(); 	
+		});
+		
+		$('#minutes').bind("DOMSubtreeModified",function(event){
+  			if (event.currentTarget.innerHTML == "0") {
+  				// console.log('less than one minute to go');
+  				$('#time-limit').show(); 
+  			}
+		});
+	</script>
+{% endblock %}
+
 {% block content %}
 
 	<p><b>Role</b><br>
