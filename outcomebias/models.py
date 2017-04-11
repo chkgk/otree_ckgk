@@ -60,6 +60,7 @@ class Group(BaseGroup):
 			self.lottery_pay = Constants.lottery_high_payoff if self.lottery_outcome == "good" else Constants.lottery_low_payoff
 			self.reward = self.reward_good if self.lottery_outcome == "good" else self.reward_bad
 			for player in self.get_players():
+				player.payoff_calculated = True
 				if player.role() == "agent":
 					player.payoff = Constants.agent_fix_pay + self.reward
 					self.a_payoff = player.payoff
@@ -90,6 +91,8 @@ class Player(BasePlayer):
 
 
 	timed_out = models.BooleanField(initial=False)
+
+	payoff_calculated = models.BooleanField(initial=False)
 
 	outcome_satisfaction = models.PositiveIntegerField(choices=Constants.LikertScale, widget=widgets.RadioSelectHorizontal)
 	decision_satisfaction = models.PositiveIntegerField(choices=Constants.LikertScale, widget=widgets.RadioSelectHorizontal)

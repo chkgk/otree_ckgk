@@ -96,7 +96,7 @@ class Results(Page):
 
 class Demographics(Page):
 	def is_displayed(self):
-		return self.group.intact
+		return self.player.payoff_calculated
 
 	form_model = models.Player
 	form_fields = ['age', 'gender', 'education', 'studies', 'occupation']
@@ -110,7 +110,7 @@ class Demographics(Page):
 
 class Payment(Page):
 	def is_displayed(self):
-		return self.group.intact
+		self.player.payoff_calculated
 
 	def vars_for_template(self):
 		return {'money_to_pay': self.participant.payoff_plus_participation_fee()}
