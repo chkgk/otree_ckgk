@@ -5,6 +5,24 @@
     Welcome
 {% endblock %}
 
+{% block styles %}
+	<style type="text/css">
+	.time-limit: {
+
+	}
+	</style>
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		$('#minutes').bind("DOMSubtreeModified",function(event){
+  			if (event.currentTarget.innerHTML == "0") {
+  				console.log('less than one minute to go');
+  			}
+		});
+	</script>
+{% endblock %}
+
 {% block content %}
 
 <!--
