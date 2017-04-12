@@ -25,8 +25,8 @@ class Constants(BaseConstants):
 	principal_fix_pay = 100
 	reward_pot = 100
 
-	long_timeout = 180
-	decision_timeout = 180
+	long_timeout = 45
+	decision_timeout = 20
 
 	LikertScale = [1, 2, 3, 4, 5, 6, 7]
 
@@ -44,8 +44,8 @@ class Group(BaseGroup):
 	reward_bad = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
 	reward = models.PositiveIntegerField(min=0, max=Constants.reward_pot)
 
-	a_payoff = models.PositiveIntegerField()
-	b_payoff = models.PositiveIntegerField()
+	a_payoff = models.CurrencyField()
+	b_payoff = models.CurrencyField()
 
 	intact = models.BooleanField(initial=True)
 
@@ -72,9 +72,13 @@ class Group(BaseGroup):
 				if player.role() == "agent":
 					player.payoff = Constants.agent_fix_pay
 					self.a_payoff = player.payoff
+					if player.timed_out:
+						player.payoff = 0
 				else:
 					player.payoff = Constants.principal_fix_pay	
 					self.b_payoff = player.payoff
+					if player.timed_out:
+						player.payoff = 0
 
 		for player in self.get_players():
 			player.GXPProfit = player.payoff

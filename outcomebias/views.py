@@ -81,6 +81,7 @@ class ResultsWaitPage(WaitPage):
 
 class Results(Page):
 	timeout_seconds = Constants.decision_timeout
+	timeout_submission = {'outcome_satisfaction': 1, 'decision_satisfaction': 1}
 
 	form_model = models.Player
 
@@ -90,18 +91,31 @@ class Results(Page):
 		else:
 			return []
 
+	def before_next_page(self):
+		if self.timeout_happened:
+			self.player.timed_out = True
+			self.player.payoff = c(0)
+			self.player.GXPProfit = self.player.payoff
+
 	def is_displayed(self):
 		return self.group.intact
 
 
 class Demographics(Page):
 	def is_displayed(self):
-		return self.player.payoff_calculated
+		return self.player.payoff_calculated and not self.player.timed_out
+
 
 	form_model = models.Player
 	form_fields = ['age', 'gender', 'education', 'studies', 'occupation']
 
 	timeout_seconds = Constants.long_timeout
+
+	def before_next_page(self):
+		if self.timeout_happened:
+			self.player.timed_out = True
+			self.player.payoff = c(0)
+			self.player.GXPProfit = self.player.payoff
 
 	def error_message(self, values):
 		if values['education'] >= 3 and not values['studies'] :
@@ -110,7 +124,7 @@ class Demographics(Page):
 
 class Payment(Page):
 	def is_displayed(self):
-		self.player.payoff_calculated
+		return self.player.payoff_calculated and not self.player.timed_out
 
 	def vars_for_template(self):
 		return {'money_to_pay': self.participant.payoff_plus_participation_fee()}
@@ -118,7 +132,12 @@ class Payment(Page):
 
 class Failure(Page):
 	def is_displayed(self):
-		return not self.group.intact 
+		return not self.group.intact or self.player.timed_out
+
+	def vars_for_template(self):
+		return {'money_to_pay': self.participant.payoff_plus_participation_fee()}
+
+
 
 page_sequence = [
 	Arrival,
