@@ -47,7 +47,7 @@ http://getbootstrap.com/components/
 
 <p>{% if group.treatment == "agent" %}You have {% else %} The computer has {% endif %} determined the winning color for Player B's lottery. </p>
 
-<p>Player B now decides how many points to send you, depending on the outcome of the lottery.</p>
+<p>Player B now decides how many points (between 0 and 100) to send you, depending on the outcome of the lottery.</p>
 
 {% formfield player.expected_transfer_good with label="How many points do you think will Player B send to you if the outcome of the lottery is good?" %}
 
