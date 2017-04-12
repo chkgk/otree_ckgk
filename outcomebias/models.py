@@ -25,8 +25,8 @@ class Constants(BaseConstants):
 	principal_fix_pay = 100
 	reward_pot = 100
 
-	long_timeout = 45
-	decision_timeout = 20
+	long_timeout = 180
+	decision_timeout = 180
 
 	LikertScale = [1, 2, 3, 4, 5, 6, 7]
 
