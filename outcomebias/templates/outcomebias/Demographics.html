@@ -20,13 +20,13 @@
 	<script type="text/javascript">
 		// This script hides the timeout until there is only less than one minute left.
 		$(function() {
-			$('#time-limit').hide(); 	
+			$('#otree-timeout').hide(); 	
 		});
 		
 		$('#minutes').bind("DOMSubtreeModified",function(event){
   			if (event.currentTarget.innerHTML == "0") {
   				// console.log('less than one minute to go');
-  				$('#time-limit').show(); 
+  				$('#otree-timeout').show(); 
   			}
 		});
 	</script>
