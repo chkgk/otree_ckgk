@@ -49,9 +49,9 @@ http://getbootstrap.com/components/
 
 <p>Player B now decides how many points (between 0 and 100) to send you, depending on the outcome of the lottery.</p>
 
-{% formfield player.expected_transfer_good with label="How many points do you think will Player B send to you if the outcome of the lottery is good?" %}
+{% formfield player.expected_transfer_good with label="How many points do you think will Player B send to you if the outcome of the lottery is good, i.e. Player B receives an additional 300 points?" %}
 
-{% formfield player.expected_transfer_bad with label="How many points do you think will Player B send to you if the outcome of the lottery is bad?" %}
+{% formfield player.expected_transfer_bad with label="How many points do you think will Player B send to you if the outcome of the lottery is bad, i.e. Player B receives an additional 100 points?" %}
 
 {% next_button %}
 

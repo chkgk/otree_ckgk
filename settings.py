@@ -128,7 +128,8 @@ SESSION_CONFIGS = [
 		'name': 'outcome_bias',
 		'display_name': 'Outcome Bias Add On',
 		'app_sequence': ['outcomebias'],
-		'num_demo_participants': 6
+		'num_demo_participants': 4,
+		'participation_fee': 0.00
 	},
 	{
 		'name': 'active_passive',
@@ -138,6 +139,12 @@ SESSION_CONFIGS = [
 		'real_world_currency_per_point': 0.02,
 		'participation_fee': 3.00,
 		'main_task_rounds': 10
+	},
+	{
+		'name': 'public_goods',
+		'display_name': "Public Goods",
+		'num_demo_participants': 3,
+		'app_sequence': ['public_goods', 'payment_info'],
 	}
 ]
 
