@@ -54,7 +54,7 @@ AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 
 # e.g. EUR, CAD, GBP, CHF, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'EUR'
-USE_POINTS = True
+USE_POINTS = False
 
 
 # e.g. en, de, fr, it, ja, zh-hans
@@ -134,18 +134,16 @@ SESSION_CONFIGS = [
 	{
 		'name': 'active_passive',
 		'display_name': 'Active / Passive Risk Taking',
-		'app_sequence': ['risktaking_instructions', 'risktaking', 'risktaking_lastpart'],
-		'num_demo_participants': 4,
+		'app_sequence': [
+			'risktaking_instructions', 
+			'risktaking', 
+			'risktaking_lastpart'
+		],
+		'num_demo_participants': 1,
 		'real_world_currency_per_point': 0.02,
 		'participation_fee': 3.00,
 		'main_task_rounds': 10
 	},
-	{
-		'name': 'public_goods',
-		'display_name': "Public Goods",
-		'num_demo_participants': 3,
-		'app_sequence': ['public_goods', 'payment_info'],
-	}
 ]
 
 # anything you put after the below line will override

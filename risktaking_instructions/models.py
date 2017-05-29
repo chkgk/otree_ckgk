@@ -16,6 +16,25 @@ class Constants(BaseConstants):
 	players_per_group = None
 	num_rounds = 1
 
+	lotteries = [ # in cent
+		{'small_step': 20, 'big_step': 30}, # 0, faktor 1.5
+		{'small_step': 40, 'big_step': 60}, # 1
+		{'small_step': 60, 'big_step': 90}, # 2
+		{'small_step': 80, 'big_step': 120}, # 3
+		{'small_step': 100, 'big_step': 150}, # 4
+
+		{'small_step': 10, 'big_step': 30}, # 5, faktor 3
+		{'small_step': 30, 'big_step': 90}, # 6
+		{'small_step': 50, 'big_step': 150}, # 7
+		{'small_step': 70, 'big_step': 210}, # 8 
+		{'small_step': 90, 'big_step': 270}, # 9
+	]
+
+	lottery_orders = [
+		[2, 4, 0, 3, 2, 7, 9, 5, 8, 6], # 0 (1.5: M H L h l -- 3:   M H L h l)
+		[7, 9, 5, 8, 6, 2, 4, 0, 3, 2], # 1 (3:   M H L h l -- 1.5: M H L h l)
+	]
+
 
 class Subsession(BaseSubsession):
 	def before_session_starts(self):
@@ -33,24 +52,18 @@ class Subsession(BaseSubsession):
 				player.participant.vars['mode']  = "Passive"
 
 			player.participant.vars['relevant_round'] = random.randint(1, self.session.config['main_task_rounds'])
+			player.participant.vars['lottery_order'] = random.choice([0, 1])
+			player.lottery_order = player.participant.vars['lottery_order']
+			player.participant.vars['steps'] = []
+			# create steps variable from selected lottery order
+			for lottery in Constants.lottery_orders[player.participant.vars['lottery_order']]:
+				player.participant.vars['steps'].append(Constants.lotteries[lottery])
 
+		# used in training
 		self.session.vars['small_step'] = 8
 		self.session.vars['big_step'] = 12
 		self.session.vars['interval'] = 5
 		self.session.vars['max_steps'] = 10
-
-		self.session.vars['steps'] = [
-			{'small_step': 8, 'big_step': 12}, # 0
-			{'small_step': 4, 'big_step': 6}, # 1
-			{'small_step': 2, 'big_step': 3}, # 2
-			{'small_step': 12, 'big_step': 18}, # 3
-			{'small_step': 16, 'big_step': 24}, # 4
-			{'small_step': 32, 'big_step': 64}, # 5
-			{'small_step': 10, 'big_step': 15}, # 6
-			{'small_step': 18, 'big_step': 27}, # 7
-			{'small_step': 5, 'big_step': 7.5}, # 8 
-			{'small_step': 15, 'big_step': 22.5}, # 9
-		]
 
 
 class Group(BaseGroup):
@@ -58,4 +71,4 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-	pass
+	lottery_order = models.IntegerField()

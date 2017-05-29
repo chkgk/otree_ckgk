@@ -13,10 +13,10 @@ class MainTask(Page):
 
 	def vars_for_template(self):
 		return {
-			'small_step': safe_json(self.session.vars['steps'][self.round_number - 1]['small_step']),
-			'big_step': safe_json(self.session.vars['steps'][self.round_number - 1]['big_step']),
-			'small_step_text': self.session.vars['steps'][self.round_number - 1]['small_step']/100,
-			'big_step_text': self.session.vars['steps'][self.round_number - 1]['big_step']/100,
+			'small_step': safe_json(self.participant.vars['steps'][self.round_number - 1]['small_step']),
+			'big_step': safe_json(self.participant.vars['steps'][self.round_number - 1]['big_step']),
+			'small_step_text': self.participant.vars['steps'][self.round_number - 1]['small_step']/100,
+			'big_step_text': self.participant.vars['steps'][self.round_number - 1]['big_step']/100,
 			'max_steps': safe_json(self.session.vars['max_steps']), 
 			'interval': safe_json(self.session.vars['interval']),
 			'default': safe_json(self.participant.vars['default']),
