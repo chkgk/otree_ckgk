@@ -237,12 +237,22 @@
 			}
 
 			this.run = function () {
-				var timeout = 20; // seconds
+				var pre_seconds_left = 20;
 
-				window.setTimeout(function () {
+				self.intro_timer = window.setInterval(function () {
+					pre_seconds_left -= 1;
+					self.counter.text(pre_seconds_left + " Sekunden");
+
+					if (pre_seconds_left <= 0) {
+						doTask();
+						window.clearInterval(self.intro_timer);
+					}
+				}, 1000);
+
+				doTask = function () {
 					self.running = true;
 					self.seconds_left = self.interval;
-					self.msg.text("Verbleibende Zeit: ");
+					self.msg.text("Runde läuft. Verbleibende Zeit: ");
 					self.counter.text(self.seconds_left + " Sekunden");
 					self.info.addClass("hidden");
 					self.btn.removeClass("hidden");
@@ -262,15 +272,48 @@
 							}
 							if (self.running) {
 								self.seconds_left = self.interval;
-								self.msg.text("Verbleibende Zeit: ");
+								self.msg.text("Runde läuft. Verbleibende Zeit: ");
 								self.counter.text(self.seconds_left + " Sekunden");
 								self.btn.removeClass("hidden");
 							}
 						}
 
 					}, 1000);
-				}, timeout * 1000);
+				}
+
 			}
+				// window.setTimeout(function () {
+				// 	self.running = true;
+				// 	self.seconds_left = self.interval;
+				// 	self.msg.text("Verbleibende Zeit: ");
+				// 	self.counter.text(self.seconds_left + " Sekunden");
+				// 	self.info.addClass("hidden");
+				// 	self.btn.removeClass("hidden");
+				// 	self.interval_id = window.setInterval(function() {
+				// 		self.seconds_left -= 1;
+				// 		self.counter.text(self.seconds_left + " Sekunden");
+				// 		if (self.seconds_left <= 0) {
+				// 			if (self.mode == "Passive") {
+				// 				self.make_step();
+				// 			} else { // mode == active
+				// 				if (self.user_has_acted) {
+				// 					self.make_step();
+				// 					self.user_has_acted = false;
+				// 				} else {
+				// 					self.stop();
+				// 				}
+				// 			}
+				// 			if (self.running) {
+				// 				self.seconds_left = self.interval;
+				// 				self.msg.text("Verbleibende Zeit: ");
+				// 				self.counter.text(self.seconds_left + " Sekunden");
+				// 				self.btn.removeClass("hidden");
+				// 			}
+				// 		}
+
+				// 	}, 1000);
+				// }, timeout * 1000);
+			// }
 
 			this.stop = function() {
 				window.clearInterval(this.interval_id);
@@ -327,7 +370,7 @@
 
 {% block content %}
 	<div id="countdown">
-		<span id="msg">Die Runde beginnt in ca. 20 Sekunden.</span><span id="counter"></span>
+		<span id="msg">Die Runde beginnt in </span><span id="counter">20 Sekunden</span>
 	</div>
 	<div id="lottery1"></div>
 	<div id="adjustments">

@@ -54,9 +54,9 @@ page_sequence = [
 	Welcome,
 	Instructions1,
 	Instructions2,
-	#InstructionsWait,
+	InstructionsWait,
 	TryOutAnnouncement,
-	#TryOut,
-	#TryWait,
+	TryOut,
+	TryWait,
 	MainTaskPrep
 ]

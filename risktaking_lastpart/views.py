@@ -7,13 +7,23 @@ class CollectParticipants(WaitPage):
 	title_text = "Bitte warten"
 	body_text = "Bitte warten Sie, bis alle Teilnehmer die Entscheidungsrunden absolviert haben."
 
-class Vignettes(Page):
+
+class RiskTask(Page):
 	form_model = models.Player
-	form_fields = ['ch_no', 'sq_act', 'sq_no', 'ch_act']
+	form_fields = ['eg_choice']
+
+	def before_next_page(self):
+		self.player.play_Lottery()
+
+
+class Questionnaire(Page):
+	form_model = models.Player
+	form_fields = ['instructions_sufficient', 'num_experiments', 'goal_of_experiment', 'payoff_importance']
+
 
 class Demographics(Page):
 	form_model = models.Player
-	form_fields = ['age', 'gender', 'studies']
+	form_fields = ['age', 'gender', 'studies', 'native_german', 'smoking', 'free_income', 'math_grade', 'risk_soep']
 
 	
 class End(Page):
@@ -33,7 +43,8 @@ class End(Page):
 
 page_sequence = [
 	CollectParticipants,
-	Vignettes,
+	RiskTask,
+	Questionnaire,
 	Demographics,
 	End
 ]

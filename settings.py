@@ -59,7 +59,7 @@ USE_POINTS = False
 
 # e.g. en, de, fr, it, ja, zh-hans
 # see: https://docs.djangoproject.com/en/1.9/topics/i18n/#term-language-code
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'de'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
@@ -139,10 +139,23 @@ SESSION_CONFIGS = [
 			'risktaking', 
 			'risktaking_lastpart'
 		],
-		'num_demo_participants': 1,
+		'num_demo_participants': 2,
 		'real_world_currency_per_point': 0.02,
 		'participation_fee': 3.00,
 		'main_task_rounds': 10
+	},
+	{
+		'name': 'active_passive_demo',
+		'display_name': 'DEMO Active / Passive Risk Taking',
+		'app_sequence': [
+			'risktaking_instructions', 
+			'risktaking', 
+			'risktaking_lastpart'
+		],
+		'num_demo_participants': 2,
+		'real_world_currency_per_point': 0.02,
+		'participation_fee': 3.00,
+		'main_task_rounds': 1
 	},
 ]
 

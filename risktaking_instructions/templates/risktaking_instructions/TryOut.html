@@ -107,7 +107,7 @@
 				}
 			
 				if (this.mode == "Active") {
-					this.btn.text("Punktezahl anpassen");
+					this.btn.text("Höhe anpassen");
 				} else {
 					this.btn.text("Anpassung stoppen");
 				}
@@ -146,7 +146,10 @@
 						min: this.min,
 						max: this.max + 10,
 						title: {
-							text: 'Punkte'
+							text: 'Höhe'
+						},
+						labels: {
+							enabled: false
 						},
 						plotLines: [{
 							color: 'red',
@@ -174,7 +177,7 @@
 							colorByPoint: true,
 							colors: ['green'],
 							dataLabels: {
-								enabled: true,
+								enabled: false,
 								style: {
 									fontSize: "14px"
 								}

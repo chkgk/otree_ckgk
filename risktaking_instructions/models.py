@@ -51,7 +51,8 @@ class Subsession(BaseSubsession):
 			else:
 				player.participant.vars['mode']  = "Passive"
 
-			player.participant.vars['relevant_round'] = random.randint(1, self.session.config['main_task_rounds'])
+			player.participant.vars['relevant_round'] = random.randint(0, self.session.config['main_task_rounds'])
+			player.relevant_round = player.participant.vars['relevant_round']
 			player.participant.vars['lottery_order'] = random.choice([0, 1])
 			player.lottery_order = player.participant.vars['lottery_order']
 			player.participant.vars['steps'] = []
@@ -72,3 +73,4 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 	lottery_order = models.IntegerField()
+	relevant_round = models.IntegerField()

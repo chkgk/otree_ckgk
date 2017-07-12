@@ -18,6 +18,53 @@ class Constants(BaseConstants):
 	players_per_group = None
 	num_rounds = 1
 
+	lotteries = {
+		1: {
+			'win': 600,
+			'lose': 600,
+		},
+		2: {
+			'win': 690,
+			'lose': 540,
+		},
+		3: {
+			'win': 780,
+			'lose': 480,
+		},
+		4: {
+			'win': 870,
+			'lose': 420,
+		},
+		5: {
+			'win': 960,
+			'lose': 360,
+		},
+		6: {
+			'win': 1050,
+			'lose': 300,
+		},
+		7: {
+			'win': 1140,
+			'lose': 240,
+		},
+		8: {
+			'win': 1230,
+			'lose': 180,
+		},
+		9: {
+			'win': 1320,
+			'lose': 120,
+		},
+		10: {
+			'win': 1410,
+			'lose': 90,
+		},
+		11: {
+			'win': 1500,
+			'lose': 0
+		}
+	}
+
 
 class Subsession(BaseSubsession):
 	pass
@@ -27,11 +74,39 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-	ch_no = models.PositiveIntegerField(min=1, max=4)
-	sq_act = models.PositiveIntegerField(min=1, max=4)
-	sq_no = models.PositiveIntegerField(min=1, max=4)
-	ch_act = models.PositiveIntegerField(min=1, max=4)
+	# ch_no = models.PositiveIntegerField(min=1, max=4)
+	# sq_act = models.PositiveIntegerField(min=1, max=4)
+	# sq_no = models.PositiveIntegerField(min=1, max=4)
+	# ch_act = models.PositiveIntegerField(min=1, max=4)
 
 	age = models.PositiveIntegerField(min=0, max=110)
-	gender = models.CharField(choices=['männlich', 'weiblich'], widget=widgets.RadioSelectHorizontal)
+	gender = models.CharField(choices=['männlich', 'weiblich', 'anderes', 'keine Angabe'], widget=widgets.RadioSelectHorizontal)
 	studies = models.CharField()	
+
+	native_german = models.BooleanField(choices=['Ja', 'Nein'])
+	free_income = models.PositiveIntegerField()
+	smoking = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal)
+	risk_soep = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal)
+	math_grade = models.CharField(choices=['1.0', '1.3', '1.7', '2.0', '2.3', '2.7', '3.0', '3.3', '3.7', '4.0', '5.0'])
+
+
+	goal_of_experiment = models.TextField()
+	payoff_importance = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal)
+	num_experiments = models.PositiveSmallIntegerField()
+	instructions_sufficient = models.TextField()
+
+	# Eckel and Grossman risk elicitation task
+	eg_choice = models.PositiveSmallIntegerField()
+	eg_outcome = models.CharField()
+	eg_payoff = models.PositiveIntegerField()
+
+	def play_Lottery(self):
+		winning_probability = 0.5
+		self.eg_outcome = "win" if random.random() < winning_probability else "lose"
+		self.eg_payoff = Constants.lotteries[self.eg_choice][self.eg_outcome]
+
+		if self.participant.vars['relevant_round'] == 0:
+			self.payoff = c(self.eg_payoff/100)
+			self.participant.vars['lottery_outcome'] = 'gelb' if self.eg_outcome == 'win' else 'grün'
+			self.participant.vars['low_payoff'] = c(Constants.lotteries[self.eg_choice]['lose']/100)
+			self.participant.vars['high_payoff'] = c(Constants.lotteries[self.eg_choice]['win']/100)
