@@ -74,17 +74,12 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-	# ch_no = models.PositiveIntegerField(min=1, max=4)
-	# sq_act = models.PositiveIntegerField(min=1, max=4)
-	# sq_no = models.PositiveIntegerField(min=1, max=4)
-	# ch_act = models.PositiveIntegerField(min=1, max=4)
-
 	age = models.PositiveIntegerField(min=0, max=110)
 	gender = models.CharField(choices=['männlich', 'weiblich', 'anderes', 'keine Angabe'], widget=widgets.RadioSelectHorizontal)
 	studies = models.CharField()	
 
-	native_german = models.BooleanField(choices=['Ja', 'Nein'])
-	free_income = models.PositiveIntegerField()
+	native_german = models.BooleanField(choices=[(True, 'Ja'), (False, 'Nein')])
+	free_income = models.IntegerField()
 	smoking = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal)
 	risk_soep = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal)
 	math_grade = models.CharField(choices=['1.0', '1.3', '1.7', '2.0', '2.3', '2.7', '3.0', '3.3', '3.7', '4.0', '5.0'])
@@ -99,6 +94,20 @@ class Player(BasePlayer):
 	eg_choice = models.PositiveSmallIntegerField()
 	eg_outcome = models.CharField()
 	eg_payoff = models.PositiveIntegerField()
+
+
+	crt_bat = models.FloatField(
+		verbose_name="Ein Schläger und ein Ball kosten zusammen 1,10€. \
+			Der Schläger kostet 1,00€ mehr als der Ball. Was kostet der Ball (in Cent)?")
+	crt_machines = models.FloatField(
+		verbose_name="Wenn 5 Maschinen 5 Minuten brauchen um 5 Werkstücke herzustellen, \
+		wie lange würden 100 Maschinen brauchem um 100 Werkstücke herzustellen (in Minuten)?")
+	crt_lake = models.FloatField(
+		verbose_name="Auf einem See befindet sich eine Fläche bedeckt mit Seerosen. Jeden \
+		Tag verdoppelt sich die Grüße der bedeckten Fläche. Wenn es 48 Tage dauert, bis die \
+		die Fläche den gesamten See bedeckt, wie lange würde es dauern, bis die Fläche den \
+		halben See bedeckt (in Tagen)?")
+
 
 	def play_Lottery(self):
 		winning_probability = 0.5

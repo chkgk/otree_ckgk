@@ -132,19 +132,6 @@ SESSION_CONFIGS = [
 		'participation_fee': 0.00
 	},
 	{
-		'name': 'active_passive',
-		'display_name': 'Active / Passive Risk Taking',
-		'app_sequence': [
-			'risktaking_instructions', 
-			'risktaking', 
-			'risktaking_lastpart'
-		],
-		'num_demo_participants': 2,
-		'real_world_currency_per_point': 0.02,
-		'participation_fee': 3.00,
-		'main_task_rounds': 10
-	},
-	{
 		'name': 'active_passive_demo',
 		'display_name': 'DEMO Active / Passive Risk Taking',
 		'app_sequence': [
@@ -152,7 +139,7 @@ SESSION_CONFIGS = [
 			'risktaking', 
 			'risktaking_lastpart'
 		],
-		'num_demo_participants': 2,
+		'num_demo_participants': 4,
 		'real_world_currency_per_point': 0.02,
 		'participation_fee': 3.00,
 		'main_task_rounds': 1

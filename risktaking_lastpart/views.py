@@ -12,8 +12,15 @@ class RiskTask(Page):
 	form_model = models.Player
 	form_fields = ['eg_choice']
 
+	timeout_submission = {'eg_choice': 1}
+
 	def before_next_page(self):
 		self.player.play_Lottery()
+
+
+class CognitiveReflection(Page):
+	form_model = models.Player
+	form_fields = ['crt_bat', 'crt_machines', 'crt_lake']
 
 
 class Questionnaire(Page):
@@ -44,6 +51,7 @@ class End(Page):
 page_sequence = [
 	CollectParticipants,
 	RiskTask,
+	CognitiveReflection,
 	Questionnaire,
 	Demographics,
 	End

@@ -6,10 +6,7 @@ from .models import Constants
 
 
 class Welcome(Page):
-	def vars_for_template(self):
-		return {
-			'exchange_rate': format(self.session.real_world_currency_per_point*100, '.2f').replace('.', ',')
-		}
+	pass
 
 class Instructions1(Page):
 	pass
@@ -19,8 +16,6 @@ class Instructions2(Page):
 		return {
 			'default': self.participant.vars['default'],
 			'mode': self.participant.vars['mode'],
-			'big_step': safe_json(self.session.vars['big_step']), 
-			'small_step': safe_json(self.session.vars['small_step']),
 			'interval': safe_json(self.session.vars['interval']),
 		}
 

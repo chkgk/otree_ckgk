@@ -41,6 +41,7 @@ class Subsession(BaseSubsession):
 		treatment = itertools.cycle([1, 2, 3, 4])
 		for player in self.get_players():
 			current_treatment = next(treatment)
+			player.treatment = current_treatment
 			if current_treatment in [1, 2]:
 				player.participant.vars['default'] = "Safe"
 			else:
@@ -74,3 +75,4 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 	lottery_order = models.IntegerField()
 	relevant_round = models.IntegerField()
+	treatment = models.SmallIntegerField()
