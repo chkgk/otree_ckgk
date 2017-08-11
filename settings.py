@@ -156,7 +156,13 @@ SESSION_CONFIGS = [
 		'real_world_currency_per_point': 0.02,
 		'participation_fee': 3.00,
 		'main_task_rounds': 10
-	}
+	},
+    {
+        'name': 'quiz',
+        'display_name': 'oTree Seminar Demo Project: Quiz',
+        'num_demo_participants': 1,
+        'app_sequence': ['quiz'],
+    }
 ]
 
 # anything you put after the below line will override
