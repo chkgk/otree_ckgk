@@ -124,13 +124,13 @@ SESSION_CONFIG_DEFAULTS = {
 
 
 SESSION_CONFIGS = [
-    {
-        'name': 'outcome_bias',
-        'display_name': 'Outcome Bias Add On',
-        'app_sequence': ['outcomebias'],
-        'num_demo_participants': 4,
-        'participation_fee': 0.00
-    },
+    # {
+    #     'name': 'outcome_bias',
+    #     'display_name': 'Outcome Bias Add On',
+    #     'app_sequence': ['outcomebias'],
+    #     'num_demo_participants': 4,
+    #     'participation_fee': 0.00
+    # },
     {
         'name': 'active_passive_demo',
         'display_name': 'DEMO Active / Passive Risk Taking - 1 Round',
@@ -157,12 +157,12 @@ SESSION_CONFIGS = [
         'participation_fee': 3.00,
         'main_task_rounds': 10
     },
-    {
-        'name': 'quiz',
-        'display_name': 'oTree Seminar Demo Project: Quiz',
-        'num_demo_participants': 1,
-        'app_sequence': ['quiz'],
-    }
+    # {
+    #     'name': 'quiz',
+    #     'display_name': 'oTree Seminar Demo Project: Quiz',
+    #     'num_demo_participants': 1,
+    #     'app_sequence': ['quiz'],
+    # }
 ]
 
 # anything you put after the below line will override

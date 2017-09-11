@@ -73,6 +73,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-	lottery_order = models.IntegerField()
-	relevant_round = models.IntegerField()
-	treatment = models.SmallIntegerField()
+	lottery_order = models.IntegerField(doc="Stores which of the two lottery orders was randomly selected")
+	relevant_round = models.IntegerField(doc="Stores the round randomly selected for payment. If 0, Eckel-Grossman is paid")
+	treatment = models.SmallIntegerField(doc="Stores treatment: 1=Safe/Active, 2=Safe/Passive, 3=Risky/Active, 4=Risky/Passive")
