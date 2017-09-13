@@ -79,7 +79,7 @@ class Player(BasePlayer):
 	studies = models.CharField(doc="field of studies")	
 
 	native_german = models.BooleanField(choices=[(True, 'Ja'), (False, 'Nein')], doc="is German native language")
-	free_income = models.IntegerField(doc="free income in euro")
+	free_income = models.IntegerField(doc="free income in euro", min=0, max=10000000)
 	smoking = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="smoking intensity on 0-10 likert")
 	risk_soep = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="SOEP risk question on 0-10 likert")
 	math_grade = models.CharField(choices=[
@@ -98,7 +98,7 @@ class Player(BasePlayer):
 
 	goal_of_experiment = models.TextField(doc="free form input for believed goal of experiment")
 	payoff_importance = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="0-10 likert on how important payoff considerations are for the participant")
-	num_experiments = models.PositiveSmallIntegerField(doc="guessed number of previous experiment participations at AWI Lab")
+	num_experiments = models.PositiveSmallIntegerField(doc="guessed number of previous experiment participations at AWI Lab", min=0, max=100)
 	instructions_sufficient = models.TextField(doc="comments on the instructions / clarity")
 
 	# Eckel and Grossman risk elicitation task
