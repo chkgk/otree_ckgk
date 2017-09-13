@@ -17,10 +17,9 @@ class RiskTask(Page):
 	def before_next_page(self):
 		self.player.play_Lottery()
 
-
-class CognitiveReflection(Page):
+class TimePressure(Page):
 	form_model = models.Player
-	form_fields = ['crt_bat', 'crt_machines', 'crt_lake']
+	form_fields = ['time_pressure_start', 'time_pressure_end']
 
 
 class Questionnaire(Page):
@@ -50,8 +49,8 @@ class End(Page):
 
 page_sequence = [
 	CollectParticipants,
+	TimePressure,
 	RiskTask,
-	CognitiveReflection,
 	Questionnaire,
 	Demographics,
 	End

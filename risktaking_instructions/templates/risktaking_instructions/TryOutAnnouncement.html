@@ -18,10 +18,17 @@
 
 {% block content %}
 	<p>
-		Bevor Sie mit der ersten Entscheidungsaufgabe beginnen, können Sie sich auf dem folgenden Bildschirm kurz mit der Bedienung vertraut machen. Die Aufgabe dient nur dazu, Sie damit vertraut zu machen, wie Sie die Lotterien „Anpassen“ können. Ihre Entscheidung in der Proberunde hat keinen Einfluss auf Ihre Auszahlung. 
+		Bevor Sie mit der ersten Entscheidungsaufgabe beginnen, können Sie sich auf dem folgenden Bildschirm kurz mit der Bedienung vertraut machen. Die Aufgabe dient nur dazu, Sie damit vertraut zu machen, wie Sie die Lotterien anpassen können. Ihre Entscheidungen in der Proberunde haben keinen Einfluss auf Ihre Auszahlung. 
 	</p>
-	<p>
-		Sie sehen auf dem folgenden Bildschirm einen grünen Balken. Ihre Aufgabe ist es, durch Klicken des Buttons „Anpassen“ den Balken so anzupassen, dass er zwischen den beiden roten Markierungen endet.. Um die Höhe des Balkens anzupassen, klicken Sie auf „Anpassen“. Dazu haben Sie 5 Sekunden Zeit. Wollen Sie den Balken hingegen nicht weiter anpassen, warten Sie bitte bis 5 Sekunden abgelaufen sind. Endet der Balken außerhalb der roten Markierungen, beginnt die Proberunde erneut. Sie endet erst, wenn Sie insgesamt zwei Mal erfolgreich den Balken so angepasst haben, so dass er in dem rot markierten Bereich endet.
-	</p>
+
+	{% if mode == "Active" %}
+		<p>
+			Sie sehen auf dem folgenden Bildschirm einen grünen Balken. Ihre Aufgabe ist es, den Balken so anzupassen, dass er zwischen den beiden roten Markierungen endet. Um die Höhe des Balkens anzupassen, klicken Sie auf „Höhe anpassen“. Dazu haben Sie 5 Sekunden Zeit. Wollen Sie den Balken hingegen nicht weiter anpassen, warten Sie bitte bis 5 Sekunden abgelaufen sind. Endet der Balken außerhalb der roten Markierungen oder berührt er die Grenzen des Diagramms, beginnt die Proberunde erneut. Sie endet erst, wenn Sie insgesamt zwei Mal erfolgreich den Balken so angepasst haben, so dass er in dem rot markierten Bereich endet.
+		</p>
+	{% else %}
+		<p>
+			Sie sehen auf dem folgenden Bildschirm einen grünen Balken. Ihre Aufgabe ist es, den Balken so anzupassen, dass er zwischen den beiden roten Markierungen endet. Die Höhe wird automatisch alle 5 Sekunden angepasst. Um die Höhe des Balkens anzupassen, brauchen Sie also nur abzuwarten. Wollen Sie den Balken hingegen nicht weiter anpassen, klicken Sie auf „Anpassung stoppen". Endet der Balken außerhalb der roten Markierungen oder berührt er die Grenzen des Diagramms, beginnt die Proberunde erneut. Sie endet erst, wenn Sie insgesamt zwei Mal erfolgreich den Balken so angepasst haben, so dass er in dem rot markierten Bereich endet.
+		</p>
+	{% endif %}
 	{% next_button %}
 {% endblock %}

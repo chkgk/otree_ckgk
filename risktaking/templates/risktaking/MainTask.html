@@ -237,11 +237,11 @@
 			}
 
 			this.run = function () {
-				var pre_seconds_left = 20;
+				var pre_seconds_left = 15;
 
 				self.intro_timer = window.setInterval(function () {
 					pre_seconds_left -= 1;
-					self.counter.text(pre_seconds_left + " Sekunden");
+					self.counter.text(pre_seconds_left + "s");
 
 					if (pre_seconds_left <= 0) {
 						doTask();
@@ -252,13 +252,13 @@
 				doTask = function () {
 					self.running = true;
 					self.seconds_left = self.interval;
-					self.msg.text("Runde läuft. Verbleibende Zeit: ");
+					self.msg.text("Zeit: ");
 					self.counter.text(self.seconds_left + " Sekunden");
 					self.info.addClass("hidden");
 					self.btn.removeClass("hidden");
 					self.interval_id = window.setInterval(function() {
 						self.seconds_left -= 1;
-						self.counter.text(self.seconds_left + " Sekunden");
+						self.counter.text(self.seconds_left + "s");
 						if (self.seconds_left <= 0) {
 							if (self.mode == "Passive") {
 								self.make_step();
@@ -272,8 +272,8 @@
 							}
 							if (self.running) {
 								self.seconds_left = self.interval;
-								self.msg.text("Runde läuft. Verbleibende Zeit: ");
-								self.counter.text(self.seconds_left + " Sekunden");
+								self.msg.text("Zeit: ");
+								self.counter.text(self.seconds_left + "s");
 								self.btn.removeClass("hidden");
 							}
 						}
@@ -320,19 +320,8 @@
 				this.interval_id = null;
 				this.running = false;
 
-				var msg = "";
-				if (this.round > 3) {
-					msg = "Die Lotterie wurde festgelegt. ";
-					/*
-					if (this.outcome == "high") {
-						msg += "Es wurde <span class='yellow'>gelb</span> gezogen.";
-					} else {
-						msg += "Es wurde <span class='green'>grün</span> gezogen.";
-					}
-					*/
-				} else {
-					msg = "Die Lotterie wurde festgelegt.";
-				}
+				var msg = "Sie haben eine Lotterie ausgewählt";
+
 				this.info.html(msg);
 				this.info.removeClass("hidden");
 				this.counter.text("");
@@ -355,7 +344,7 @@
 
 				this.user_has_acted = true;
 				this.btn.addClass("hidden");
-				this.msg.text("Anpassung erfolgt in: ");
+				this.msg.text("Zeit: ");
 
 				if (this.mode == "Passive") {
 					this.stop();
@@ -370,7 +359,7 @@
 
 {% block content %}
 	<div id="countdown">
-		<span id="msg">Die Runde beginnt in </span><span id="counter">20 Sekunden</span>
+		<span id="msg">Die Runde beginnt in </span><span id="counter">15s</span>
 	</div>
 	<div id="lottery1"></div>
 	<div id="adjustments">

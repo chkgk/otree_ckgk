@@ -194,7 +194,7 @@
 
 				this.user_has_acted = true;
 				this.btn.addClass("hidden");
-				this.msg.text("Anpassung erfolgt in: ");
+				this.msg.text("Zeit: ");
 
 
 				if (this.mode == "Passive") {
@@ -260,13 +260,13 @@
 				window.setTimeout(function() {
 					self.running = true;
 					self.seconds_left = self.interval;
-					self.msg.text("Verbleibende Zeit: ");
-					self.counter.text(self.seconds_left + " Sekunden");
+					self.msg.text("Zeit: ");
+					self.counter.text(self.seconds_left + "s");
 					self.info.addClass("hidden");
 					self.btn.removeClass("hidden");
 					self.interval_id = window.setInterval(function () {
 						self.seconds_left -= 1;
-						self.counter.text(self.seconds_left + " Sekunden");
+						self.counter.text(self.seconds_left + "s");
 						if (self.seconds_left <= 0) {
 							if (self.mode == "Passive") {
 								self.make_step();
@@ -280,8 +280,8 @@
 							}
 							if (self.running) {
 								self.seconds_left = self.interval;
-								self.msg.text("Verbleibende Zeit: ");
-								self.counter.text(self.seconds_left + " Sekunden");
+								self.msg.text("Zeit: ");
+								self.counter.text(self.seconds_left + "s");
 								self.btn.removeClass("hidden");
 							}
 						} 

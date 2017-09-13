@@ -82,7 +82,18 @@ class Player(BasePlayer):
 	free_income = models.IntegerField(doc="free income in euro")
 	smoking = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="smoking intensity on 0-10 likert")
 	risk_soep = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="SOEP risk question on 0-10 likert")
-	math_grade = models.CharField(choices=['1.0', '1.3', '1.7', '2.0', '2.3', '2.7', '3.0', '3.3', '3.7', '4.0', '5.0'], doc="Abitur math grade")
+	math_grade = models.CharField(choices=[
+		'1.0 (14-15 Punkte)', 
+		'1.3 (13 Punkte)', 
+		'1.7 (12 Punkte)', 
+		'2.0 (11 Punkte)',
+		'2.3 (10 Punkte)', 
+		'2.7 (9 Punkte)', 
+		'3.0 (8 Punkte)', 
+		'3.3 (7 Punkte)',
+		'3.7 (6 Punkte)',
+		'4.0 (5 Punkte)',
+		'5.0 (<5 Punkte)'], doc="Abitur math grade")
 
 
 	goal_of_experiment = models.TextField(doc="free form input for believed goal of experiment")
@@ -95,19 +106,8 @@ class Player(BasePlayer):
 	eg_outcome = models.CharField(doc="eckel grossman task lottery outcome")
 	eg_payoff = models.PositiveIntegerField(doc="eckel grossman task payoff if selected")
 
-
-	crt_bat = models.FloatField(
-		verbose_name="Ein Schläger und ein Ball kosten zusammen 1,10€. \
-			Der Schläger kostet 1,00€ mehr als der Ball. Was kostet der Ball (in Cent)?", doc="ball/bat crt question")
-	crt_machines = models.FloatField(
-		verbose_name="Wenn 5 Maschinen 5 Minuten brauchen um 5 Werkstücke herzustellen, \
-		wie lange würden 100 Maschinen brauchem um 100 Werkstücke herzustellen (in Minuten)?", doc="x machines in x minutes crt question")
-	crt_lake = models.FloatField(
-		verbose_name="Auf einem See befindet sich eine Fläche bedeckt mit Seerosen. Jeden \
-		Tag verdoppelt sich die Grüße der bedeckten Fläche. Wenn es 48 Tage dauert, bis die \
-		die Fläche den gesamten See bedeckt, wie lange würde es dauern, bis die Fläche den \
-		halben See bedeckt (in Tagen)?", doc="lake flowers crt question")
-
+	time_pressure_start = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="beginning of rounds time pressure 0-10 likert")
+	time_pressure_end = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="end of rounds time pressure on 0-10 likert")
 
 	def play_Lottery(self):
 		winning_probability = 0.5
