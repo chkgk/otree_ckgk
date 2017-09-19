@@ -158,7 +158,7 @@ SESSION_CONFIGS = [
         'main_task_rounds': 10
     },
     {
-        'name': 'active_passive_demo',
+        'name': 'active_passive_demo_nofree',
         'display_name': 'DEMO Active / Passive Risk Taking - 1 Round - No Showup',
         'app_sequence': [
             'risktaking_instructions', 
@@ -171,7 +171,7 @@ SESSION_CONFIGS = [
         'main_task_rounds': 1
     },
     {
-        'name': 'active_passive',
+        'name': 'active_passive_nofee',
         'display_name': 'Active / Passive Risk Taking - 10 Rounds - No Showup',
         'app_sequence': [
             'risktaking_instructions', 
