@@ -157,6 +157,32 @@ SESSION_CONFIGS = [
         'participation_fee': 3.00,
         'main_task_rounds': 10
     },
+    {
+        'name': 'active_passive_demo',
+        'display_name': 'DEMO Active / Passive Risk Taking - 1 Round - No Showup',
+        'app_sequence': [
+            'risktaking_instructions', 
+            'risktaking', 
+            'risktaking_lastpart'
+        ],
+        'num_demo_participants': 4,
+        'real_world_currency_per_point': 0.02,
+        'participation_fee': 0.00,
+        'main_task_rounds': 1
+    },
+    {
+        'name': 'active_passive',
+        'display_name': 'Active / Passive Risk Taking - 10 Rounds - No Showup',
+        'app_sequence': [
+            'risktaking_instructions', 
+            'risktaking', 
+            'risktaking_lastpart'
+        ],
+        'num_demo_participants': 4,
+        'real_world_currency_per_point': 0.02,
+        'participation_fee': 0.00,
+        'main_task_rounds': 10
+    },
     # {
     #     'name': 'quiz',
     #     'display_name': 'oTree Seminar Demo Project: Quiz',

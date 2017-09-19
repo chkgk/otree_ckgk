@@ -29,10 +29,13 @@
 		{% endif %}
 			Sie spielten die 50:50 Lotterie mit folgenden möglichen Auszahlungsbeträgen: grün: {{ low_payoff }} - gelb: {{ high_payoff }}.<br>
 			Das Ergebnis des Zufallszugs ist: {{ lottery_outcome }}<br>
-			Sie erhalten {{ payoff_euro }}.
+			Die resultierende Auszahlung ist: {{ payoff_euro }}.
 	</p>
 	<p>
-		Zusammen mit Ihrer Teilnahmevergütung von {{ participation_fee }}  erhalten Sie also insgesamt <b>{{ payoff_total }}</b>. <br>
+		{% if participation_fee != '0.00' %}
+		Ihre heutige Teilnahmevergütung beträgt {{ participation_fee }} Euro. 
+		{% endif %}
+		Insgesamt erhalten Sie <b>{{ payoff_total }}</b>. <br>
 		Bitte tragen Sie diesen Betrag in die ausgeteilte Quittung ein und warten Sie an Ihrem Platz bis Sie an Hand Ihrer Sitzplatznummer aufgerufen werden.
 	</p>
 {% endblock %}

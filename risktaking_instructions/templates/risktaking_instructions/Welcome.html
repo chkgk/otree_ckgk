@@ -49,7 +49,11 @@
 
 	<p><b>Auszahlung am Ende des Experimentes</b></p>
 	<p>
-		Für Ihre Teilnahme an diesem Experiment erhalten Sie 3 Euro. Am Ende des Experiments wird zufällig (mit gleicher Wahrscheinlichkeit) eine der insgesamt 11 Runden aus diesem Experiment ausgewählt und Sie werden gemäß Ihrer Entscheidung in der entsprechenden Runde bezahlt. Sie sollten also zunächst davon ausgehen, dass sich jede Ihrer Entscheidungen in beiden Teilen des Experiments auf Ihren Endverdienst auswirken kann. 
+		{% if participation_fee != '0.00' %}
+		Für Ihre Teilnahme an diesem Experiment erhalten Sie {{ participation_fee }} Euro. 
+		{% endif %}
+		Am Ende des Experiments wird zufällig (mit gleicher Wahrscheinlichkeit) eine der insgesamt 11 Runden aus diesem Experiment ausgewählt und Sie werden gemäß Ihrer Entscheidung in der entsprechenden Runde bezahlt. Sie sollten also zunächst davon ausgehen, dass sich jede Ihrer Entscheidungen in beiden Teilen des Experiments auf Ihren Endverdienst auswirken kann. 
+		}
 	</p>
 	<p>
 		Die Studie endet sobald alle Teilnehmer beide Teile beendet und einen abschließenden Fragebogen ausgefüllt haben. Erst wenn alle Teilnehmer fertig sind, rufen wir Sie einzeln auf und Sie erhalten Ihren Verdienst in bar ausgezahlt. 

@@ -6,7 +6,10 @@ from .models import Constants
 
 
 class Welcome(Page):
-	pass
+	def vars_for_template(self):
+		return {
+			'participation_fee': self.session.config['participation_fee']
+		}
 
 class Instructions1(Page):
 	pass
