@@ -29,7 +29,7 @@ class Questionnaire(Page):
 
 class Demographics(Page):
 	form_model = models.Player
-	form_fields = ['age', 'gender', 'studies', 'native_german', 'smoking', 'free_income', 'math_grade', 'risk_soep']
+	form_fields = ['age', 'gender', 'studies', 'native_german', 'smoking', 'free_income', 'math_grade', 'risk_soep', 'dentist']
 
 	
 class End(Page):
