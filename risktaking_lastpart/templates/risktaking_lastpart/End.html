@@ -32,10 +32,7 @@
 			Die resultierende Auszahlung ist: {{ payoff_euro }}.
 	</p>
 	<p>
-		{% if participation_fee != '0.00' %}
-		Ihre heutige Teilnahmevergütung beträgt {{ participation_fee }} Euro. 
-		{% endif %}
-		Insgesamt erhalten Sie <b>{{ payoff_total }}</b>. <br>
+		Ihre heutige Teilnahmevergütung beträgt {{ participation_fee }}. Insgesamt erhalten Sie also <b>{{ payoff_total }}</b>. <br>
 		Bitte tragen Sie diesen Betrag in die ausgeteilte Quittung ein und warten Sie an Ihrem Platz bis Sie an Hand Ihrer Sitzplatznummer aufgerufen werden.
 	</p>
 {% endblock %}
