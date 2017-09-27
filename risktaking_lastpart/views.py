@@ -12,7 +12,7 @@ class RiskTask(Page):
 	form_model = models.Player
 	form_fields = ['eg_choice']
 
-	timeout_submission = {'eg_choice': 1}
+	# timeout_submission = {'eg_choice': 1}
 
 	def before_next_page(self):
 		self.player.play_Lottery()

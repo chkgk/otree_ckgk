@@ -15,3 +15,6 @@ class PlayerBot(Bot):
                 correct_payoff = c(50)
 
             assert self.player.lottery_payoff == correct_payoff
+
+            if self.player.round_number == self.player.participant.vars['relevant_round']:
+                assert self.player.payoff == correct_payoff

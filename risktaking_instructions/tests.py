@@ -35,10 +35,32 @@ class PlayerBot(Bot):
         assert self.player.participant.vars['default'] == correct_default[self.player.treatment]
         assert self.player.participant.vars['mode'] == correct_mode[self.player.treatment]
 
-        # click grough all pages
+
         yield (views.Welcome)
         yield (views.Instructions1)
+
+        # check if the correct instructions are shown for Safe / Risky
+        if self.player.participant.vars['default'] == "Safe":
+            assert "risktaking_instructions/safe.png" in self.html
+        else:
+            assert "risktaking_instructions/risky.png" in self.html
+
+        # check if the correct instructions are shown for Active / Passive
+        if self.player.participant.vars['mode'] == "Active":
+            assert "müssen Sie nichts tun" in self.html
+        else:
+            assert "müssen Sie innerhalb von" in self.html
+
         yield (views.Instructions2)
+
+        # check correct instructions before trial page
+        if self.player.participant.vars['mode'] == "Active":
+            assert "des Balkens anzupassen, klicken Sie auf" in self.html
+        else:
+            assert "wird automatisch alle 5 Sekunden angepasst." in self.html
+
         yield (views.TryOutAnnouncement)
+
+
         yield (views.TryOut)
         yield (views.MainTaskPrep)

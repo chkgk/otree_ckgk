@@ -27,7 +27,10 @@ class InstructionsWait(WaitPage):
 	body_text = "Bitte warten Sie, bis alle Teilnehmer die Instruktionen gelesen haben."
 
 class TryOutAnnouncement(Page):
-	pass
+	def vars_for_template(self):
+		return {
+			'mode': self.participant.vars['mode']
+		}
 
 class TryOut(Page):
 

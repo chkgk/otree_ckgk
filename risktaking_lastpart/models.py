@@ -79,7 +79,7 @@ class Player(BasePlayer):
 	studies = models.CharField(doc="field of studies")	
 
 	native_german = models.BooleanField(choices=[(True, 'Ja'), (False, 'Nein')], doc="is German native language")
-	free_income = models.IntegerField(doc="free income in euro", min=0, max=10000000)
+	free_income = models.IntegerField(doc="free income in euro", min=0, max=1000000)
 	smoking = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="smoking intensity on 0-10 likert")
 	dentist = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="likelihood of going to regular dentist checkups on 1-7 likert")
 	risk_soep = models.PositiveSmallIntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], widget=widgets.RadioSelectHorizontal, doc="SOEP risk question on 0-10 likert")
@@ -103,7 +103,7 @@ class Player(BasePlayer):
 	instructions_sufficient = models.TextField(doc="comments on the instructions / clarity")
 
 	# Eckel and Grossman risk elicitation task
-	eg_choice = models.PositiveSmallIntegerField(doc="eckel grossman task selected")
+	eg_choice = models.PositiveSmallIntegerField(doc="eckel grossman task selected", min=1, max=11)
 	eg_outcome = models.CharField(doc="eckel grossman task lottery outcome")
 	eg_payoff = models.PositiveIntegerField(doc="eckel grossman task payoff if selected")
 
