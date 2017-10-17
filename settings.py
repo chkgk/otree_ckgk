@@ -156,7 +156,21 @@ SESSION_CONFIGS = [
         'real_world_currency_per_point': 0.02,
         'participation_fee': 3.00,
         'main_task_rounds': 10
-    }
+    },
+    # {
+    #     'name': 'active_passive_simulation',
+    #     'display_name': 'Active / Passive Risk Taking - 10 Rounds - For Simulation',
+    #     'app_sequence': [
+    #         'risktaking_instructions', 
+    #         'risktaking', 
+    #         'risktaking_lastpart'
+    #     ],
+    #     'num_demo_participants': 4,
+    #     'real_world_currency_per_point': 0.02,
+    #     'participation_fee': 3.00,
+    #     'main_task_rounds': 10,
+    #     'simulation': True
+    # }
     # {
     #     'name': 'active_passive_demo_nofree',
     #     'display_name': 'DEMO Active / Passive Risk Taking - 1 Round - No Showup',
