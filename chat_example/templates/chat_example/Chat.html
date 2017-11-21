@@ -1,0 +1,15 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+{% load otreechat %}
+
+{% block title %}
+    Chat here and now!
+{% endblock %}
+
+{% block content %}
+
+    {% chat %}
+
+    {% next_button %}
+
+{% endblock %}

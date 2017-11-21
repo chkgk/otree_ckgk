@@ -63,7 +63,7 @@ LANGUAGE_CODE = 'de'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree']
+INSTALLED_APPS = ['otree', 'otreechat']
 
 # SENTRY_DSN = ''
 
@@ -156,6 +156,12 @@ SESSION_CONFIGS = [
         'real_world_currency_per_point': 0.02,
         'participation_fee': 3.00,
         'main_task_rounds': 10
+    },
+    {
+        'name': 'chat_example',
+        'display_name': '7: A chat example',
+        'num_demo_participants': 2,
+        'app_sequence': ['chat_example']
     },
     # {
     #     'name': 'active_passive_simulation',

@@ -31,8 +31,9 @@ class Constants(BaseConstants):
 	]
 
 	lottery_orders = [
-		[2, 4, 0, 3, 2, 7, 9, 5, 8, 6], # 0 (1.5: M H L h l -- 3:   M H L h l)
-		[7, 9, 5, 8, 6, 2, 4, 0, 3, 2], # 1 (3:   M H L h l -- 1.5: M H L h l)
+	   # 1  2  3  4  5  6  7  8  9  10
+		[2, 4, 0, 3, 1, 7, 9, 5, 8, 6], # 0 (1.5: M H L h l -- 3:   M H L h l)
+		[7, 9, 5, 8, 6, 2, 4, 0, 3, 1], # 1 (3:   M H L h l -- 1.5: M H L h l)
 	]
 
 
