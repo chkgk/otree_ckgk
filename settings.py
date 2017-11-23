@@ -63,7 +63,7 @@ LANGUAGE_CODE = 'de'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree', 'otreechat']
+INSTALLED_APPS = ['otree']
 
 # SENTRY_DSN = ''
 
@@ -131,32 +131,32 @@ SESSION_CONFIGS = [
     #     'num_demo_participants': 4,
     #     'participation_fee': 0.00
     # },
-    {
-        'name': 'active_passive_demo',
-        'display_name': 'DEMO Active / Passive Risk Taking - 1 Round',
-        'app_sequence': [
-            'risktaking_instructions', 
-            'risktaking', 
-            'risktaking_lastpart'
-        ],
-        'num_demo_participants': 4,
-        'real_world_currency_per_point': 0.02,
-        'participation_fee': 3.00,
-        'main_task_rounds': 1
-    },
-    {
-        'name': 'active_passive',
-        'display_name': 'Active / Passive Risk Taking - 10 Rounds',
-        'app_sequence': [
-            'risktaking_instructions', 
-            'risktaking', 
-            'risktaking_lastpart'
-        ],
-        'num_demo_participants': 4,
-        'real_world_currency_per_point': 0.02,
-        'participation_fee': 3.00,
-        'main_task_rounds': 10
-    },
+    # {
+    #     'name': 'active_passive_demo',
+    #     'display_name': 'DEMO Active / Passive Risk Taking - 1 Round',
+    #     'app_sequence': [
+    #         'risktaking_instructions', 
+    #         'risktaking', 
+    #         'risktaking_lastpart'
+    #     ],
+    #     'num_demo_participants': 4,
+    #     'real_world_currency_per_point': 0.02,
+    #     'participation_fee': 3.00,
+    #     'main_task_rounds': 1
+    # },
+    # {
+    #     'name': 'active_passive',
+    #     'display_name': 'Active / Passive Risk Taking - 10 Rounds',
+    #     'app_sequence': [
+    #         'risktaking_instructions', 
+    #         'risktaking', 
+    #         'risktaking_lastpart'
+    #     ],
+    #     'num_demo_participants': 4,
+    #     'real_world_currency_per_point': 0.02,
+    #     'participation_fee': 3.00,
+    #     'main_task_rounds': 10
+    # },
     {
         'name': 'chat_example',
         'display_name': '7: A chat example',
