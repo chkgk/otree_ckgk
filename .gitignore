@@ -6,7 +6,6 @@ staticfiles
 *~
 *.sqlite3
 .DS_Store
-__*
 _static_root/
 _bots*
 
