@@ -124,7 +124,51 @@ SESSION_CONFIG_DEFAULTS = {
 
 
 SESSION_CONFIGS = [
-    
+    {
+        'name': 'single_fixed',
+        'display_name': "RiskOther - SINGLE Fixed",
+        'num_demo_participants': 2,
+        'app_sequence': ['single'],
+        'compensation': 'fixed',     # Enter either fixed, variable_result or variable_profit
+    },
+    {
+        'name': 'single_result',
+        'display_name': "RiskOther - SINGLE Variable Result",
+        'num_demo_participants': 2,
+        'app_sequence': ['single'],
+        'compensation': 'variable_result',     # Enter either fixed, variable_result or variable_profit
+    },
+    {
+        'name': 'single_profit',
+        'display_name': "RiskOther - SINGLE Variable Profit",
+        'num_demo_participants': 2,
+        'app_sequence': ['single'],
+        'compensation': 'variable_profit',     # Enter either fixed, variable_result or variable_profit
+    },
+    {
+        'name': 'group_fixed',
+        'display_name': "RiskOther - GROUP Treatment Fix",
+        'num_demo_participants': 6,
+        'app_sequence': ['group'],
+        'compensation': 'fixed',     # Enter either fixed, variable_result or variable_profit
+
+    },
+    {
+        'name': 'group_result',
+        'display_name': "RiskOther - GROUP Treatment Variable Result",
+        'num_demo_participants': 6,
+        'app_sequence': ['group'],
+        'compensation': 'variable_result',     # Enter either fixed, variable_result or variable_profit
+
+    },
+    {
+        'name': 'group_profit',
+        'display_name': "RiskOther - GROUP Treatment Variable Profit",
+        'num_demo_participants': 6,
+        'app_sequence': ['group'],
+        'compensation': 'variable_profit',     # Enter either fixed, variable_result or variable_profit
+
+    },  
 ]
 
 # anything you put after the below line will override
