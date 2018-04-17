@@ -9,3 +9,5 @@ staticfiles
 __*
 _static_root/
 _bots*
+
+__temp*
