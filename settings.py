@@ -78,7 +78,13 @@ LANGUAGE_CODE = 'de'
 REAL_WORLD_CURRENCY_CODE = 'EUR'
 USE_POINTS = False
 
-ROOMS = []
+ROOMS = [   
+    {
+        'name': 'awi_lab',
+        'display_name': 'AWI Experimentallabor',
+        'participant_label_file': 'participant_labels.txt'
+    }
+]
 
 
 # AUTH_LEVEL:
