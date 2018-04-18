@@ -187,14 +187,14 @@ class PlayerBot(Bot):
 		if self.player.role() == "Agent":
 			if self.player.outcome_of_principal == 0:
 				if self.player.compensation == "variable_result":
-					assert self.player.payoff + self.player.participation_fee == 8.625
+					assert self.player.payoff + self.player.participation_fee == 9.625
 				else:
-					assert self.player.payoff + self.player.participation_fee == 8
+					assert self.player.payoff + self.player.participation_fee == 9
 		if self.player.role() == "Principal":
 			if self.player.investment_outcome == 0:
-				assert self.player.payoff + self.player.participation_fee == 5.5
+				assert self.player.payoff + self.player.participation_fee == 6.5
 			else:
-				assert self.player.payoff + self.player.participation_fee == 31.75
+				assert self.player.payoff + self.player.participation_fee == 32.75
 	#	yield (pages.Last_Page)
 
 

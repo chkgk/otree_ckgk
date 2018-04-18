@@ -142,6 +142,11 @@ class Questionnaire(Page):
 			if not values["nonstudent"]:
 				return "Sie haben kein Studienfach angegeben. Wenn Sie kein Student sind, treffen Sie bitte eine entsprechende Auswahl."
 
+	def before_next_page(self):
+		self.player.create_gender_dummies()
+		self.player.create_econ_dummy()
+		self.player.create_category_dummies()
+
 class Last_Page(Page):
 	pass
 

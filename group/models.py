@@ -472,3 +472,480 @@ class Player(BasePlayer):
 
 	cat_end_abs_5 = models.PositiveIntegerField(
 		doc="Indicates the end point of the fifth category in pixels.")
+
+
+# Dummies für Stata:
+
+	female = models.BooleanField(
+		doc="Turns True if the participant is a woman."
+		)
+
+	male = models.BooleanField(
+		doc="Turns True if the participant is a man."
+		)
+
+	other_gender = models.BooleanField(
+		doc="Turns True if the participant indicates other."
+		)
+
+	econ_student = models.BooleanField(
+		doc="Turns True if the participant is an economics student."
+		)
+
+	follow_customer_1 = models.BooleanField(
+		doc="Turns True if the agent chooses the communicated category of his first customer according to his OWN elicited categories."
+		)
+
+	follow_customer_2 = models.BooleanField(
+		doc="Turns True if the agent chooses the communicated category of his second customer according to his OWN elicited categories."
+		)
+
+	follow_customer_3 = models.BooleanField(
+		doc="Turns True if the agent chooses the communicated category of his third customer according to his OWN elicited categories."
+		)
+
+	follow_customer_4 = models.BooleanField(
+		doc="Turns True if the agent chooses the communicated category of his fourth customer according to his OWN elicited categories."
+		)
+
+	follow_customer_5 = models.BooleanField(
+		doc="Turns True if the agent chooses the communicated category of his fifth customer according to his OWN elicited categories."
+		)
+
+	higher_than_customer_1 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a higher category than the one communicated by the first principal according to his OWN elicited categories."
+		)
+
+	higher_than_customer_2 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a higher category than the one communicated by the second principal according to his OWN elicited categories."
+		)
+
+	higher_than_customer_3 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a higher category than the one communicated by the third principal according to his OWN elicited categories."
+		)
+
+	higher_than_customer_4 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a higher category than the one communicated by the fourth principal according to his OWN elicited categories."
+		)
+
+	higher_than_customer_5 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a higher category than the one communicated by the fifth principal according to his OWN elicited categories."
+		)
+
+	lower_than_customer_1 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a lower category than the one communicated by the principal according to his OWN elicited categories."
+		)
+
+	lower_than_customer_2 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a lower category than the one communicated by the principal according to his OWN elicited categories."
+		)
+
+	lower_than_customer_3 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a lower category than the one communicated by the principal according to his OWN elicited categories."
+		)
+
+	lower_than_customer_4 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a lower category than the one communicated by the principal according to his OWN elicited categories."
+		)
+
+	lower_than_customer_5 = models.BooleanField(
+		doc="Turns True if the investment of the agent is in a lower category than the one communicated by the principal according to his OWN elicited categories."
+		)
+
+
+	category_from_p1 = models.CharField(
+		doc="Category received from every clients first principal."
+		)
+	category_from_p2 = models.CharField(
+		doc="Category received from every clients second principal."
+		)
+	category_from_p3 = models.CharField(
+		doc="Category received from every clients third principal."
+		)
+	category_from_p4 = models.CharField(
+		doc="Category received from every clients fourth principal."
+		)
+	category_from_p5 = models.CharField(
+		doc="Category received from every clients fifth principal."
+		)
+
+
+
+	def create_gender_dummies(self):
+		if self.gender == "weiblich":
+			self.female = True
+			self.male = False
+			self.other_gender = False
+		elif self.gender == "männlich":
+			self.female = False
+			self.male = True
+			self.other_gender = False
+		elif self.gender == "anderes":
+			self.female = False
+			self.male = False
+			self.other_gender = True
+
+	def create_econ_dummy(self):
+		if self.studies:
+			subject = self.studies.lower()
+			if "econ" in subject:
+				self.econ_student = True
+			elif "vwl" in subject:
+				self.econ_student = True
+			elif "ökono" in subject:
+				self.econ_student = True
+			else:
+				self.econ_student = False
+		else:
+			self.econ_student = False
+
+
+	def get_categories(self):
+		player_list = self.get_others_in_group()
+		player_list.append(self)
+		player_list.sort(key=lambda p: p.id_in_group)
+		# for player in player_list:
+		# 	print(player.id_in_group)
+
+		self.category_from_p1=player_list[int(self.c_principal_1)-1].category
+		self.category_from_p2=player_list[int(self.c_principal_2)-1].category
+		self.category_from_p3=player_list[int(self.c_principal_3)-1].category
+		self.category_from_p4=player_list[int(self.c_principal_4)-1].category
+		self.category_from_p5=player_list[int(self.c_principal_5)-1].category
+
+	def create_category_dummies_1(self):
+		if self.category_from_p1 == "sehr konservativ":
+			if 0 <= self.decision_for_p1 < self.cat_end_rel_1*10:
+				self.follow_customer_1 = True
+				self.higher_than_customer_1 = False
+				self.lower_than_customer_1 = False
+			else:
+				self.follow_customer_1 = False
+				if self.decision_for_p1 >= self.cat_end_rel_1*10:
+					self.higher_than_customer_1 = True
+					self.lower_than_customer_1 = False
+				elif self.decision_for_p1 < 0:
+					self.lower_than_customer_1 = True
+					self.higher_than_customer_1 = False
+		if self.category_from_p1 == "sicherheitsorientiert":
+			if self.cat_end_rel_1*10 <= self.decision_for_p1 < self.cat_end_rel_2*10:
+				self.follow_customer_1 = True
+				self.higher_than_customer_1 = False
+				self.lower_than_customer_1 = False
+			else:
+				self.follow_customer_1 = False
+				if self.decision_for_p1 >= self.cat_end_rel_2*10:
+					self.higher_than_customer_1 = True
+					self.lower_than_customer_1 = False
+				if self.decision_for_p1 < self.cat_end_rel_1*10:
+					self.lower_than_customer_1 = True
+					self.higher_than_customer_1 = False
+		if self.category_from_p1 == "ausgeglichen":
+			if self.cat_end_rel_2*10 <= self.decision_for_p1 < self.cat_end_rel_3*10:
+				self.follow_customer_1 = True
+				self.higher_than_customer_1 = False
+				self.lower_than_customer_1 = False
+			else:
+				self.follow_customer_1 = False
+				if self.decision_for_p1 >= self.cat_end_rel_3*10:
+					self.higher_than_customer_1 = True
+					self.lower_than_customer_1 = False
+				if self.decision_for_p1 < self.cat_end_rel_2*10:
+					self.lower_than_customer_1 = True
+					self.higher_than_customer_1 = False
+		if self.category_from_p1 == "wachstumsorientiert":
+			if self.cat_end_rel_3*10 <= self.decision_for_p1 < self.cat_end_rel_4*10:
+				self.follow_customer_1 = True
+				self.higher_than_customer_1 = False
+				self.lower_than_customer_1 = False
+			else:
+				self.follow_customer_1 = False
+				if self.decision_for_p1 >= self.cat_end_rel_4*10:
+					self.higher_than_customer_1 = True
+					self.lower_than_customer_1 = False
+				elif self.decision_for_p1 < self.cat_end_rel_3*10:
+					self.lower_than_customer_1 = True
+					self.higher_than_customer_1 =False
+		if self.category_from_p1 == "offensiv":
+			if self.cat_end_rel_4*10 <= self.decision_for_p1 <= 10:
+				self.follow_customer_1 = True
+				self.higher_than_customer_1 = False
+				self.lower_than_customer_1 = False
+			else:
+				self.follow_customer_1 = False
+				if self.decision_for_p1 > 1:
+					self.higher_than_customer_1 = True
+					self.lower_than_customer_1 = False
+				elif self.decision_for_p1 < self.cat_end_rel_4*10:
+					self.lower_than_customer_1 = True
+					self.higher_than_customer_1 = False
+
+	def create_category_dummies_2(self):
+		if self.category_from_p2 == "sehr konservativ":
+			if 0 <= self.decision_for_p2 < self.cat_end_rel_1*10:
+				self.follow_customer_2 = True
+				self.higher_than_customer_2 = False
+				self.lower_than_customer_2 = False
+			else:
+				self.follow_customer_2 = False
+				if self.decision_for_p2 >= self.cat_end_rel_1*10:
+					self.higher_than_customer_2 = True
+					self.lower_than_customer_2 = False
+				elif self.decision_for_p2 < 0:
+					self.lower_than_customer_2 = True
+					self.higher_than_customer_2 = False
+		if self.category_from_p2 == "sicherheitsorientiert":
+			if self.cat_end_rel_1*10 <= self.decision_for_p2 < self.cat_end_rel_2*10:
+				self.follow_customer_2 = True
+				self.higher_than_customer_2 = False
+				self.lower_than_customer_2 = False
+			else:
+				self.follow_customer_2 = False
+				if self.decision_for_p2 >= self.cat_end_rel_2*10:
+					self.higher_than_customer_2 = True
+					self.lower_than_customer_2 = False
+				if self.decision_for_p2 < self.cat_end_rel_1*10:
+					self.lower_than_customer_2 = True
+					self.higher_than_customer_2 = False
+		if self.category_from_p2 == "ausgeglichen":
+			if self.cat_end_rel_2*10 <= self.decision_for_p2 < self.cat_end_rel_3*10:
+				self.follow_customer_2 = True
+				self.higher_than_customer_2 = False
+				self.lower_than_customer_2 = False
+			else:
+				self.follow_customer_2 = False
+				if self.decision_for_p2 >= self.cat_end_rel_3*10:
+					self.higher_than_customer_2 = True
+					self.lower_than_customer_2 = False
+				if self.decision_for_p2 < self.cat_end_rel_2*10:
+					self.lower_than_customer_2 = True
+					self.higher_than_customer_2 = False
+		if self.category_from_p2 == "wachstumsorientiert":
+			if self.cat_end_rel_3*10 <= self.decision_for_p2 < self.cat_end_rel_4*10:
+				self.follow_customer_2 = True
+				self.higher_than_customer_2 = False
+				self.lower_than_customer_2 = False
+			else:
+				self.follow_customer_2 = False
+				if self.decision_for_p2 >= self.cat_end_rel_4*10:
+					self.higher_than_customer_2 = True
+					self.lower_than_customer_2 = False
+				elif self.decision_for_p2 < self.cat_end_rel_3*10:
+					self.lower_than_customer_2 = True
+					self.higher_than_customer_2 =False
+		if self.category_from_p2 == "offensiv":
+			if self.cat_end_rel_4*10 <= self.decision_for_p2 <= 10:
+				self.follow_customer_2 = True
+				self.higher_than_customer_2 = False
+				self.lower_than_customer_2 = False
+			else:
+				self.follow_customer_2 = False
+				if self.decision_for_p2 > 1:
+					self.higher_than_customer_2 = True
+					self.lower_than_customer_2 = False
+				elif self.decision_for_p2 < self.cat_end_rel_4*10:
+					self.lower_than_customer_2 = True
+					self.higher_than_customer_2 = False
+
+
+	def create_category_dummies_3(self):
+		if self.category_from_p3 == "sehr konservativ":
+			if 0 <= self.decision_for_p3 < self.cat_end_rel_1*10:
+				self.follow_customer_3 = True
+				self.higher_than_customer_3 = False
+				self.lower_than_customer_3 = False
+			else:
+				self.follow_customer_3 = False
+				if self.decision_for_p3 >= self.cat_end_rel_1*10:
+					self.higher_than_customer_3 = True
+					self.lower_than_customer_3 = False
+				elif self.decision_for_p3 < 0:
+					self.lower_than_customer_3 = True
+					self.higher_than_customer_3 = False
+		if self.category_from_p3 == "sicherheitsorientiert":
+			if self.cat_end_rel_1*10 <= self.decision_for_p3 < self.cat_end_rel_2*10:
+				self.follow_customer_3 = True
+				self.higher_than_customer_3 = False
+				self.lower_than_customer_3 = False
+			else:
+				self.follow_customer_3 = False
+				if self.decision_for_p3 >= self.cat_end_rel_2*10:
+					self.higher_than_customer_3 = True
+					self.lower_than_customer_3 = False
+				if self.decision_for_p3 < self.cat_end_rel_1*10:
+					self.lower_than_customer_3 = True
+					self.higher_than_customer_3 = False
+		if self.category_from_p3 == "ausgeglichen":
+			if self.cat_end_rel_2*10 <= self.decision_for_p3 < self.cat_end_rel_3*10:
+				self.follow_customer_3 = True
+				self.higher_than_customer_3 = False
+				self.lower_than_customer_3 = False
+			else:
+				self.follow_customer_3 = False
+				if self.decision_for_p3 >= self.cat_end_rel_3*10:
+					self.higher_than_customer_3 = True
+					self.lower_than_customer_3 = False
+				if self.decision_for_p3 < self.cat_end_rel_2*10:
+					self.lower_than_customer_3 = True
+					self.higher_than_customer_3 = False
+		if self.category_from_p3 == "wachstumsorientiert":
+			if self.cat_end_rel_3*10 <= self.decision_for_p3 < self.cat_end_rel_4*10:
+				self.follow_customer_3 = True
+				self.higher_than_customer_3 = False
+				self.lower_than_customer_3 = False
+			else:
+				self.follow_customer_3 = False
+				if self.decision_for_p3 >= self.cat_end_rel_4*10:
+					self.higher_than_customer_3 = True
+					self.lower_than_customer_3 = False
+				elif self.decision_for_p3 < self.cat_end_rel_3*10:
+					self.lower_than_customer_3 = True
+					self.higher_than_customer_3 =False
+		if self.category_from_p3 == "offensiv":
+			if self.cat_end_rel_4*10 <= self.decision_for_p3 <= 10:
+				self.follow_customer_3 = True
+				self.higher_than_customer_3 = False
+				self.lower_than_customer_3 = False
+			else:
+				self.follow_customer_3 = False
+				if self.decision_for_p3 > 1:
+					self.higher_than_customer_3 = True
+					self.lower_than_customer_3 = False
+				elif self.decision_for_p3 < self.cat_end_rel_4*10:
+					self.lower_than_customer_3 = True
+					self.higher_than_customer_3 = False
+
+	def create_category_dummies_4(self):
+		if self.category_from_p4 == "sehr konservativ":
+			if 0 <= self.decision_for_p4 < self.cat_end_rel_1*10:
+				self.follow_customer_4 = True
+				self.higher_than_customer_4 = False
+				self.lower_than_customer_4 = False
+			else:
+				self.follow_customer_4 = False
+				if self.decision_for_p4 >= self.cat_end_rel_1*10:
+					self.higher_than_customer_4 = True
+					self.lower_than_customer_4 = False
+				elif self.decision_for_p4 < 0:
+					self.lower_than_customer_4 = True
+					self.higher_than_customer_4 = False
+		if self.category_from_p4 == "sicherheitsorientiert":
+			if self.cat_end_rel_1*10 <= self.decision_for_p4 < self.cat_end_rel_2*10:
+				self.follow_customer_4 = True
+				self.higher_than_customer_4 = False
+				self.lower_than_customer_4 = False
+			else:
+				self.follow_customer_4 = False
+				if self.decision_for_p4 >= self.cat_end_rel_2*10:
+					self.higher_than_customer_4 = True
+					self.lower_than_customer_4 = False
+				if self.decision_for_p4 < self.cat_end_rel_1*10:
+					self.lower_than_customer_4 = True
+					self.higher_than_customer_4 = False
+		if self.category_from_p4 == "ausgeglichen":
+			if self.cat_end_rel_2*10 <= self.decision_for_p4 < self.cat_end_rel_3*10:
+				self.follow_customer_4 = True
+				self.higher_than_customer_4 = False
+				self.lower_than_customer_4 = False
+			else:
+				self.follow_customer_4 = False
+				if self.decision_for_p4 >= self.cat_end_rel_3*10:
+					self.higher_than_customer_4 = True
+					self.lower_than_customer_4 = False
+				if self.decision_for_p4 < self.cat_end_rel_2*10:
+					self.lower_than_customer_4 = True
+					self.higher_than_customer_4 = False
+		if self.category_from_p4 == "wachstumsorientiert":
+			if self.cat_end_rel_3*10 <= self.decision_for_p4 < self.cat_end_rel_4*10:
+				self.follow_customer_4 = True
+				self.higher_than_customer_4 = False
+				self.lower_than_customer_4 = False
+			else:
+				self.follow_customer_4 = False
+				if self.decision_for_p4 >= self.cat_end_rel_4*10:
+					self.higher_than_customer_4 = True
+					self.lower_than_customer_4 = False
+				elif self.decision_for_p4 < self.cat_end_rel_3*10:
+					self.lower_than_customer_4 = True
+					self.higher_than_customer_4 =False
+		if self.category_from_p4 == "offensiv":
+			if self.cat_end_rel_4*10 <= self.decision_for_p4 <= 10:
+				self.follow_customer_4 = True
+				self.higher_than_customer_4 = False
+				self.lower_than_customer_4 = False
+			else:
+				self.follow_customer_4 = False
+				if self.decision_for_p4 > 1:
+					self.higher_than_customer_4 = True
+					self.lower_than_customer_4 = False
+				elif self.decision_for_p4 < self.cat_end_rel_4*10:
+					self.lower_than_customer_4 = True
+					self.higher_than_customer_4 = False
+
+
+	def create_category_dummies_5(self):
+		if self.category_from_p5 == "sehr konservativ":
+			if 0 <= self.decision_for_p5 < self.cat_end_rel_1*10:
+				self.follow_customer_5 = True
+				self.higher_than_customer_5 = False
+				self.lower_than_customer_5 = False
+			else:
+				self.follow_customer_5 = False
+				if self.decision_for_p5 >= self.cat_end_rel_1*10:
+					self.higher_than_customer_5 = True
+					self.lower_than_customer_5 = False
+				elif self.decision_for_p5 < 0:
+					self.lower_than_customer_5 = True
+					self.higher_than_customer_5 = False
+		if self.category_from_p5 == "sicherheitsorientiert":
+			if self.cat_end_rel_1*10 <= self.decision_for_p5 < self.cat_end_rel_2*10:
+				self.follow_customer_5 = True
+				self.higher_than_customer_5 = False
+				self.lower_than_customer_5 = False
+			else:
+				self.follow_customer_5 = False
+				if self.decision_for_p5 >= self.cat_end_rel_2*10:
+					self.higher_than_customer_5 = True
+					self.lower_than_customer_5 = False
+				if self.decision_for_p5 < self.cat_end_rel_1*10:
+					self.lower_than_customer_5 = True
+					self.higher_than_customer_5 = False
+		if self.category_from_p5 == "ausgeglichen":
+			if self.cat_end_rel_2*10 <= self.decision_for_p5 < self.cat_end_rel_3*10:
+				self.follow_customer_5 = True
+				self.higher_than_customer_5 = False
+				self.lower_than_customer_5 = False
+			else:
+				self.follow_customer_5 = False
+				if self.decision_for_p5 >= self.cat_end_rel_3*10:
+					self.higher_than_customer_5 = True
+					self.lower_than_customer_5 = False
+				if self.decision_for_p5 < self.cat_end_rel_2*10:
+					self.lower_than_customer_5 = True
+					self.higher_than_customer_5 = False
+		if self.category_from_p5 == "wachstumsorientiert":
+			if self.cat_end_rel_3*10 <= self.decision_for_p5 < self.cat_end_rel_4*10:
+				self.follow_customer_5 = True
+				self.higher_than_customer_5 = False
+				self.lower_than_customer_5 = False
+			else:
+				self.follow_customer_5 = False
+				if self.decision_for_p5 >= self.cat_end_rel_4*10:
+					self.higher_than_customer_5 = True
+					self.lower_than_customer_5 = False
+				elif self.decision_for_p5 < self.cat_end_rel_3*10:
+					self.lower_than_customer_5= True
+					self.higher_than_customer_5 =False
+		if self.category_from_p5 == "offensiv":
+			if self.cat_end_rel_4*10 <= self.decision_for_p5 <= 10:
+				self.follow_customer_5 = True
+				self.higher_than_customer_5 = False
+				self.lower_than_customer_5 = False
+			else:
+				self.follow_customer_5 = False
+				if self.decision_for_p5 > 1:
+					self.higher_than_customer_5 = True
+					self.lower_than_customer_5 = False
+				elif self.decision_for_p5 < self.cat_end_rel_4*10:
+					self.lower_than_customer_5 = True
+					self.higher_than_customer_5 = False
