@@ -43,6 +43,7 @@ body {
     font-family: sans-serif;
     font-size: 12px;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .category_label_handle {
