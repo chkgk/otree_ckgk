@@ -12,7 +12,7 @@ function Category(id, otree_field_rel_id, otree_field_abs_id, order) {
     this.right_fixed = (this.order == 5);
 
     this.width = 180;
-    this.label_min_size = 20;
+    this.label_min_size = 40;
 
     this.handle_left = this.right_fixed;
 
@@ -173,8 +173,10 @@ function CategoryManager(list_of_elements, axis_id) {
         // handle target, first drop, then resize
         target.drop();
 
+
         // figure out how much space is occupied
         var occupied_space = this.left_sum();
+        //console.log('occupied', occupied_space);
 
         if (target.left_fixed) {
             target.set_pos("left top");
@@ -182,15 +184,21 @@ function CategoryManager(list_of_elements, axis_id) {
 
         if (!target.left_fixed) {
             // then position left top at the edge
-            var new_pos = "left+"+occupied_space+" top";
+            var new_pos = "left+"+ occupied_space +" top";
+            //console.log('new_pos', new_pos);
             target.set_pos(new_pos);
 
 
             var remaining_space = this.axis.width() - occupied_space - target.width;
+            //console.log('target_w', target.width);
+            //console.log('remaining', remaining_space);
 
-            if (remaining_space < 0) {
-                var new_width = target.width + remaining_space - (6-this.dropped.length)*target.label_min_size;
+            var min_space_required = (6-this.dropped.length)*target.label_min_size;
+
+            if (remaining_space < min_space_required) {
+                var new_width = target.width + remaining_space - ((6-this.dropped.length)*target.label_min_size);
                 target.set_width(new_width);
+                //console.log('new_width', new_width);
             }
 
         }
@@ -243,16 +251,19 @@ function CategoryManager(list_of_elements, axis_id) {
             target.set_max_width(target_max_width);
         } else {
             var occupied_space = this.left_sum();
+            //console.log('occ', occupied_space);
             var remaining_space = this.axis.width() - occupied_space - target.start_width;
-            // console.log(remaining_space);
+            //console.log('rem', remaining_space);
 
-            var drop_multi = 6;
             if (target.order == 5) {
-                drop_multi -= 1;
-            }
+                var target_max_width = target.start_width + remaining_space;
+            } else {
+                var target_max_width = (target.start_width -((6 - this.dropped.length)*target.label_min_size)) + remaining_space;
 
-            var target_max_width = target.start_width - (drop_multi - this.dropped.length)*target.label_min_size + remaining_space;
+            }
             target.set_max_width(target_max_width);
+            //console.log('no_succ_max w', target_max_width);
+
         }
 
         if (predecessor !== undefined) {
