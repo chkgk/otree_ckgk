@@ -19,6 +19,8 @@ class Constants(BaseConstants):
 
 	category_names = ['sehr konservativ', 'sicherheitsorientiert', 'ausgeglichen', 'wachstumsorientiert', 'offensiv']
 
+	duration = 45
+
 	endowment_principals = c(10)
 
 	# Fixed Compensation

@@ -53,7 +53,7 @@ class Instructions3(Page):
 	form_fields = ["question_5", "question_6"]
 
 	def question_5_error_message(self, value):
-		if value == "Richtig":
+		if value == "Falsch":
 			return "Bitte lesen Sie die Instruktionen erneut genau durch und korrigieren Sie Ihre Antwort."
 
 	def question_6_error_message(self, value):

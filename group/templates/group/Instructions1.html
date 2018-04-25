@@ -17,29 +17,37 @@
     <p>Sie beginnen nun mit dem zweiten Teil des Experiments. Wir machen Sie zunächst mit den beiden Rollen dieses Studienteils vertraut: <em>Kunden</em> und <em>Finanzberater</em>.</p>
 
     <p><strong>Kunden</strong></p>
-    <p>Kunden besitzen {{ Constants.endowment_principals }}, die investiert werden sollen. Sie treten daher in Kontakt mit einem Finanzberater, dem sie mitteilen, wie die Anlageentscheidung für sie getroffen werden soll. Dazu wählen sie eine der fünf Anlagestrategien aus, die sie bereits in Teil 1 kennengelernt haben. Am Ende erhalten Kunden als Auszahlung das Ergebnis der für sie getroffenen Investition. Sie können ihrem Finanzberater dann eine Nachricht schicken, in der sie ihre Zufriedenheit oder Unzufriedenheit mit seiner Entscheidung ausdrücken.</p>
+    <p>In der Rolle des Kunden besitzen Sie {{ Constants.endowment_principals }}, die investiert werden sollen. Sie treten daher in Kontakt mit einem Finanzberater, dem Sie mitteilen, wie die Anlageentscheidung für Sie getroffen werden soll. Dazu wählen Sie eine der fünf Anlagestrategien aus, die Sie bereits in Teil 1 kennengelernt haben. Am Ende erhalten sie als Kunde das Ergebnis der für Sie getroffenen Investition als Auszahlung. Sie können Ihrem Finanzberater dann eine von vier vorgegebenen Nachrichten schicken, in der Sie Ihre Zufriedenheit oder Unzufriedenheit mit seiner Entscheidung ausdrücken.</p>
     
     <p><strong>Finanzberater</strong></p>
-    <p>Finanzberater treffen die Investitionsentscheidung für ihre Kunden. Sie erhalten dazu von ihren Kunden eine Mitteilung, welche Anlagestrategie verfolgt  werden soll. Finanzberater sind an diese Mitteilung jedoch nicht gebunden, sondern entscheiden frei. 
+    <p>In der Rolle des Finanzberaters treffen Sie die Investitionsentscheidung für fünf Kunden. Sie erhalten dazu von jedem Ihrer Kunden eine Mitteilung, welche Anlagestrategie verfolgt für ihn werden soll. Sie sind als Finanzberater jedoch nicht an diese Mitteilungen gebunden, sondern entscheiden frei. 
 
     {% if player.compensation == "fixed" %}
-    	Am Ende erhalten Finanzberater als Auszahlung einen fixen Betrag in Höhe von {{ Constants.fixed_payment }}.
+        Am Ende erhalten Sie als Finanzberater einen fixen Betrag in Höhe von {{ Constants.fixed_payment }} als Auszahlung.
 
     {% elif player.compensation == "variable_result" %}
-    	Am Ende erhalten Finanzberater als Auszahlung einen fixen Betrag in Höhe von {{ Constants.fixed_payment }} und einen prozentualen Anteil am Investitionsergebnis ihrer Kunden.
+        Nach der Investitionsentscheidung wird einer der Kunden für Sie auszahlungsrelevant. 
+        Als Finanzberater erhalten Sie einen fixen Betrag in Höhe von {{ Constants.fixed_payment }} und einen prozentualen Anteil am Investitionsergebnis des ausgewählten Kunden als Auszahlung. 
 
     {% elif player.compensation == "variable_profit" %}
-    	Am Ende erhalten Finanzberater als Auszahlung einen fixen Betrag in Höhe von {{ Constants.fixed_payment }} und einen prozentualen Anteil an der Rendite ihrer Kunden.
+        Nach der Investitionsentscheidung wird einer der Kunden für Sie auszahlungsrelevant. 
+        Als Finanzberater erhalten Sie einen fixen Betrag in Höhe von {{ Constants.fixed_payment }} und einen prozentualen Anteil am positiven Ertrag des ausgewählten Kunden als Auszahlung.
 
     {% endif %}
 
-    Finanzberater erhalten die Nachricht zur Zufriedenheit bzw. Unzufriedenheit ihrer Kunden.</p>
+    Sie erhalten die von dem auszahlungsrelevanten Kunden ausgewählte Nachtricht zu dessen Zufriedenheit bzw. Unzufriedenheit mit Ihrer Entscheidung.</p>
     
 
     <p><strong>Kontrollfragen</strong></p>
-    {% formfield player.question_1 label="Finanzberater entscheiden, welcher Anteil der 10 € ihrer Kunden in die riskante Anlage investiert werden soll." %}
+     {% formfield player.question_1 label="Als Finanzberater entscheiden Sie, welcher Anteil der 10 € Ihrer Kunden in die riskante Anlage investiert wird." %}
     
-    {% formfield player.question_2 label="Nachdem sie das Ergebnis erfahren haben, können Finanzberater eine Nachricht an Ihre Kunden schicken." %}
+     {% if player.compensation == "fixed" %}
+        {% formfield player.question_2 label="Als Finanzberater hängt Ihre Auszahlung vom Ausgang der Investition für Ihre Kunden ab." %}
+    {% elif player.compensation == "variable_result" %}
+        {% formfield player.question_2 label="Als Finanzberater erhalten Sie ausschließlich einen fixen Betrag als Auszahlung." %}
+    {% elif player.compensation == "variable_profit" %}
+        {% formfield player.question_2 label="Als Finanzberater erhalten Sie ausschließlich einen fixen Betrag als Auszahlung." %}
+    {% endif %}
     
 
     <div align="right">{% next_button %}</div>
