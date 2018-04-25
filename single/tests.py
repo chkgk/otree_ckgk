@@ -113,8 +113,8 @@ class PlayerBot(Bot):
 		yield (pages.Instructions2, {'question_3': 20, 'question_4': 4})
 
 		# instructions 3
-		yield SubmissionMustFail(pages.Instructions3, {'question_5': 'Richtig', 'question_6': 'Falsch'})
-		yield (pages.Instructions3, {'question_5': 'Falsch', 'question_6': 'Falsch'})
+		yield SubmissionMustFail(pages.Instructions3, {'question_5': 'Richtig', 'question_6': 'Richtig'})
+		yield (pages.Instructions3, {'question_5': 'Richtig', 'question_6': 'Falsch'})
 
 
 		# category picker
