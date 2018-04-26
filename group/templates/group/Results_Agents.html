@@ -5,6 +5,15 @@
     Ergebnis
 {% endblock %}
 
+{% block scripts %}
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function(event) {
+            history.go(1);
+        };
+    </script>
+{% endblock %}
+
 {% block content %}
 	<p>
 		Der Computer hat Ihnen folgende Rolle zugewiesen: <strong>Finanzberater</strong>

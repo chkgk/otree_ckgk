@@ -5,6 +5,15 @@
     Teil 2 - Instruktionen (2/3)
 {% endblock %}
 
+{% block scripts %}
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function(event) {
+            history.go(1);
+        };
+    </script>
+{% endblock %}
+
 {% block styles%}
     <style type="text/css">
         .controls label {

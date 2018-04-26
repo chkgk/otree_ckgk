@@ -5,6 +5,15 @@
     Herzlich Wilkommen
 {% endblock %}
 
+{% block scripts %}
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function(event) {
+            history.go(1);
+        };
+    </script>
+{% endblock %}
+
 {% block content %}
 
     <p><strong>Liebe Studienteilnehmerin, </strong><br /> <strong>Lieber Studienteilnehmer,</strong></p>

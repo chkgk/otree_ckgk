@@ -5,6 +5,7 @@
     Sie treffen nun die Entscheidung als Kunde
 {% endblock %}
 
+
 {% block styles %}
     <link rel="stylesheet" href="{% static "group/category.css" %}">
     <style type="text/css">
@@ -25,6 +26,12 @@
 {% endblock %}
 
 {% block scripts %}
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function(event) {
+            history.go(1);
+        };
+    </script>
     <script type="text/javascript">
         $('.otree-btn-next').hide();
         $('.category_label').on('click', function (event) {

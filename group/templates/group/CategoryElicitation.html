@@ -9,6 +9,12 @@
 {% block scripts %}
     <script src="{% static "group/jquery-ui.min.js" %}"></script>
     <script src="{% static "group/category.js" %}"></script>
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function(event) {
+            history.go(1);
+        };
+    </script>
 {% endblock %}
 
 {% block title %}
